@@ -1,0 +1,252 @@
+/* styles/styles.css */
+
+/* --- Variables & resets --- */
+:root {
+  --clr-bg: #fafafa;
+  --clr-primary: #8b5cf6;
+  --clr-secondary: #ec4899;
+  --clr-text: #333;
+  --clr-muted: #666;
+  --radius: 8px;
+  --gap: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  direction: rtl;
+  text-align: right;
+}
+
+/* --- Layout container --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--gap);
+}
+
+/* --- Header --- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  padding: var(--gap) 0;
+  height: 64px; /* adjust as needed */
+}
+
+/* Logo + site name */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.site-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* --- Main navigation --- */
+.main-nav {
+  display: flex;
+  gap: var(--gap);
+  flex-grow: 1;
+  margin-inline-start: var(--gap);
+  background: white;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+}
+
+.main-nav a {
+  padding: 0.25rem 0.5rem;
+  color: var(--clr-text);
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: var(--radius);
+}
+
+.main-nav a:hover {
+  background: var(--clr-primary);
+  color: white;
+}
+
+.main-nav a.active {
+  background: var(--clr-secondary);
+  color: white;
+}
+
+@media (min-width: 640px) {
+  .main-nav {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+}
+
+/* --- Cart Minimized --- */
+.cart-minimized {
+  position: relative;            /* for the badge */
+  display: flex;
+  align-items: center;
+  gap: 4px;                      /* small gap between icon and text */
+  margin-inline-start: auto;     /* push to the right in RTL */
+  padding: 4px 8px;              /* enough padding to breathe */
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+/* Icon size stays 24×24 */
+.cart-minimized .bag-icon {
+  width: 30px;
+  height: 30px;
+}
+
+/* Hide the text summary by default on small screens */
+.cart-minimized .cart-summary {
+  display: none;
+}
+
+/* Show summary on tablets/desktop (≥640px) */
+@media (min-width: 640px) {
+  .cart-minimized .cart-summary {
+    display: inline-block;
+    font-size: 0.75rem;
+    margin-inline-start: 4px;  /* space after the icon */
+  }
+}
+
+/* Badge in top-inner corner */
+.cart-minimized .badge {
+  position: absolute;
+  top: 2px;
+  inset-inline-start: 2px;      /* in RTL this puts it on the right edge */
+  background: var(--clr-secondary);
+  color: white;
+  font-size: 0.625rem;
+  line-height: 1;
+  padding: 2px 4px;
+  border-radius: 8px;
+  min-width: 16px;
+  text-align: center;
+}
+
+/* --- Booking section --- */
+.booking {
+  padding: var(--gap);
+  background: white;
+  margin: var(--gap) 0;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.booking h2 {
+  margin-bottom: var(--gap);
+  font-size: 1.2rem;
+}
+
+.dates {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--gap);
+}
+
+.date-btn {
+  padding: 12px;
+  background: var(--clr-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+  text-align: center;
+}
+
+.date-btn:hover,
+.date-btn.active {
+  background: var(--clr-secondary);
+}
+
+/* --- Products list --- */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--gap);
+  padding: var(--gap) 0;
+}
+
+.product-card {
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.product-thumb {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  position: relative;
+}
+
+.product-thumb img,
+/*.product-thumb :global(img) {*/
+/*  position: absolute;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  object-fit: cover;*/
+/*}*/
+
+.product-info {
+  padding: var(--gap);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-info h3 {
+  margin-bottom: 8px;
+  font-size: 1.25rem;
+}
+
+.product-info p {
+  flex: 1;
+  color: var(--clr-muted);
+  margin-bottom: var(--gap);
+}
+
+.add-to-cart {
+  align-self: flex-end;
+  padding: 8px 16px;
+  background: var(--clr-secondary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-to-cart:hover {
+  background: var(--clr-primary);
+}
