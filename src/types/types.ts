@@ -11,6 +11,7 @@ export type OrderInfo = {
     shipping_fee: number;
     total_price: number;
     created_at: string;
+    user_id: string | null;
 }
 
 export interface ItemInfo {
@@ -32,6 +33,7 @@ export type CustomerInfo = {
     paymentMethod: PaymentMethod;
     notes: string;
     orderDate: Date;
+    user_id: string | null;
 }
 
 export interface CustomerInfoUi extends CustomerInfo {

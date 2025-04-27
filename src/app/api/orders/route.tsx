@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const {customer, items, price}: { customer: CustomerInfo, items: ItemInfo[], price: any } = body;
     const supabase = await supabaseServer();
-customer.orderDate = new Date(customer.orderDate);
+    customer.orderDate = new Date(customer.orderDate);
     /* 1 . Insert order — now requesting the row back */
     const {data: order, error: orderErr} = await supabase
         .from('orders')
@@ -29,6 +29,8 @@ customer.orderDate = new Date(customer.orderDate);
             items_price: price.itemsPrice,
             shipping_fee: price.shippingFee,
             total_price: price.totalPrice,
+            payment_method: customer.paymentMethod,
+            user_id: customer.user_id,
             created_at: new Date().toISOString(),
         })
         .select()       // ← ask Postgres to return the new row

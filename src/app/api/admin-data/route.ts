@@ -6,7 +6,7 @@ export async function GET(request: Request) {
     const url = new URL(request.url)
     const table = url.searchParams.get('table') ?? 'products'
 
-    const supabase = await supabaseServer()
+    const supabase = await supabaseServer
     const { data, error } = await supabase
         .from(table)
         .select('*')

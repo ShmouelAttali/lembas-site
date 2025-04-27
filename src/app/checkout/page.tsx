@@ -8,10 +8,12 @@ import {OrderSummary} from '@/components/OrderSummary';
 import {CustomerForm} from '@/components/CustomerForm';
 import {EmptyCartMessage} from "@/components/EmptyCartMessage";
 import {CustomerInfo, CustomerInfoUi} from "@/types/types";
+import {useSessionContext} from "@supabase/auth-helpers-react";
 
 const STORAGE_KEY = 'checkout_info';
 export default function CheckoutPage() {
     const {items, total: itemsPrice, clearCart} = useCart();
+    const {session} = useSessionContext();
     const router = useRouter();
 
     const [info, setInfo] = useState<CustomerInfoUi>(() => {
@@ -94,9 +96,10 @@ export default function CheckoutPage() {
             slice: info.slice,
             fulfillment: info.fulfillment,
             paymentMethod: info.paymentMethod,
-            address: info.address ,
+            address: info.address,
             notes: info.notes,
             orderDate: info.orderDate,
+            user_id: session?.user.id ?? null
         }
 
         const payload = {

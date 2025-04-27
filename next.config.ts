@@ -9,6 +9,13 @@ const nextConfig: NextConfig = {
                 port: '',
                 pathname: '/storage/v1/object/public/product-images/**',
             },
+            // new: allow Google user-profile pics
+            {
+                protocol: 'https',
+                hostname: 'lh3.googleusercontent.com',
+                port: '',
+                pathname: '/**',
+            },
         ],
     },
 };
