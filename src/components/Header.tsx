@@ -32,10 +32,11 @@ const Header: FC<HeaderProps> = ({ siteName }) => {
             <div className="container header-inner">
                 <div className="logo-container">
                     <Image
-                        src="/logo.jpg"
+                        className={"logo-svg"}
+                        src="/lembasLogo.svg"
                         alt="למבס logo"
-                        width={120}
-                        height={40}
+                        width={100}
+                        height={65}
                     />
                     <h1 className="site-name">{siteName}</h1>
                 </div>
@@ -50,8 +51,8 @@ const Header: FC<HeaderProps> = ({ siteName }) => {
                             <Image
                                 src={session.user.user_metadata.picture}
                                 alt="Your avatar"
-                                width={32}
-                                height={32}
+                                width={40}
+                                height={40}
                                 className="rounded-full"
                             />
                             <span className="user-name">{userName}</span>

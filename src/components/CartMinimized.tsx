@@ -54,11 +54,11 @@ export default function CartMinimized() {
                 animate={controls}
                 className={styles.CartMinimized_54}
             >
-                <Image
-                    src="/icons/bag.svg"
-                    alt="Cart"
-                    width={24}
-                    height={24}
+                <div
+                    // src="/icons/bag.svg"
+                    // alt="Cart"
+                    // width={30}
+                    // height={30}
                     className="bag-icon"
                 />
                 {count > 0 && (

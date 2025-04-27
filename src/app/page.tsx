@@ -34,8 +34,7 @@ export default async function HomePage() {
 
     return (
         <>
-            <div className="logo-container">
-                <Image src="/bread.jpg" alt="bread" width="300" height="300" />
+            <div className="cover-photo">
             </div>
             <section className="booking">
                 <h2>בחר תאריך להזמנה</h2>
