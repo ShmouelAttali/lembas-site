@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from "./RadioGroup.module.css";
 
 interface RadioGroupProps {
     label: string;
@@ -10,10 +11,10 @@ interface RadioGroupProps {
 
 export function RadioGroup({ label, options, name, selected, onChange }: RadioGroupProps) {
     return (
-        <div style={{ marginBottom: '1rem' }}>
+        <div className={styles.RadioGroup_13}>
             <label>{label}</label><br />
             {options.map(opt => (
-                <label key={opt.value} style={{ marginInlineEnd: '1rem', direction: 'rtl' }}>
+                <label key={opt.value} className={styles.RadioGroup_16}>
                     <input
                         type="radio"
                         name={name}

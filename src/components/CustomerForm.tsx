@@ -5,26 +5,27 @@ import { TextInput } from './form/TextInput';
 import { TextArea } from './form/TextArea';
 import { RadioGroup } from './form/RadioGroup';
 import {CustomerInfoUi, FulfillmentMethods, PaymentMethod} from "@/types/types";
+import styles from "./CustomerForm.module.css";
 
 interface Props {
     info: CustomerInfoUi;
-    setInfo: React.Dispatch<React.SetStateAction<CustomerInfoUi>>;
-    handleChange: (field: keyof CustomerInfoUi) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-    handleSubmit: (e: React.FormEvent) => void;
+    setInfoAction: React.Dispatch<React.SetStateAction<CustomerInfoUi>>;
+    handleChangeAction: (field: keyof CustomerInfoUi) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+    handleSubmitAction: (e: React.FormEvent) => void;
     submitting: boolean;
 }
 
-export function CustomerForm({ info, setInfo, handleChange, handleSubmit, submitting }: Props) {
+export function CustomerForm({ info, setInfoAction, handleChangeAction, handleSubmitAction, submitting }: Props) {
     var payboxUrl = 'https://link.payboxapp.com/QbpGp2SCZ4qgABAb6';
     var bitUrl = 'https://www.bitpay.co.il/app/me/5DCEBBEE-5BA3-47C4-AC9C-12B8946182C0';
     return (
-        <form onSubmit={handleSubmit} style={{ maxWidth: '400px' }}>
+        <form onSubmit={handleSubmitAction} className={styles.CustomerForm_21}>
             <TextInput
                 label="שם מלא *"
                 type="text"
                 required
                 value={info.name}
-                onChange={handleChange('name')}
+                onChange={handleChangeAction('name')}
             />
 
             <TextInput
@@ -32,23 +33,23 @@ export function CustomerForm({ info, setInfo, handleChange, handleSubmit, submit
                 type="tel"
                 required
                 value={info.phone}
-                onChange={handleChange('phone')}
+                onChange={handleChangeAction('phone')}
             />
 
             <TextInput
                 label="אימייל (אופציונלי)"
                 type="email"
                 value={info.email}
-                onChange={handleChange('email')}
+                onChange={handleChangeAction('email')}
             />
 
-            <div style={{ marginBottom: '1rem' }}>
+            <div className={styles.CustomerForm_45}>
                 <label>פרוס?</label><br />
                 <label>
                     <input
                         type="checkbox"
                         checked={info.slice}
-                        onChange={() => setInfo({ ...info, slice: !info.slice })}
+                        onChange={() => setInfoAction({ ...info, slice: !info.slice })}
                     />
                     כן
                 </label>
@@ -58,7 +59,7 @@ export function CustomerForm({ info, setInfo, handleChange, handleSubmit, submit
                 label="משלוח או איסוף עצמי?"
                 name="fulfillment"
                 selected={info.fulfillment}
-                onChange={(val) => setInfo({ ...info, fulfillment: val as FulfillmentMethods })}
+                onChange={(val) => setInfoAction({ ...info, fulfillment: val as FulfillmentMethods })}
                 options={[
                     { value: 'delivery', label: 'משלוח (10 ש"ח)' },
                     { value: 'pickup', label: 'איסוף עצמי' },
@@ -70,7 +71,7 @@ export function CustomerForm({ info, setInfo, handleChange, handleSubmit, submit
                     label="כתובת למשלוח *"
                     required
                     value={info.address}
-                    onChange={handleChange('address')}
+                    onChange={handleChangeAction('address')}
                 />
             )}
 
@@ -78,7 +79,7 @@ export function CustomerForm({ info, setInfo, handleChange, handleSubmit, submit
                 label="אופן התשלום"
                 name="paymentMethod"
                 selected={info.paymentMethod}
-                onChange={(val) => setInfo({ ...info, paymentMethod: val as PaymentMethod })}
+                onChange={(val) => setInfoAction({ ...info, paymentMethod: val as PaymentMethod })}
                 options={[
                     { value: 'paybox', label: 'פייבוקס' },
                     { value: 'bit', label: 'ביט' },
@@ -97,15 +98,15 @@ export function CustomerForm({ info, setInfo, handleChange, handleSubmit, submit
             <TextArea
                 label="הערות נוספות"
                 value={info.notes}
-                onChange={handleChange('notes')}
+                onChange={handleChangeAction('notes')}
             />
 
-            <div style={{ marginBottom: '2rem' }}>
+            <div className={styles.CustomerForm_103}>
                 <label>
                     <input
                         type="checkbox"
                         checked={info.remember}
-                        onChange={handleChange('remember')}
+                        onChange={handleChangeAction('remember')}
                     />
                     זכור את הפרטים לעתיד
                 </label>
@@ -114,14 +115,7 @@ export function CustomerForm({ info, setInfo, handleChange, handleSubmit, submit
             <button
                 type="submit"
                 disabled={submitting}
-                style={{
-                    padding: '0.75rem 1.5rem',
-                    background: 'var(--clr-secondary)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: 'var(--radius)',
-                    cursor: submitting ? 'not-allowed' : 'pointer',
-                }}
+                className={styles.CustomerForm_117}
             >
                 {submitting ? 'שולח…' : 'בצע הזמנה'}
             </button>

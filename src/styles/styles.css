@@ -2,10 +2,10 @@
 
 /* --- Variables & resets --- */
 :root {
-  --clr-bg: #fafafa;
-  --clr-primary: #8b5cf6;
-  --clr-secondary: #ec4899;
-  --clr-text: #333;
+  --clr-bg: #a7b68c;
+  --clr-primary: #614934;
+  --clr-secondary: #41780c;
+  --clr-text: #3c291b;
   --clr-muted: #666;
   --radius: 8px;
   --gap: 16px;
@@ -37,7 +37,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: white;
+  background: #ccc1ba;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
@@ -69,7 +69,7 @@ body {
   gap: var(--gap);
   flex-grow: 1;
   margin-inline-start: var(--gap);
-  background: white;
+  background: var(--clr-bg);
   padding: 0.5rem;
   border-radius: var(--radius);
 }

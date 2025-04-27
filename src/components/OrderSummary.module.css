@@ -1,0 +1,31 @@
+.OrderSummary_6 {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.OrderSummary_8 {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  background: white;
+  padding: 1rem;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.OrderSummary_15 {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.shippingFee {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.totalPrice {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+

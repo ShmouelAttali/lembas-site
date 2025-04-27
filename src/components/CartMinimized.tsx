@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import { motion, useAnimation } from 'framer-motion';
+import styles from "./CartMinimized.module.css";
 
 export default function CartMinimized() {
     const { items, total } = useCart();
@@ -51,7 +52,7 @@ export default function CartMinimized() {
         <Link href="/cart" className="cart-minimized">
             <motion.div
                 animate={controls}
-                style={{ display: 'flex', alignItems: 'center', position: 'relative' }}
+                className={styles.CartMinimized_54}
             >
                 <Image
                     src="/icons/bag.svg"

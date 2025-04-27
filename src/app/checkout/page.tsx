@@ -9,6 +9,7 @@ import {CustomerForm} from '@/components/CustomerForm';
 import {EmptyCartMessage} from "@/components/EmptyCartMessage";
 import {CustomerInfo, CustomerInfoUi} from "@/types/types";
 import {useSessionContext} from "@supabase/auth-helpers-react";
+import styles from "./page.module.css";
 
 const STORAGE_KEY = 'checkout_info';
 export default function CheckoutPage() {
@@ -127,7 +128,7 @@ export default function CheckoutPage() {
     if (items.length === 0) return <EmptyCartMessage/>;
 
     return (
-        <div className="container" style={{padding: '2rem 0'}}>
+        <div className={styles.page_130 + " container"}>
             <h1>תשלום</h1>
 
             {info.orderDate && <OrderDateBanner date={info.orderDate}/>}
@@ -141,9 +142,9 @@ export default function CheckoutPage() {
 
             <CustomerForm
                 info={info}
-                setInfo={setInfo}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
+                setInfoAction={setInfo}
+                handleChangeAction={handleChange}
+                handleSubmitAction={handleSubmit}
                 submitting={submitting}
             />
         </div>

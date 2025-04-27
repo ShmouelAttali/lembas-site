@@ -1,5 +1,6 @@
 // OrdersDetailedTable.tsx
 import React from 'react';
+import styles from "./OrdersDetailedTable.module.css";
 
 const cell = {
     border: '1px solid #ccc',
@@ -9,14 +10,14 @@ const cell = {
 };
 
 const OrdersDetailedTable = ({ orders }: { orders: any[] }) => (
-    <div style={{ overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', border: '1px solid #ccc' }}>
+    <div className={styles.OrdersDetailedTable_12}>
+        <table className={styles.OrdersDetailedTable_13}>
             <thead>
             <tr>
                 {['ID', 'Date', 'Customer', 'Email', 'Phone', 'Address', 'Fulfillment', 'Shipping ₪', 'Items ₪', 'Total ₪', 'Notes', 'Products'].map((col) => (
                     <th
                         key={col}
-                        style={{ ...cell, width: col === 'Date' ? 'fit-content' : undefined, background: '#f0f0f0' }}
+                        className={styles.OrdersDetailedTable_19}
                     >
                         {col}
                     </th>
@@ -38,7 +39,7 @@ const OrdersDetailedTable = ({ orders }: { orders: any[] }) => (
                     <td style={cell}>{order.total_price}</td>
                     <td style={cell}>{order.notes}</td>
                     <td style={cell}>
-                        <ul style={{ margin: 0, paddingLeft: '1rem' }}>
+                        <ul className={styles.OrdersDetailedTable_41}>
                             {(order.order_items || []).map((item: any) => (
                                 <li key={item.id}>
                                     {item.products?.title || 'Product'} ×{item.quantity}

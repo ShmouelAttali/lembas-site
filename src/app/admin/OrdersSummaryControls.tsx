@@ -1,5 +1,6 @@
 // OrdersSummaryControls.tsx
 import React from 'react';
+import styles from "./OrdersSummaryControls.module.css";
 
 interface OrdersSummaryControlsProps {
     fromDate: string;
@@ -11,18 +12,18 @@ interface OrdersSummaryControlsProps {
 }
 
 const OrdersSummaryControls = ({ fromDate, toDate, summaryView, onFromDateChange, onToDateChange, onSummaryViewChange }: OrdersSummaryControlsProps) => (
-    <div style={{ marginBottom: '1rem' }}>
+    <div className={styles.OrdersSummaryControls_14}>
         <label>
             From:{' '}
             <input type="date" value={fromDate} onChange={(e) => onFromDateChange(e.target.value)} />
         </label>
-        <label style={{ marginLeft: '1rem' }}>
+        <label className={styles.OrdersSummaryControls_19}>
             To:{' '}
             <input type="date" value={toDate} onChange={(e) => onToDateChange(e.target.value)} />
         </label>
-        <div style={{ marginTop: '1rem' }}>
-            <button onClick={() => onSummaryViewChange('all')} style={{ marginRight: '1rem', background: summaryView === 'all' ? '#f59e0b' : '#ddd', padding: '0.5rem 1rem' }}>All Orders</button>
-            <button onClick={() => onSummaryViewChange('grouped')} style={{ background: summaryView === 'grouped' ? '#f59e0b' : '#ddd', padding: '0.5rem 1rem' }}>Group by Date</button>
+        <div className={styles.OrdersSummaryControls_23}>
+            <button onClick={() => onSummaryViewChange('all')} className={styles.OrdersSummaryControls_24}>All Orders</button>
+            <button onClick={() => onSummaryViewChange('grouped')} className={styles.OrdersSummaryControls_25}>Group by Date</button>
         </div>
     </div>
 );

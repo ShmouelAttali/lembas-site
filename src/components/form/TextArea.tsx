@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from "./TextArea.module.css";
 
 interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     label: string;
@@ -6,11 +7,11 @@ interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
 
 export function TextArea({ label, ...props }: TextAreaProps) {
     return (
-        <div style={{ marginBottom: '1rem' }}>
+        <div className={styles.TextArea_9}>
             <label>{label}</label>
             <textarea
                 {...props}
-                style={{ width: '100%', padding: '0.5rem', marginTop: '0.25rem' }}
+                className={styles.TextArea_13}
             />
         </div>
     );

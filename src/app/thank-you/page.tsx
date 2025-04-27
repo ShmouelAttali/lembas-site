@@ -3,24 +3,18 @@
 
 import React from 'react';
 import Link from 'next/link';
+import styles from "./page.module.css";
 
 export default function ThankYouPage() {
     return (
-        <div className="container" style={{ padding: '2rem 0', textAlign: 'center' }}>
-            <h1 style={{ marginBottom: '1rem' }}>תודה על הזמנתך!</h1>
-            <p style={{ marginBottom: '2rem' }}>
+        <div className={styles.page_9 + " container"}>
+            <h1 className={styles.page_10}>תודה על הזמנתך!</h1>
+            <p className={styles.page_11}>
                 ההזמנה התקבלה בהצלחה ונשלחה אליך לאימייל.
             </p>
             <Link href="/" passHref>
                 <button
-                    style={{
-                        padding: '0.75rem 1.5rem',
-                        background: 'var(--clr-primary)',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: 'var(--radius)',
-                        cursor: 'pointer',
-                    }}
+                    className={styles.page_16}
                 >
                     חזור לחנות
                 </button>

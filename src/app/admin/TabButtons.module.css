@@ -1,0 +1,14 @@
+.TabButtons_11 {
+  margin-bottom: 1rem;
+}
+
+.TabButtons_16 {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: none;
+  background: tab === currentTab ? #ec4899 : #8b5cf6;
+  color: white;
+  cursor: pointer;
+}
+

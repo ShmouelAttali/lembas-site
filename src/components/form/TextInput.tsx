@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from "./TextInput.module.css";
 
 interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string;
@@ -6,11 +7,11 @@ interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export function TextInput({ label, ...props }: TextInputProps) {
     return (
-        <div style={{ marginBottom: '1rem' }}>
+        <div className={styles.TextInput_9}>
             <label>{label}</label>
             <input
                 {...props}
-                style={{ width: '100%', padding: '0.5rem', marginTop: '0.25rem' }}
+                className={styles.TextInput_13}
             />
         </div>
     );

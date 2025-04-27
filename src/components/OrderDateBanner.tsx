@@ -1,11 +1,12 @@
 import React from 'react';
+import styles from "./OrderDateBanner.module.css";
 
 const getHebrewDayName = (date: Date) =>
     ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'][date.getDay()];
 
 export function OrderDateBanner({ date }: { date: Date }) {
     return (
-        <div style={{ marginBottom: '2rem', fontSize: '1.25rem' }}>
+        <div className={styles.OrderDateBanner_8}>
             <strong>תאריך ההזמנה:</strong>{' '}
             {`יום ${getHebrewDayName(date)} ${date.toLocaleDateString('he-IL')}`}
         </div>

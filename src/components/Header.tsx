@@ -32,7 +32,7 @@ const Header: FC<HeaderProps> = ({ siteName }) => {
             <div className="container header-inner">
                 <div className="logo-container">
                     <Image
-                        src="/logo.svg"
+                        src="/logo.jpg"
                         alt="למבס logo"
                         width={120}
                         height={40}
@@ -60,7 +60,7 @@ const Header: FC<HeaderProps> = ({ siteName }) => {
                                 className="btn-icon"
                                 aria-label="Logout"
                             >
-                                <LogOut size={20} />
+                                <LogOut size={18} />
                             </button>
                         </>
                     ) : (

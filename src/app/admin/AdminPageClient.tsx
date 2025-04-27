@@ -1,16 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { supabase } from '@/lib/supabase';
+import React, {useEffect, useState} from 'react';
+import {useRouter, useSearchParams} from 'next/navigation';
+import {supabase} from '@/lib/supabase';
 import TabButtons from './TabButtons';
 import OrdersSummaryControls from './OrdersSummaryControls';
 import OrdersDetailedTable from './OrdersDetailedTable';
 import OrdersGroupedTable from './OrdersGroupedTable';
 
-import { TABS } from './constants';
+import {TABS} from './constants';
+import styles from "./AdminPageClient.module.css";
 
-export default function AdminPageClient({ initialData, activeTab }) {
+export default function AdminPageClient({initialData, activeTab}: { initialData: any, activeTab: string }) {
     const [data, setData] = useState(initialData);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -18,7 +19,7 @@ export default function AdminPageClient({ initialData, activeTab }) {
     const [fromDate, setFromDate] = useState(() => new Date().toISOString().split('T')[0]);
     const [toDate, setToDate] = useState(() => {
         const date = new Date();
-        date.setDate(date.getDate() + 2);
+        date.setDate(date.getDate() + 14);
         return date.toISOString().split('T')[0];
     });
     const [summaryView, setSummaryView] = useState<'all' | 'grouped'>('all');
@@ -29,7 +30,7 @@ export default function AdminPageClient({ initialData, activeTab }) {
 
     const handleTabChange = async (tab: string) => {
         if (tab === currentTab) return;
-        router.replace(`/admin?tab=${tab}`, { scroll: false });
+        router.replace(`/admin?tab=${tab}`, {scroll: false});
         await loadData(tab);
     };
 
@@ -39,7 +40,7 @@ export default function AdminPageClient({ initialData, activeTab }) {
 
         try {
             if (tab === 'orders_summary') {
-                const { data: orders, error } = await supabase
+                const {data: orders, error} = await supabase
                     .from('orders')
                     .select('*, order_items(*, products(title))')
                     .gte('order_date', fromDate)
@@ -47,7 +48,7 @@ export default function AdminPageClient({ initialData, activeTab }) {
                 if (error) throw error;
                 setData(orders || []);
             } else {
-                const { data: rows, error } = await supabase.from(tab).select('*');
+                const {data: rows, error} = await supabase.from(tab).select('*');
                 if (error) throw error;
                 setData(rows || []);
             }
@@ -66,8 +67,8 @@ export default function AdminPageClient({ initialData, activeTab }) {
     }, [fromDate, toDate, summaryView]);
 
     return (
-        <div style={{ padding: '1rem' }}>
-            <TabButtons tabs={TABS} currentTab={currentTab} onTabChange={handleTabChange} />
+        <div className={styles.AdminPageClient_69}>
+            <TabButtons tabs={TABS} currentTab={currentTab} onTabChange={handleTabChange}/>
 
             {currentTab === 'orders_summary' && (
                 <OrdersSummaryControls
@@ -83,13 +84,13 @@ export default function AdminPageClient({ initialData, activeTab }) {
             {loading ? (
                 <p>Loading…</p>
             ) : error ? (
-                <p style={{ color: 'red' }}>Error: {error}</p>
+                <p className={styles.AdminPageClient_86}>Error: {error}</p>
             ) : !data || data.length === 0 ? (
                 <p>No rows in <strong>{currentTab}</strong></p>
             ) : currentTab === 'orders_summary' && summaryView === 'grouped' ? (
-                <OrdersGroupedTable orders={data} />
+                <OrdersGroupedTable orders={data}/>
             ) : currentTab === 'orders_summary' ? (
-                <OrdersDetailedTable orders={data} />
+                <OrdersDetailedTable orders={data}/>
             ) : (
                 <pre>{JSON.stringify(data, null, 2)}</pre>
             )}

@@ -4,53 +4,33 @@ import React from 'react';
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
 import {EmptyCartMessage} from "@/components/EmptyCartMessage";
+import styles from "./page.module.css";
 
 export default function CartPage() {
     const { items, total, clearCart, updateItem, removeItem } = useCart();
 
     return (
-        <div className="container" style={{ padding: '2rem 0' }}>
+        <div className={styles.page_12 + " container"}>
             <h1>עגלת הקניות שלי</h1>
             {items.length === 0 ? <EmptyCartMessage /> : (
                 <>
-                    <ul style={{ listStyle: 'none', padding: 0 }}>
+                    <ul className={styles.page_16}>
                         {items.map((item) => (
                             <li
                                 key={item.id}
-                                style={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    marginBottom: '1rem',
-                                    background: 'white',
-                                    padding: '1rem',
-                                    borderRadius: 'var(--radius)',
-                                    boxShadow: '0 1px 4px rgba(0,0,0,0.1)',
-                                    alignItems: 'center',
-                                }}
+                                className={styles.page_20}
                             >
-                                <strong style={{ flex: 2 }}>{item.title}</strong>
+                                <strong className={styles.page_22}>{item.title}</strong>
 
                                 <div
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '0.5rem',
-                                        flex: 1,
-                                    }}
+                                    className={styles.page_25}
                                 >
                                     <button
                                         aria-label="הפחת"
                                         onClick={() =>
                                             updateItem(item.id, item.quantity - 1)
                                         }
-                                        style={{
-                                            width: '32px',
-                                            height: '32px',
-                                            borderRadius: '4px',
-                                            border: '1px solid #ccc',
-                                            background: 'white',
-                                            cursor: 'pointer',
-                                        }}
+                                        className={styles.page_32}
                                     >
                                         −
                                     </button>
@@ -62,33 +42,20 @@ export default function CartPage() {
                                         onClick={() =>
                                             updateItem(item.id, item.quantity + 1)
                                         }
-                                        style={{
-                                            width: '32px',
-                                            height: '32px',
-                                            borderRadius: '4px',
-                                            border: '1px solid #ccc',
-                                            background: 'white',
-                                            cursor: 'pointer',
-                                        }}
+                                        className={styles.page_44}
                                     >
                                         +
                                     </button>
                                 </div>
 
-                                <span style={{ flex: 1, textAlign: 'right' }}>
+                                <span className={styles.page_50}>
                   ₪{(item.price * item.quantity).toFixed(2)}
                 </span>
 
                                 <button
                                     aria-label="הסר פריט"
                                     onClick={() => removeItem(item.id)}
-                                    style={{
-                                        marginInlineStart: '1rem',
-                                        background: 'transparent',
-                                        border: 'none',
-                                        color: 'red',
-                                        cursor: 'pointer',
-                                    }}
+                                    className={styles.page_57}
                                 >
                                     ×
                                 </button>
@@ -98,41 +65,22 @@ export default function CartPage() {
 
                     {/* checkout controls */}
                     <div
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            marginTop: '2rem',
-                        }}
+                        className={styles.page_67}
                     >
                         <button
                             onClick={clearCart}
-                            style={{
-                                padding: '0.75rem 1.5rem',
-                                background: 'var(--clr-muted)',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: 'var(--radius)',
-                                cursor: 'pointer',
-                            }}
+                            className={styles.page_71}
                         >
                             נקה עגלה
                         </button>
 
-                        <div style={{ fontSize: '1.25rem' }}>
+                        <div className={styles.page_76}>
                             סה״כ: <strong>₪{total.toFixed(2)}</strong>
                         </div>
 
                         <Link href="/checkout">
                             <button
-                                style={{
-                                    padding: '0.75rem 1.5rem',
-                                    background: 'var(--clr-secondary)',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderRadius: 'var(--radius)',
-                                    cursor: 'pointer',
-                                }}
+                                className={styles.page_82}
                             >
                                 המשך לתשלום
                             </button>

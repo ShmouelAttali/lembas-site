@@ -2,6 +2,7 @@
 import * as React from 'react';
 import {CustomerInfo, ItemInfo, OrderInfo} from "@/types/types";
 import {getFormattedDateLabel} from "@/app/utils";
+import styles from "./OrderConfirmation.module.css";
 
 export function OrderConfirmation({
                                       customer,
@@ -27,14 +28,14 @@ export function OrderConfirmation({
     return (
         <div
             dir="rtl"
-            style={{fontFamily: 'Arial, Helvetica, sans-serif', lineHeight: 1.6}}
+            className={styles.OrderConfirmation_30}
         >
             <h1>
                 {customer.name}, איזה כיף  – הזמנה מספר {order.id} התקבלה בהצלחה!
             </h1>
 
             <h2>פרטי ההזמנה:</h2>
-            <ul style={{padding: 0, listStyle: 'none'}}>
+            <ul className={styles.OrderConfirmation_37}>
                 {items.map((i) => (
                     <li key={i.id}>
                         {i.quantity} * {i.title} – {sliceText}

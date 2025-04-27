@@ -1,0 +1,23 @@
+.OrdersSummaryControls_14 {
+  margin-bottom: 1rem;
+}
+
+.OrdersSummaryControls_19 {
+  margin-left: 1rem;
+}
+
+.OrdersSummaryControls_23 {
+  margin-top: 1rem;
+}
+
+.OrdersSummaryControls_24 {
+  margin-right: 1rem;
+  background: summaryView === all ? #f59e0b : #ddd;
+  padding: 0.5rem 1rem;
+}
+
+.OrdersSummaryControls_25 {
+  background: summaryView === grouped ? #f59e0b : #ddd;
+  padding: 0.5rem 1rem;
+}
+
