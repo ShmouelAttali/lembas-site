@@ -118,6 +118,31 @@ body {
   height: 30px;
 }
 
+
+.cart-popup {
+  position: absolute;
+  top: 1.5rem;         /* adjust to sit above the cart */
+  inset-inline-start: 50%;  /* center horizontally in LTR/RTL */
+  transform: translateX(-50%);
+  background: var(--clr-text);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 90%;
+  animation: fadeInOut 2s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+  10%  { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+  90%  { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+}
+
+
 /* Hide the text summary by default on small screens */
 .cart-minimized .cart-summary {
   display: none;
@@ -249,4 +274,18 @@ body {
 
 .add-to-cart:hover {
   background: var(--clr-primary);
+}
+
+.date-btn {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  background-color: black;
+  cursor: pointer;
+}
+
+.date-btn.selected {
+  background-color: #007bff; /* Highlight background */
+  color: #fff; /* White text */
+  border-color: #007bff; /* Match border to background */
 }

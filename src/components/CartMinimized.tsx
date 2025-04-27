@@ -1,33 +1,79 @@
 // src/components/CartMinimized.tsx
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
+import { motion, useAnimation } from 'framer-motion';
 
 export default function CartMinimized() {
     const { items, total } = useCart();
     const count = items.reduce((sum, i) => sum + i.quantity, 0);
+    const controls = useAnimation();
+
+    // 1) Bump animation
+    useEffect(() => {
+        if (count > 0) {
+            controls.start({
+                scale: [1, 1.3, 1],
+                transition: { duration: 0.3, ease: 'easeInOut' },
+            });
+        }
+    }, [count, controls]);
+
+    // 2) Popup guard: only allow popups after the first 500ms
+    const [allowPopup, setAllowPopup] = useState(false);
+    useEffect(() => {
+        const t = setTimeout(() => setAllowPopup(true), 500);
+        return () => clearTimeout(t);
+    }, []);
+
+    // 3) Popup logic
+    const prevCount = useRef(count);
+    const [showPopup, setShowPopup] = useState(false);
+
+    useEffect(() => {
+        if (!allowPopup) {
+            // before we’re “armed”, just prime prevCount
+            prevCount.current = count;
+            return;
+        }
+        if (count > prevCount.current) {
+            setShowPopup(true);
+            const t = setTimeout(() => setShowPopup(false), 2000);
+            return () => clearTimeout(t);
+        }
+        prevCount.current = count;
+    }, [count, allowPopup]);
 
     return (
         <Link href="/cart" className="cart-minimized">
-            <Image
-                src="/shopping-cart.svg"
-                alt=""
-                width={30}
-                height={30}
-                className="bag-icon"
-                unoptimized
-            />
+            <motion.div
+                animate={controls}
+                style={{ display: 'flex', alignItems: 'center', position: 'relative' }}
+            >
+                <Image
+                    src="/icons/bag.svg"
+                    alt="Cart"
+                    width={24}
+                    height={24}
+                    className="bag-icon"
+                />
+                {count > 0 && (
+                    <span className="badge" aria-hidden="true">
+            {count}
+          </span>
+                )}
+                {showPopup && (
+                    <div className="cart-popup">
+                        המוצר התווסף לסל
+                    </div>
+                )}
+            </motion.div>
             <span className="cart-summary">
         {count} פריטים — ₪{total.toFixed(2)}
       </span>
-            {count > 0 && (
-                <span className="badge" aria-hidden="true">
-          {count}
-        </span>
-            )}
         </Link>
     );
 }

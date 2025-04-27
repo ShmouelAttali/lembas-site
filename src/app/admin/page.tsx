@@ -16,7 +16,10 @@ export default async function AdminPage({
 }) {
     const curSearchParams = await searchParams;
     const activeTab = curSearchParams.tab ?? 'products'
-    const initialData = await fetchTableData(activeTab)
+    const initialData =
+        activeTab === 'orders_summary'
+            ? [] // ← Don't fetch server-side; let client do it
+            : await fetchTableData(activeTab);
 
     return (
         <AdminPageClient

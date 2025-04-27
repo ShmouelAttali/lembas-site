@@ -25,7 +25,7 @@ export default function ProductList({products}: { products: Product[] }) {
                         <p>{p.description}</p>
                         <p>{p.weight + ' גרם'}</p>
                         <p>{'₪' + p.price}</p>
-                        <button
+                        <button type={"button"}
                             className="add-to-cart"
                             onClick={() =>
                                 addItem({id: p.id, title: p.title, price: p.price})

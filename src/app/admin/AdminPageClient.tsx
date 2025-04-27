@@ -1,117 +1,97 @@
-// src/app/admin/AdminPageClient.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { supabase } from '@/lib/supabase'; // your browser client
+import { supabase } from '@/lib/supabase';
+import TabButtons from './TabButtons';
+import OrdersSummaryControls from './OrdersSummaryControls';
+import OrdersDetailedTable from './OrdersDetailedTable';
+import OrdersGroupedTable from './OrdersGroupedTable';
 
-interface AdminPageClientProps {
-    initialData: any[];
-    activeTab: string;
-}
+import { TABS } from './constants';
 
-const TABS = ['products', 'name_suffixes', 'categories', 'orders'];
-
-export default function AdminPageClient({
-                                            initialData,
-                                            activeTab,
-                                        }: AdminPageClientProps) {
-    const [data, setData]       = useState(initialData);
+export default function AdminPageClient({ initialData, activeTab }) {
+    const [data, setData] = useState(initialData);
     const [loading, setLoading] = useState(false);
-    const [error, setError]     = useState<string | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
-    const router        = useRouter();
-    const searchParams  = useSearchParams();
-    const currentTab    = searchParams.get('tab') ?? activeTab;
+    const [fromDate, setFromDate] = useState(() => new Date().toISOString().split('T')[0]);
+    const [toDate, setToDate] = useState(() => {
+        const date = new Date();
+        date.setDate(date.getDate() + 2);
+        return date.toISOString().split('T')[0];
+    });
+    const [summaryView, setSummaryView] = useState<'all' | 'grouped'>('all');
+
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const currentTab = searchParams.get('tab') ?? activeTab;
 
     const handleTabChange = async (tab: string) => {
         if (tab === currentTab) return;
-        // update URL without a full page reload
         router.replace(`/admin?tab=${tab}`, { scroll: false });
+        await loadData(tab);
+    };
+
+    const loadData = async (tab = currentTab) => {
         setLoading(true);
         setError(null);
 
-        // fetch new data from Supabase
-        const { data: rows, error: fetchError } = await supabase
-            .from(tab)
-            .select('*');
-
-        if (fetchError) {
-            setError(fetchError.message);
+        try {
+            if (tab === 'orders_summary') {
+                const { data: orders, error } = await supabase
+                    .from('orders')
+                    .select('*, order_items(*, products(title))')
+                    .gte('order_date', fromDate)
+                    .lte('order_date', toDate);
+                if (error) throw error;
+                setData(orders || []);
+            } else {
+                const { data: rows, error } = await supabase.from(tab).select('*');
+                if (error) throw error;
+                setData(rows || []);
+            }
+        } catch (err: any) {
+            setError(err.message);
             setData([]);
-        } else {
-            setData(rows || []);
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
+
+    useEffect(() => {
+        if (currentTab === 'orders_summary') {
+            loadData();
+        }
+    }, [fromDate, toDate, summaryView]);
 
     return (
         <div style={{ padding: '1rem' }}>
-            <div style={{ marginBottom: '1rem' }}>
-                {TABS.map((tab) => (
-                    <button
-                        key={tab}
-                        onClick={() => handleTabChange(tab)}
-                        className={tab === currentTab ? 'active-tab-btn' : 'tab-btn'}
-                        style={{
-                            marginInlineEnd: '0.5rem',
-                            padding: '0.5rem 1rem',
-                            borderRadius: '4px',
-                            border: 'none',
-                            cursor: 'pointer',
-                            background: tab === currentTab ? '#ec4899' : '#8b5cf6',
-                            color: 'white',
-                        }}
-                    >
-                        {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                    </button>
-                ))}
-            </div>
+            <TabButtons tabs={TABS} currentTab={currentTab} onTabChange={handleTabChange} />
+
+            {currentTab === 'orders_summary' && (
+                <OrdersSummaryControls
+                    fromDate={fromDate}
+                    toDate={toDate}
+                    summaryView={summaryView}
+                    onFromDateChange={setFromDate}
+                    onToDateChange={setToDate}
+                    onSummaryViewChange={setSummaryView}
+                />
+            )}
 
             {loading ? (
                 <p>Loading…</p>
             ) : error ? (
                 <p style={{ color: 'red' }}>Error: {error}</p>
-            ) : data.length === 0 ? (
+            ) : !data || data.length === 0 ? (
                 <p>No rows in <strong>{currentTab}</strong></p>
+            ) : currentTab === 'orders_summary' && summaryView === 'grouped' ? (
+                <OrdersGroupedTable orders={data} />
+            ) : currentTab === 'orders_summary' ? (
+                <OrdersDetailedTable orders={data} />
             ) : (
-                <div style={{ overflowX: 'auto' }}>
-                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                        <thead>
-                        <tr>
-                            {Object.keys(data[0]).map((col) => (
-                                <th
-                                    key={col}
-                                    style={{
-                                        borderBottom: '1px solid #ddd',
-                                        textAlign: 'left',
-                                        padding: '0.5rem',
-                                    }}
-                                >
-                                    {col}
-                                </th>
-                            ))}
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {data.map((row, i) => (
-                            <tr key={i}>
-                                {Object.values(row).map((val, j) => (
-                                    <td
-                                        key={j}
-                                        style={{
-                                            borderBottom: '1px solid #f0f0f0',
-                                            padding: '0.5rem',
-                                        }}
-                                    >
-                                        {String(val)}
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
-                </div>
+                <pre>{JSON.stringify(data, null, 2)}</pre>
             )}
         </div>
     );
