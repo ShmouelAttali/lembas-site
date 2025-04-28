@@ -92,8 +92,8 @@ export default function OrderDatesPage() {
 
             const iso = formatLocalDate(day)
             const isSel = selectedDates.has(iso)
-            const hdate = new HDate(day)
-            const [dayMon] = hdate.renderGematriya(true).split(' תשפ');
+            const hebrewDate = new HDate(day)
+            const [dayMon] = hebrewDate.renderGematriya(true).split(' תשפ');
             return (
                 <div
                     key={iso}
