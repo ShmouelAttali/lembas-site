@@ -23,13 +23,16 @@ async function requireAdmin() {
     return user;
 }
 
-export default async function DataPage({
-                                            searchParams,             // ← will be supplied by Next
-                                        }: {
-    searchParams: { tab?: string }
-}) {
+interface DataPageProps {
+    // Next 14+ expects these as Promises
+    params: Promise<Record<string, string | string[] | undefined>>;
+    searchParams: Promise<{ tab?: string }>;
+}
+
+export default async function DataPage({searchParams}: DataPageProps) {
+    const {tab} = await searchParams;
+    const activeTab = tab ?? 'products';
     await requireAdmin();
-    const activeTab = searchParams.tab ?? 'products'
     const initialData = await fetchTableData(activeTab);
 
     return (
@@ -37,5 +40,5 @@ export default async function DataPage({
             initialData={initialData}
             activeTab={activeTab}
         />
-    )
+    );
 }
