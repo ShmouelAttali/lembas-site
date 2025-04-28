@@ -4,6 +4,16 @@ import styles from './CalculatorPage.module.css';
 
 type SectionVals = { water: number; flour: number; starter: number };
 
+const calculateSectionValues = (curQuantity: number, starterRatio: number, waterRatio: number, flourRatio: number): SectionVals => {
+    const totalRatio = 1 + 1 + starterRatio;
+    if (!totalRatio) return {water: 0, flour: 0, starter: 0};
+    return {
+        water: (curQuantity * waterRatio) / totalRatio,
+        flour: (curQuantity * flourRatio) / totalRatio,
+        starter: (curQuantity * starterRatio) / totalRatio,
+    };
+};
+
 export default function CalculatorPage() {
     const waterRatio = 1.2;
     const flourRatio = 1;
@@ -22,16 +32,6 @@ export default function CalculatorPage() {
         15: 0.01,
     };
 
-    const calculateSectionValues = (curQuantity: number, hours: number): SectionVals => {
-        const starterRatio = starterRatios[hours] ?? 0;
-        const totalRatio = 1 + 1 + starterRatio;
-        if (!totalRatio) return {water: 0, flour: 0, starter: 0};
-        return {
-            water: (curQuantity * waterRatio) / totalRatio,
-            flour: (curQuantity * flourRatio) / totalRatio,
-            starter: (curQuantity * starterRatio) / totalRatio,
-        };
-    };
 
     useEffect(() => {
         const next: { [k: number]: SectionVals } = {};
@@ -40,7 +40,7 @@ export default function CalculatorPage() {
             const curQty = sec === feedCount
                 ? quantity
                 : next[sec + 1].starter;
-            next[sec] = calculateSectionValues(curQty, hours);
+            next[sec] = calculateSectionValues(curQty, starterRatios[hours], waterRatio, flourRatio);
         }
         setSectionValues(next);
     }, [feedCount, feedHours, quantity]);
