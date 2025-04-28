@@ -1,8 +1,8 @@
 // src/app/page.tsx
 import React from 'react';
 import ProductList from '@/components/ProductList';
-import { supabaseServer } from '@/lib/supabase-server';
-import { getNextMDates } from '@/app/utils';
+import {supabaseServer} from '@/lib/supabase-server';
+import {getNextMDates} from '@/app/utils';
 import Image from 'next/image';
 import SelectOrderDate from '@/components/SelectOrderDate';
 
@@ -10,15 +10,15 @@ export default async function HomePage() {
     const supabase = await supabaseServer();
 
     // fetch products
-    const { data: products } = await supabase
+    const {data: products} = await supabase
         .from('products')
-        .select('id,title,description,price,slug,weight')
-        .order('title') || { data: [] };
+        .select('id,title,description,price,slug,weight,image_url')
+        .order('title') || {data: []};
 
     const prods = (products || []).map((p) => {
         const {
-            data: { publicUrl },
-        } = supabase.storage.from('product-images').getPublicUrl(p.slug + '.jpg');
+            data: {publicUrl},
+        } = supabase.storage.from('product-images').getPublicUrl(p.image_url + '.jpg');
         return {
             id: p.id,
             title: p.title,
@@ -38,9 +38,9 @@ export default async function HomePage() {
             </div>
             <section className="booking">
                 <h2>בחר תאריך להזמנה</h2>
-                <SelectOrderDate dates={dates} />
+                <SelectOrderDate dates={dates}/>
             </section>
-            <ProductList products={prods} />
+            <ProductList products={prods}/>
         </>
     );
 }

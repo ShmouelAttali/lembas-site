@@ -10,6 +10,43 @@ import OrdersGroupedTable from './OrdersGroupedTable';
 
 import {TABS} from './constants';
 import styles from "./AdminPageClient.module.css";
+import {Column, CrudTable} from "@/components/CrudTable";
+
+const productColumns: Column<any>[] = [
+    { key: 'title', label: 'Title', editable: true },
+    { key: 'price', label: 'Price', editable: true },
+    { key: 'description', label: 'Description', editable: true },
+    { key: 'slug', label: 'Slug', editable: true },
+    { key: 'weight', label: 'Weight', editable: true },
+    {
+        key: 'image_url',
+        label: 'Image',
+        render: (url) => {
+            if (url){
+                const {data: {publicUrl}} = supabase.storage
+                    .from('product-images')
+                    .getPublicUrl(url + '.jpg');
+                return <img src={publicUrl} width={50} />
+            }
+            else{
+                return 'No image';
+
+            } ;
+        },
+    },
+];
+const genericColumns: Record<string, Column<any>[]> = {
+    orders: [
+        { key: 'id', label: 'ID' },
+        { key: 'customer_name', label: 'Customer', editable: true },
+        // …add more fields you care about
+    ],
+    name_suffixes: [
+        { key: 'id', label: 'ID' },
+        { key: 'suffix', label: 'Suffix', editable: true },
+    ],
+    // add entries for all your other non‐products tables
+};
 
 export default function AdminPageClient({initialData, activeTab}: { initialData: any, activeTab: string }) {
     const [data, setData] = useState(initialData);
@@ -91,8 +128,23 @@ export default function AdminPageClient({initialData, activeTab}: { initialData:
                 <OrdersGroupedTable orders={data}/>
             ) : currentTab === 'orders_summary' ? (
                 <OrdersDetailedTable orders={data}/>
+            ) : currentTab === 'products' ? (
+                // ← Products: CRUD + image upload/delete
+                <CrudTable
+                    table="products"
+                    columns={productColumns}
+                    uniqueKey="id"
+                    bucket="product-images"
+                    imageColumns={{ pathKey: 'image_path', urlKey: 'image_url' }}
+                />
+
             ) : (
-                <pre>{JSON.stringify(data, null, 2)}</pre>
+                // ← Generic CRUD for any other table
+                <CrudTable
+                    table={currentTab}
+                    columns={genericColumns[currentTab] || []}
+                    uniqueKey="id"
+                />
             )}
         </div>
     );
