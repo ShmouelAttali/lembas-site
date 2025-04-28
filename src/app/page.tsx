@@ -1,9 +1,7 @@
-// src/app/page.tsx
 import React from 'react';
 import ProductList from '@/components/ProductList';
 import {supabaseServer} from '@/lib/supabase-server';
 import {getNextMDates} from '@/app/utils';
-import Image from 'next/image';
 import SelectOrderDate from '@/components/SelectOrderDate';
 
 export default async function HomePage() {
@@ -34,8 +32,7 @@ export default async function HomePage() {
 
     return (
         <>
-            <div className="cover-photo">
-            </div>
+            <img src='/bread.jpg' alt="Bread" className="cover-photo"/>
             <section className="booking">
                 <h2>בחר תאריך להזמנה</h2>
                 <SelectOrderDate dates={dates}/>
