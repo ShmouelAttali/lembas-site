@@ -38,7 +38,7 @@ ${fulfillmentLine}
 }
 
 export function sendSmsNotification(customer: CustomerInfo, order: OrderInfo, items: ItemInfo[]) {
-    let message = buildOrderMessage(customer, order, items)
+    const message = buildOrderMessage(customer, order, items)
     twilioClient.messages
         .create({
             body: message,

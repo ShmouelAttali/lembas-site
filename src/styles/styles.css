@@ -197,7 +197,7 @@ body {
 }
 
 /* Badge in top-inner corner */
-.cart-minimized .badge {
+.cart-minimized {
     position: absolute;
     top: 2px;
     inset-inline-start: 2px; /* in RTL this puts it on the right edge */

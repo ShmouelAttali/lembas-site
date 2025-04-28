@@ -1,6 +1,6 @@
 'use client';
 
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useRouter, useSearchParams} from 'next/navigation';
 import {supabase} from '@/lib/supabase';
 import TabButtons from './TabButtons';
@@ -23,12 +23,11 @@ const productColumns: Column<any>[] = [
                 const {data: {publicUrl}} = supabase.storage
                     .from('product-images')
                     .getPublicUrl(url + '.jpg');
-                return <img src={publicUrl} width={50}/>
+                return <img src={publicUrl} width={50} alt={'img'}/>
             } else {
                 return 'No image';
 
             }
-            ;
         },
     },
 ];

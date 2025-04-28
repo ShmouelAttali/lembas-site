@@ -16,8 +16,8 @@ interface Props {
 }
 
 export function CustomerForm({ info, setInfoAction, handleChangeAction, handleSubmitAction, submitting }: Props) {
-    var payboxUrl = 'https://link.payboxapp.com/QbpGp2SCZ4qgABAb6';
-    var bitUrl = 'https://www.bitpay.co.il/app/me/5DCEBBEE-5BA3-47C4-AC9C-12B8946182C0';
+    const payboxUrl = 'https://link.payboxapp.com/QbpGp2SCZ4qgABAb6';
+    const bitUrl = 'https://www.bitpay.co.il/app/me/5DCEBBEE-5BA3-47C4-AC9C-12B8946182C0';
     return (
         <form onSubmit={handleSubmitAction} className={styles.CustomerForm_21}>
             <TextInput

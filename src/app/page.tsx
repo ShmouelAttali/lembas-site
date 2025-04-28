@@ -13,7 +13,7 @@ export default async function HomePage() {
         .select('id,title,description,price,slug,weight,image_url')
         .order('title') || {data: []};
 
-    let tomorrow = addDays(new Date(), 1).toISOString().slice(0, 10);
+    const tomorrow = addDays(new Date(), 1).toISOString().slice(0, 10);
     const {data: datesStr} = await supabase.from('order_dates').select('date').gt('date', tomorrow).limit(3).order('date');
     const dates = datesStr?.map(d => new Date(d.date)) ?? [];
     console.log(dates);

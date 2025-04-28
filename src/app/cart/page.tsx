@@ -11,14 +11,12 @@ export default function CartPage() {
     const { items, total, clearCart, updateItem, removeItem } = useCart();
 
     const [isValidOrderDate, setIsValidOrderDate] = useState(false);
-    const [loadingDate, setLoadingDate] = useState(true);
 
     useEffect(() => {
         const checkDate = async () => {
             const selected = localStorage.getItem('selected_order_date');
             if (!selected) {
                 setIsValidOrderDate(false);
-                setLoadingDate(false);
                 return;
             }
 
@@ -34,8 +32,6 @@ export default function CartPage() {
             } else {
                 setIsValidOrderDate(data && data.length > 0);
             }
-
-            setLoadingDate(false);
         };
 
         checkDate();

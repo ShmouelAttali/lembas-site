@@ -1,6 +1,5 @@
 // OrdersGroupedTable.tsx
 import React from 'react';
-import { weekdayHebrew } from '../data/constants';
 import styles from "./OrdersGroupedTable.module.css";
 import {getFormattedDateLabel} from "@/app/utils";
 

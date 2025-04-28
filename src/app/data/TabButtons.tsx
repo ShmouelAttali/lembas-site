@@ -8,13 +8,13 @@ interface TabButtonsProps {
     onTabChange: (tab: string) => void;
 }
 
-const TabButtons = ({ tabs, currentTab, onTabChange }: TabButtonsProps) => (
+const TabButtons = ({tabs, currentTab, onTabChange}: TabButtonsProps) => (
     <div className={styles.TabButtons_11}>
         {tabs.map((tab) => (
             <button
                 key={tab}
                 onClick={() => onTabChange(tab)}
-                className={styles.TabButtons_16}
+                className={styles.TabButtons_16 + (currentTab === tab ? ` ${styles.selected}` : '')}
             >
                 {tab.replace('_', ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
             </button>

@@ -29,8 +29,7 @@ export default async function DataPage({
     searchParams: { tab?: string }
 }) {
     await requireAdmin();
-    const curSearchParams = await searchParams;
-    const activeTab = curSearchParams.tab ?? 'products'
+    const activeTab = searchParams.tab ?? 'products'
     const initialData = await fetchTableData(activeTab);
 
     return (
