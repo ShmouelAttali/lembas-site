@@ -28,6 +28,7 @@ body {
 
 /* --- Layout container --- */
 .container {
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--gap);
@@ -40,6 +41,7 @@ body {
     z-index: 50;
     background: var(--clr-bg-secondary);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
 .header-inner {
@@ -230,9 +232,7 @@ body {
 .cover-photo {
     margin-top: 1rem;
     width: 100%;
-    height: 700px;
-    background: url('../../public/bread.jpg');
-    background-size: 100% auto;
+    height: auto;
 }
 
 /* --- Booking section --- */
