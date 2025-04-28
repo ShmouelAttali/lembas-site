@@ -5,12 +5,12 @@ import styles from './CalculatorPage.module.css';
 type SectionVals = { water: number; flour: number; starter: number };
 
 const calculateSectionValues = (curQuantity: number, starterRatio: number, waterRatio: number, flourRatio: number): SectionVals => {
-    const totalRatio = 1 + 1 + starterRatio;
+    const totalRatio = waterRatio + flourRatio + starterRatio;
     if (!totalRatio) return {water: 0, flour: 0, starter: 0};
     return {
-        water: (curQuantity * waterRatio) / totalRatio,
-        flour: (curQuantity * flourRatio) / totalRatio,
-        starter: (curQuantity * starterRatio) / totalRatio,
+        water: Math.round(curQuantity * waterRatio / totalRatio),
+        flour: Math.round(curQuantity * flourRatio / totalRatio),
+        starter: Math.round(curQuantity * starterRatio / totalRatio),
     };
 };
 
@@ -93,15 +93,15 @@ export default function CalculatorPage() {
 
                         <div className={styles.inputGroup}>
                             <label>מים:</label>
-                            <input readOnly value={vals.water.toFixed(2)}/>
+                            <input readOnly value={vals.water}/>
                         </div>
                         <div className={styles.inputGroup}>
                             <label>קמח:</label>
-                            <input readOnly value={vals.flour.toFixed(2)}/>
+                            <input readOnly value={vals.flour}/>
                         </div>
                         <div className={styles.inputGroup}>
                             <label>מחמצת:</label>
-                            <input readOnly value={vals.starter.toFixed(2)}/>
+                            <input readOnly value={vals.starter}/>
                         </div>
                     </div>
                 );
