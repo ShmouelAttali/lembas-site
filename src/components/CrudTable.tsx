@@ -31,7 +31,7 @@ export function CrudTable<T extends Record<string, any>>({
 
     const refresh = async () => {
         setLoading(true);
-        const {data, error} = await supabase.from<T>(table).select('*');
+        const {data, error} = await supabase.from(table).select('*');
         console.log('data', data);
         if (error) setError(error.message);
         else setRows(data || []);
@@ -43,14 +43,14 @@ export function CrudTable<T extends Record<string, any>>({
     }, []);
 
     const insert = async (newRow: Partial<T>) => {
-        const {data, error} = await supabase.from<T>(table).insert(newRow).select();
+        const {data, error} = await supabase.from(table).insert(newRow).select();
         if (error) throw error;
         return data![0];
     };
 
     const updateRow = async (id: any, updates: Partial<T>) => {
         const {data, error} = await supabase
-            .from<T>(table)
+            .from(table)
             .update(updates)
             .eq(uniqueKey as string, String(id)).select();
         if (error) throw error;
@@ -58,19 +58,37 @@ export function CrudTable<T extends Record<string, any>>({
     };
 
     const deleteRow = async (id: any) => {
-        const {error} = await supabase.from<T>(table).delete().eq(uniqueKey as string, String(id));
+        const {error} = await supabase.from(table).delete().eq(uniqueKey as string, String(id));
         if (error) throw error;
     };
 
     // Image helpers
-    const uploadImage = async (file: File): Promise<{ publicURL: string; path: string }> => {
-        if (!bucket) throw new Error('No bucket specified');
+    const uploadImage = async (
+        file: File
+    ): Promise<{ publicURL: string; path: string }> => {
+        if (!bucket) {
+            throw new Error('No bucket specified');
+        }
+
         const path = `${Date.now()}_${file.name}`;
+
+        // upload
         const {error: upErr} = await supabase.storage.from(bucket).upload(path, file);
-        if (upErr) throw upErr;
-        const {publicURL, error: urlErr} = supabase.storage.from(bucket).getPublicUrl(path);
-        if (urlErr) throw urlErr;
-        return {publicURL, path};
+        if (upErr) {
+            throw upErr;
+        }
+
+        // get public URL
+        const {data: {publicUrl}} = supabase.storage.from(bucket).getPublicUrl(path);
+
+        if (!publicUrl) {
+            throw new Error('Failed to retrieve public URL');
+        }
+
+        return {
+            publicURL: publicUrl,
+            path,
+        };
     };
 
     const deleteImage = async (path: string) => {
@@ -123,7 +141,7 @@ export function CrudTable<T extends Record<string, any>>({
                 [imageColumns.urlKey]: publicURL,
                 [imageColumns.pathKey]: path
             } as Partial<T>);
-            refresh();
+            await refresh();
         } catch (err: any) {
             setError(err.message);
         }
@@ -180,7 +198,7 @@ export function CrudTable<T extends Record<string, any>>({
                                                         [imageColumns.urlKey]: null,
                                                         [imageColumns.pathKey]: null
                                                     } as Partial<T>);
-                                                    refresh();
+                                                    await refresh();
                                                 }}>🗑️
                                                 </button>
                                                 <input type="file" accept="image/*"

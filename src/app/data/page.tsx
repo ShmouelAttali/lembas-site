@@ -1,4 +1,4 @@
-// src/app/admin/page.tsx
+// src/app/data/page.tsx
 import AdminPageClient from './AdminPageClient'
 import {supabaseServer} from '@/lib/supabase-server'
 import {redirect} from 'next/navigation';
@@ -23,7 +23,7 @@ async function requireAdmin() {
     return user;
 }
 
-export default async function AdminPage({
+export default async function DataPage({
                                             searchParams,             // ← will be supplied by Next
                                         }: {
     searchParams: { tab?: string }
@@ -31,10 +31,7 @@ export default async function AdminPage({
     await requireAdmin();
     const curSearchParams = await searchParams;
     const activeTab = curSearchParams.tab ?? 'products'
-    const initialData =
-        activeTab === 'orders_summary'
-            ? [] // ← Don't fetch server-side; let client do it
-            : await fetchTableData(activeTab);
+    const initialData = await fetchTableData(activeTab);
 
     return (
         <AdminPageClient

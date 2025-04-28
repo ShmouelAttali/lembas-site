@@ -17,12 +17,32 @@ export default function MainNav() {
                 בית
             </Link>
             {isAdmin && (
-                <Link
-                    href="/admin"
-                    className={path.startsWith('/admin') ? 'active' : ''}
-                >
-                    ניהול
-                </Link>
+                <div>
+                    <Link
+                        href="/order-summary"
+                        className={path.startsWith('/admin') ? 'active' : ''}
+                    >
+                        ניהול הזמנות
+                    </Link>
+                    <Link
+                        href="/data"
+                        className={path.startsWith('/admin') ? 'active' : ''}
+                    >
+                        נתונים
+                    </Link>
+                    <Link
+                        href="/recipes"
+                        className={path.startsWith('/admin') ? 'active' : ''}
+                    >
+                        מתכונים
+                    </Link>
+                    <Link
+                        href="/calculator"
+                        className={path.startsWith('/admin') ? 'active' : ''}
+                    >
+                        מחשבון מחמצת
+                    </Link>
+                </div>
             )}
         </nav>
     );
