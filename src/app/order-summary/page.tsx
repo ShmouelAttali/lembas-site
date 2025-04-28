@@ -1,9 +1,9 @@
 'use client';
 import React, {useEffect, useState} from "react";
 import styles from "@/app/data/AdminPageClient.module.css";
-import OrdersSummaryControls from "@/app/data/OrdersSummaryControls";
-import OrdersGroupedTable from "@/app/data/OrdersGroupedTable";
-import OrdersDetailedTable from "@/app/data/OrdersDetailedTable";
+import OrdersSummaryControls from "@/app/order-summary/OrdersSummaryControls";
+import OrdersGroupedTable from "@/app/order-summary/OrdersGroupedTable";
+import OrdersDetailedTable from "@/app/order-summary/OrdersDetailedTable";
 import {supabase} from "@/lib/supabase";
 import {OrderInfo} from "@/types/types";
 

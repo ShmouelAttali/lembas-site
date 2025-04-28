@@ -3,31 +3,16 @@ import {CustomerInfo, ItemInfo, OrderInfo} from "@/types/types";
 
 export function getFormattedDateLabel(d: Date) {
     const weekdayFmt = new Intl.DateTimeFormat('he-IL', {weekday: 'long'});
-    const gregFmt = new Intl.DateTimeFormat(undefined, {day: '2-digit', month: '2-digit'});
+    const gregFmt = new Intl.DateTimeFormat('he-IL', {day: '2-digit', month: '2-digit'});
     const weekday = weekdayFmt.format(d).replace(/^יום\s*/, '');
     const hd = new HDate(d);
-    const [dayMon] = hd.renderGematriya(true).split(' תש'); // "כ"ו ניסן"
+    const [dayMon] = hd.renderGematriya(true).split(' תשפ'); // "כ"ו ניסן"
     const greg = gregFmt.format(d);
     return `${weekday} - ${dayMon} (${greg})`;
 }
 
 export function addDays(d: Date, daysToAdd: number) {
     return new Date(d.getTime() + 86_400_000 * daysToAdd);
-}
-
-export function getNextMDates(n: number) {
-    const out: { date: Date; label: string }[] = [];
-    let d = addDays(new Date(), 1);
-    d.setHours(0, 0, 0, 0);
-
-    while (out.length < n) {
-        d = addDays(d, 1);
-        if (d.getDay() === 1 || d.getDay() === 4) {
-            let label = getFormattedDateLabel(d);
-            out.push({date: d, label: label});
-        }
-    }
-    return out;
 }
 
 export function toE164(phone: string): string {

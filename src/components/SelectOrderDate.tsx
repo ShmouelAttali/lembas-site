@@ -1,25 +1,30 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
+import {getFormattedDateLabel} from "@/app/utils";
 
 type Props = {
-    dates: { label: string; date: Date }[];
+    dates: Date[];
 };
 
-export default function SelectOrderDate({ dates }: Props) {
+export default function SelectOrderDate({dates}: Props) {
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
     // Load the initially selected date from localStorage
     useEffect(() => {
         const savedDate = localStorage.getItem('selected_order_date');
         if (savedDate) {
-            setSelectedDate(savedDate);
+            if (!dates.find((d) => d.toISOString() === savedDate)) {
+
+                localStorage.removeItem('selected_order_date');
+            } else {
+                setSelectedDate(savedDate);
+            }
         }
     }, []);
 
     const handleDateClick = (date: string) => {
         setSelectedDate(date); // Update selected date in state
-console.log(date);
         localStorage.setItem('selected_order_date', date); // Store it in localStorage
     };
 
@@ -27,11 +32,11 @@ console.log(date);
         <div className="dates">
             {dates.map((d) => (
                 <button
-                    key={d.label}
-                    className={`date-btn ${selectedDate === d.date.toISOString() ? 'selected' : ''}`}
-                    onClick={() => handleDateClick(d.date.toISOString())}
+                    key={d.toISOString()}
+                    className={`date-btn ${selectedDate === d.toISOString() ? 'selected' : ''}`}
+                    onClick={() => handleDateClick(d.toISOString())}
                 >
-                    {d.label}
+                    {getFormattedDateLabel(d)}
                 </button>
             ))}
         </div>

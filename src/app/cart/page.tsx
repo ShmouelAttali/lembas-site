@@ -1,35 +1,63 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { supabase } from '@/lib/supabase';
 import { useCart } from '@/contexts/CartContext';
-import {EmptyCartMessage} from "@/components/EmptyCartMessage";
-import styles from "./page.module.css";
+import { EmptyCartMessage } from '@/components/EmptyCartMessage';
+import styles from './page.module.css';
 
 export default function CartPage() {
     const { items, total, clearCart, updateItem, removeItem } = useCart();
 
+    const [isValidOrderDate, setIsValidOrderDate] = useState(false);
+    const [loadingDate, setLoadingDate] = useState(true);
+
+    useEffect(() => {
+        const checkDate = async () => {
+            const selected = localStorage.getItem('selected_order_date');
+            if (!selected) {
+                setIsValidOrderDate(false);
+                setLoadingDate(false);
+                return;
+            }
+
+            const { data, error } = await supabase
+                .from('order_dates')
+                .select('date', { count: 'exact' })
+                .eq('date', selected)
+                .limit(1);
+
+            if (error) {
+                console.error('Error checking order date:', error);
+                setIsValidOrderDate(false);
+            } else {
+                setIsValidOrderDate(data && data.length > 0);
+            }
+
+            setLoadingDate(false);
+        };
+
+        checkDate();
+    }, []);
+
     return (
-        <div className={styles.page_12 + " container"}>
+        <div className={styles.page_12 + ' container'}>
             <h1>עגלת הקניות שלי</h1>
-            {items.length === 0 ? <EmptyCartMessage /> : (
+
+            {items.length === 0 ? (
+                <EmptyCartMessage />
+            ) : (
                 <>
                     <ul className={styles.page_16}>
                         {items.map((item) => (
-                            <li
-                                key={item.id}
-                                className={styles.page_20}
-                            >
+                            <li key={item.id} className={styles.page_20}>
                                 <strong className={styles.page_22}>{item.title}</strong>
 
-                                <div
-                                    className={styles.page_25}
-                                >
+                                <div className={styles.page_25}>
                                     <button
                                         aria-label="הפחת"
-                                        onClick={() =>
-                                            updateItem(item.id, item.quantity - 1)
-                                        }
+                                        onClick={() => updateItem(item.id, item.quantity - 1)}
                                         className={styles.page_32}
                                     >
                                         −
@@ -39,9 +67,7 @@ export default function CartPage() {
 
                                     <button
                                         aria-label="הוסף"
-                                        onClick={() =>
-                                            updateItem(item.id, item.quantity + 1)
-                                        }
+                                        onClick={() => updateItem(item.id, item.quantity + 1)}
                                         className={styles.page_44}
                                     >
                                         +
@@ -64,13 +90,8 @@ export default function CartPage() {
                     </ul>
 
                     {/* checkout controls */}
-                    <div
-                        className={styles.page_67}
-                    >
-                        <button
-                            onClick={clearCart}
-                            className={styles.page_71}
-                        >
+                    <div className={styles.page_67}>
+                        <button onClick={clearCart} className={styles.page_71}>
                             נקה עגלה
                         </button>
 
@@ -78,13 +99,17 @@ export default function CartPage() {
                             סה״כ: <strong>₪{total.toFixed(2)}</strong>
                         </div>
 
-                        <Link href="/checkout">
-                            <button
-                                className={styles.page_82}
-                            >
-                                המשך לתשלום
-                            </button>
-                        </Link>
+                        {isValidOrderDate ? (
+                            <Link href="/checkout">
+                                <button className={styles.page_82}>
+                                    המשך לתשלום
+                                </button>
+                            </Link>
+                        ) : (
+                            <div>
+                                  לא ניתן להמשיך. נא לחזור ולבחור תאריך הזמנה
+                            </div>
+                        )}
                     </div>
                 </>
             )}

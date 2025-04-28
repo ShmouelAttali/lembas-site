@@ -20,27 +20,33 @@ export default function MainNav() {
                 <div>
                     <Link
                         href="/order-summary"
-                        className={path.startsWith('/admin') ? 'active' : ''}
+                        className={path.startsWith('/order-summary') ? 'active' : ''}
                     >
                         ניהול הזמנות
                     </Link>
                     <Link
                         href="/data"
-                        className={path.startsWith('/admin') ? 'active' : ''}
+                        className={path.startsWith('/data') ? 'active' : ''}
                     >
                         נתונים
                     </Link>
                     <Link
                         href="/recipes"
-                        className={path.startsWith('/admin') ? 'active' : ''}
+                        className={path.startsWith('/recipes') ? 'active' : ''}
                     >
                         מתכונים
                     </Link>
                     <Link
                         href="/calculator"
-                        className={path.startsWith('/admin') ? 'active' : ''}
+                        className={path.startsWith('/calculator') ? 'active' : ''}
                     >
                         מחשבון מחמצת
+                    </Link>
+                    <Link
+                        href="/order-dates"
+                        className={path.startsWith('/order-dates') ? 'active' : ''}
+                    >
+                        תאריכי הזמנה
                     </Link>
                 </div>
             )}

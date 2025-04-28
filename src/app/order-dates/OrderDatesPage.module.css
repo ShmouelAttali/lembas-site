@@ -1,0 +1,54 @@
+/* OrderDatesPage.module.css */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.monthPickerLabel {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.monthPicker {
+    padding: 4px;
+    font-size: 16px;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-top: 16px;
+}
+
+.weekday {
+    font-weight: bold;
+    text-align: center;
+    padding: 4px;
+}
+
+.dayCell {
+    border: 1px solid #ccc;
+    padding: 8px;
+    min-height: 80px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+}
+
+.dayCellSelected {
+    background-color: #def;
+}
+
+.dayNumber {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.hebrewNumber {
+    font-size: 12px;
+}

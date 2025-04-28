@@ -1,7 +1,8 @@
 // OrdersGroupedTable.tsx
 import React from 'react';
-import { weekdayHebrew } from './constants';
+import { weekdayHebrew } from '../data/constants';
 import styles from "./OrdersGroupedTable.module.css";
+import {getFormattedDateLabel} from "@/app/utils";
 
 const cell = {
     border: '1px solid #ccc',
@@ -45,12 +46,11 @@ const OrdersGroupedTable = ({ orders }: { orders: any[] }) => {
         <div className={styles.OrdersGroupedTable_44}>
             {byDate.map(([date, orders]) => {
                 const d = new Date(date);
-                const hebrewLabel = `${weekdayHebrew[d.getDay()]} ${d.toLocaleDateString('he-IL')}`;
                 const grouped = groupProducts(orders);
 
                 return (
                     <div key={date}>
-                        <h3 className={styles.OrdersGroupedTable_52}>{hebrewLabel}</h3>
+                        <h3 className={styles.OrdersGroupedTable_52}>{getFormattedDateLabel(d)}</h3>
                         <table className={styles.OrdersGroupedTable_53}>
                             <thead>
                             <tr>
