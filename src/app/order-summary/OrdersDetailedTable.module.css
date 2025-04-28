@@ -1,20 +1,20 @@
 .OrdersDetailedTable_12 {
-  overflow-x: auto;
+    overflow-x: auto;
 }
 
 .OrdersDetailedTable_13 {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid #ccc;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
 }
 
 .OrdersDetailedTable_19 {
-  width: col === Date ? fit-content : undefined;
-  background: #f0f0f0;
+    width: fit-content;
+    background: #f0f0f0;
 }
 
 .OrdersDetailedTable_41 {
-  margin: 0;
-  padding-left: 1rem;
+    margin: 0;
+    padding-left: 1rem;
 }
 

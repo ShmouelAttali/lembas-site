@@ -16,6 +16,5 @@
   color: white;
   border: none;
   border-radius: var(--radius);
-  cursor: submitting ? not-allowed : pointer;
 }
 

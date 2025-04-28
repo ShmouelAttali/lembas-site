@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductList from '@/components/ProductList';
 import {supabaseServer} from '@/lib/supabase-server';
-import {addDays, getNextMDates} from '@/app/utils';
+import {addDays} from '@/app/utils';
 import SelectOrderDate from '@/components/SelectOrderDate';
 
 export default async function HomePage() {
