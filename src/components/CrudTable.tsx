@@ -17,7 +17,7 @@ export type Column<T> = {
 
 type CrudTableProps<T> = {
     table: string;
-    columns: Column<T>[];
+    definitions: {orderBy: string, columns:Column<T>[]};
     uniqueKey: keyof T;
     bucket?: string;
     imageColumns?: { pathKey: keyof T; urlKey: keyof T };
@@ -25,7 +25,7 @@ type CrudTableProps<T> = {
 
 export function CrudTable<T extends Record<string, any>>({
                                                              table,
-                                                             columns,
+                                                             definitions,
                                                              uniqueKey,
                                                              bucket,
                                                              imageColumns,
@@ -42,7 +42,7 @@ export function CrudTable<T extends Record<string, any>>({
     // load table rows
     const refresh = async () => {
         setLoading(true);
-        const { data, error } = await supabase.from(table).select('*');
+        const { data, error } = await supabase.from(table).select('*').order(definitions.orderBy, { ascending: true });
         if (error) setError(error.message);
         else setRows(data || []);
         setLoading(false);
@@ -50,7 +50,7 @@ export function CrudTable<T extends Record<string, any>>({
 
     // fetch dropdown options where defined
     useEffect(() => {
-        columns.forEach(col => {
+        definitions.columns.forEach(col => {
             if (col.options && !Array.isArray(col.options)) {
                 const { fromTable, valueKey, labelKey } = col.options;
                 if (!optionsMap[fromTable]) {
@@ -71,7 +71,7 @@ export function CrudTable<T extends Record<string, any>>({
                 }
             }
         });
-    }, [columns]);
+    }, [definitions.columns]);
 
     useEffect(() => {
         refresh();
@@ -159,7 +159,7 @@ export function CrudTable<T extends Record<string, any>>({
             <table>
                 <thead>
                 <tr>
-                    {columns.map(col => <th key={String(col.key)}>{col.label}</th>)}
+                    {definitions.columns.map(col => <th key={String(col.key)}>{col.label}</th>)}
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -167,7 +167,7 @@ export function CrudTable<T extends Record<string, any>>({
                 {/* New row */}
                 {editingKey === 'new' && (
                     <tr>
-                        {columns.map(col => (
+                        {definitions.columns.map(col => (
                             <td key={String(col.key)}>
                                 {/* Image upload for new */}
                                 {imageColumns && col.key === imageColumns.urlKey ? (
@@ -214,7 +214,7 @@ export function CrudTable<T extends Record<string, any>>({
                 {/* Existing rows */}
                 {rows.map(row => (
                     <tr key={String(row[uniqueKey])}>
-                        {columns.map(col => {
+                        {definitions.columns.map(col => {
                             const value = row[col.key];
                             // editing row
                             if (editingKey === row[uniqueKey]) {

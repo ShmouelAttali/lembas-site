@@ -8,13 +8,15 @@ import TabButtons from './TabButtons';
 import styles from "./AdminPageClient.module.css";
 import {Column, CrudTable} from "@/components/CrudTable";
 
-const tabs: Record<string, { columns: Column<any>[] }> = {
+const tabs: Record<string, { orderBy: string, columns: Column<any>[] }> = {
     products: {
+        orderBy: 'title',
         columns: [
             {key: 'title', label: 'Title', editable: true},
             {key: 'price', label: 'Price', editable: true},
             {key: 'description', label: 'Description', editable: true},
             {key: 'slug', label: 'Slug', editable: true},
+            {key: 'visible', label: 'Visible', editable: true},
             {key: 'weight', label: 'Weight', editable: true},
             {
                 key: 'image_url',
@@ -34,19 +36,23 @@ const tabs: Record<string, { columns: Column<any>[] }> = {
         ]
     },
     orders: {
+        orderBy: 'order_date',
         columns: [
             {key: 'id', label: 'ID'},
             {key: 'customer_name', label: 'Customer', editable: true},
+            {key: 'order_date', label: 'Order Date', editable: true},
             // …add more fields you care about
         ]
     },
     name_suffixes: {
+        orderBy: 'id',
         columns: [
             {key: 'id', label: 'ID'},
             {key: 'suffix', label: 'Suffix', editable: true},
         ]
     },
     ingredients: {
+        orderBy: 'name',
         columns: [
             {key: 'id', label: 'ID'},
             {key: 'price_per_100g', label: 'Price per 100g', editable: true},
@@ -54,6 +60,7 @@ const tabs: Record<string, { columns: Column<any>[] }> = {
         ]
     },
     product_ingredients: {
+        orderBy: 'product_id',
         columns: [
             {
                 key: 'product_id',
@@ -88,7 +95,7 @@ export default function AdminPageClient() {
             <TabButtons tabs={Object.keys(tabs)} currentTab={currentTab} onTabChange={handleTabChange}/>
             <CrudTable
                 table={currentTab}
-                columns={tabs[currentTab].columns || []}
+                definitions={tabs[currentTab] || []}
                 uniqueKey="id"
             />
         </div>

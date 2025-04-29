@@ -9,26 +9,18 @@ export default async function HomePage() {
 
     // fetch products
     const {data: products} = await supabase
-        .from('products')
-        .select('id,title,description,price,slug,weight,image_url')
-        .order('title') || {data: []};
+        .from('products_with_buy_counts')
+        .select('*')
+        .eq('visible', true)
+        .order('buy_count', {ascending: false})
 
     const tomorrow = addDays(new Date(), 1).toISOString().slice(0, 10);
     const {data: datesStr} = await supabase.from('order_dates').select('date').gt('date', tomorrow).limit(3).order('date');
     const dates = datesStr?.map(d => new Date(d.date)) ?? [];
-    console.log(dates);
     const prods = (products || []).map((p) => {
-        const {
-            data: {publicUrl},
-        } = supabase.storage.from('product-images').getPublicUrl(p.image_url + '.jpg');
-        return {
-            id: p.id,
-            title: p.title,
-            description: p.description || '',
-            price: p.price,
-            image_url: publicUrl,
-            weight: p.weight !== null ? String(p.weight) : "N/A",
-        };
+        p.image_url1 = supabase.storage.from('product-images').getPublicUrl(p.image_url1 + '.jpg').data.publicUrl;
+        p.image_url2 = supabase.storage.from('product-images').getPublicUrl(p.image_url2 + '.jpg').data.publicUrl;
+        return {...p, weight: p.weight !== null ? String(p.weight) : "N/A"};
     });
     return (
         <>
