@@ -1,10 +1,17 @@
-import React, {useState, useEffect, ChangeEvent} from 'react';
-import {supabase} from '@/lib/supabase';
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import { supabase } from '@/lib/supabase';
 
 export type Column<T> = {
     key: keyof T;
     label: string;
     editable?: boolean;
+    /**
+     * For dropdowns: either a static array of options,
+     * or a spec to fetch from another table.
+     */
+    options?:
+        | { value: any; label: string }[]
+        | { fromTable: string; valueKey: string; labelKey: string };
     render?: (value: any, row: T, refresh: () => void) => React.ReactNode;
 };
 
@@ -12,7 +19,7 @@ type CrudTableProps<T> = {
     table: string;
     columns: Column<T>[];
     uniqueKey: keyof T;
-    bucket?: string; // Supabase Storage bucket for images
+    bucket?: string;
     imageColumns?: { pathKey: keyof T; urlKey: keyof T };
 };
 
@@ -28,99 +35,110 @@ export function CrudTable<T extends Record<string, any>>({
     const [error, setError] = useState<string | null>(null);
     const [editingKey, setEditingKey] = useState<any | 'new' | null>(null);
     const [formValues, setFormValues] = useState<Partial<T>>({});
+    const [optionsMap, setOptionsMap] = useState<
+        Record<string, { value: any; label: string }[]>
+    >({});
 
+    // load table rows
     const refresh = async () => {
         setLoading(true);
-        const {data, error} = await supabase.from(table).select('*');
-        console.log('data', data);
+        const { data, error } = await supabase.from(table).select('*');
         if (error) setError(error.message);
         else setRows(data || []);
         setLoading(false);
     };
 
+    // fetch dropdown options where defined
+    useEffect(() => {
+        columns.forEach(col => {
+            if (col.options && !Array.isArray(col.options)) {
+                const { fromTable, valueKey, labelKey } = col.options;
+                if (!optionsMap[fromTable]) {
+                    supabase
+                        .from(fromTable)
+                        .select(`${valueKey},${labelKey}`)
+                        .then(({ data, error }) => {
+                            if (!error && data) {
+                                setOptionsMap(prev => ({
+                                    ...prev,
+                                    [fromTable]: data.map(row => ({
+                                        value: (row as any)[valueKey],
+                                        label: (row as any)[labelKey],
+                                    })),
+                                }));
+                            }
+                        });
+                }
+            }
+        });
+    }, [columns]);
+
     useEffect(() => {
         refresh();
-    }, []);
+    }, [table]);
 
+    // CRUD helpers
     const insert = async (newRow: Partial<T>) => {
-        const {data, error} = await supabase.from(table).insert(newRow).select();
+        const { data, error } = await supabase.from(table).insert(newRow).select();
         if (error) throw error;
         return data![0];
     };
 
     const updateRow = async (id: any, updates: Partial<T>) => {
-        const {data, error} = await supabase
+        const { data, error } = await supabase
             .from(table)
             .update(updates)
-            .eq(uniqueKey as string, String(id)).select();
+            .eq(String(uniqueKey), String(id))
+            .select();
         if (error) throw error;
         return data![0];
     };
 
     const deleteRow = async (id: any) => {
-        const {error} = await supabase.from(table).delete().eq(uniqueKey as string, String(id));
+        const { error } = await supabase.from(table).delete().eq(String(uniqueKey), String(id));
         if (error) throw error;
     };
 
-    // Image helpers
-    const uploadImage = async (
-        file: File
-    ): Promise<{ publicURL: string; path: string }> => {
-        if (!bucket) {
-            throw new Error('No bucket specified');
-        }
-
+    // image upload/delete logic
+    const uploadImage = async (file: File): Promise<{ publicURL: string; path: string }> => {
+        if (!bucket) throw new Error('No bucket specified');
         const path = `${Date.now()}_${file.name}`;
-
-        // upload
-        const {error: upErr} = await supabase.storage.from(bucket).upload(path, file);
-        if (upErr) {
-            throw upErr;
-        }
-
-        // get public URL
-        const {data: {publicUrl}} = supabase.storage.from(bucket).getPublicUrl(path);
-
-        if (!publicUrl) {
-            throw new Error('Failed to retrieve public URL');
-        }
-
-        return {
-            publicURL: publicUrl,
-            path,
-        };
+        const { error: upErr } = await supabase.storage.from(bucket).upload(path, file);
+        if (upErr) throw upErr;
+        const { data: { publicUrl } } = supabase.storage.from(bucket).getPublicUrl(path);
+        if (!publicUrl) throw new Error('Failed to retrieve public URL');
+        return { publicURL: publicUrl, path };
     };
 
     const deleteImage = async (path: string) => {
         if (!bucket) throw new Error('No bucket specified');
-        const {error} = await supabase.storage.from(bucket).remove([path]);
+        const { error } = await supabase.storage.from(bucket).remove([path]);
         if (error) throw error;
     };
 
-    const startNew = () => {
-        setEditingKey('new');
-        setFormValues({});
+    const handleFileChange = async (e: ChangeEvent<HTMLInputElement>, rowKey: any) => {
+        const file = e.target.files?.[0];
+        if (!file || !imageColumns) return;
+        try {
+            const { publicURL, path } = await uploadImage(file);
+            await updateRow(rowKey, {
+                [imageColumns.urlKey]: publicURL,
+                [imageColumns.pathKey]: path,
+            } as Partial<T>);
+            await refresh();
+        } catch (err: any) {
+            setError(err.message);
+        }
     };
 
-    const startEdit = (row: T) => {
-        console.log(row[uniqueKey], row, uniqueKey);
-        setEditingKey(row[uniqueKey]);
-        setFormValues(row);
-    };
-
-    const cancelEdit = () => {
-        setEditingKey(null);
-        setFormValues({});
-    };
+    const startNew = () => { setEditingKey('new'); setFormValues({}); };
+    const startEdit = (row: T) => { setEditingKey(row[uniqueKey]); setFormValues(row); };
+    const cancelEdit = () => { setEditingKey(null); setFormValues({}); };
 
     const save = async () => {
         try {
-            console.log('Saving', formValues, editingKey);
-            if (editingKey === 'new') {
-                await insert(formValues);
-            } else {
-                await updateRow(editingKey, formValues);
-            }
+            if (editingKey === 'new') await insert(formValues);
+            else await updateRow(editingKey, formValues);
             await refresh();
             cancelEdit();
         } catch (err: any) {
@@ -129,29 +147,15 @@ export function CrudTable<T extends Record<string, any>>({
     };
 
     const handleInputChange = (key: keyof T, value: any) => {
-        setFormValues(vals => ({...vals, [key]: value}));
+        setFormValues(vals => ({ ...vals, [key]: value }));
     };
 
-    const handleFileChange = async (e: ChangeEvent<HTMLInputElement>, row: T) => {
-        const file = e.target.files?.[0];
-        if (!file || !imageColumns) return;
-        try {
-            const {publicURL, path} = await uploadImage(file);
-            await updateRow(row[uniqueKey], {
-                [imageColumns.urlKey]: publicURL,
-                [imageColumns.pathKey]: path
-            } as Partial<T>);
-            await refresh();
-        } catch (err: any) {
-            setError(err.message);
-        }
-    };
-
+    // render table
     return (
         <div>
             <button onClick={startNew}>+ New</button>
             {loading && <p>Loading…</p>}
-            {error && <p style={{color: 'red'}}>{error}</p>}
+            {error && <p style={{ color: 'red' }}>{error}</p>}
             <table>
                 <thead>
                 <tr>
@@ -160,22 +164,44 @@ export function CrudTable<T extends Record<string, any>>({
                 </tr>
                 </thead>
                 <tbody>
+                {/* New row */}
                 {editingKey === 'new' && (
                     <tr>
                         {columns.map(col => (
                             <td key={String(col.key)}>
-                                {col.key === imageColumns?.urlKey ? (
-                                    <input type="file" accept="image/*"
-                                           onChange={e => handleFileChange(e, formValues as T)}/>
+                                {/* Image upload for new */}
+                                {imageColumns && col.key === imageColumns.urlKey ? (
+                                    <input type="file" accept="image/*" onChange={e => handleFileChange(e, null)} />
+                                ) : col.options ? (
+                                    /* dropdown logic */
+                                    Array.isArray(col.options)
+                                        ? (
+                                            <select
+                                                value={formValues[col.key] ?? ''}
+                                                onChange={e => handleInputChange(col.key, e.target.value)}
+                                            >
+                                                <option value="">Select...</option>
+                                                {col.options.map(opt => (
+                                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                                ))}
+                                            </select>
+                                        ) : optionsMap[col.options.fromTable] ? (
+                                            <select
+                                                value={formValues[col.key] ?? ''}
+                                                onChange={e => handleInputChange(col.key, e.target.value)}
+                                            >
+                                                <option value="">Select...</option>
+                                                {optionsMap[col.options.fromTable].map(opt => (
+                                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                                ))}
+                                            </select>
+                                        ) : <span>Loading options...</span>
                                 ) : col.editable ? (
                                     <input
                                         value={formValues[col.key] ?? ''}
                                         onChange={e => handleInputChange(col.key, e.target.value)}
-                                        placeholder={String(col.label)}
                                     />
-                                ) : (
-                                    '-'
-                                )}
+                                ) : '-'}
                             </td>
                         ))}
                         <td>
@@ -184,47 +210,82 @@ export function CrudTable<T extends Record<string, any>>({
                         </td>
                     </tr>
                 )}
+
+                {/* Existing rows */}
                 {rows.map(row => (
                     <tr key={String(row[uniqueKey])}>
-                        {columns.map(col => (
-                            <td key={String(col.key)}>
-                                {editingKey === row[uniqueKey] ? (
-                                    col.key === imageColumns?.urlKey ? (
-                                        row[imageColumns.pathKey] ? (
-                                            <>
-                                                <button onClick={async () => {
-                                                    await deleteImage(row[imageColumns.pathKey] as string);
-                                                    await updateRow(row[uniqueKey], {
-                                                        [imageColumns.urlKey]: null,
-                                                        [imageColumns.pathKey]: null
-                                                    } as Partial<T>);
-                                                    await refresh();
-                                                }}>🗑️
-                                                </button>
-                                                <input type="file" accept="image/*"
-                                                       onChange={e => handleFileChange(e, row)}/>
-                                            </>
-                                        ) : (
-                                            <input type="file" accept="image/*"
-                                                   onChange={e => handleFileChange(e, row)}/>
-                                        )
-                                    ) : col.editable ? (
-                                        <input
-                                            value={formValues[col.key] ?? ''}
-                                            onChange={e => handleInputChange(col.key, e.target.value)}
-                                        />
-                                    ) : col.render ? (
-                                        col.render(row[col.key], row, refresh)
-                                    ) : (
-                                        String(row[col.key] ?? '-')
-                                    )
-                                ) : col.render ? (
-                                    col.render(row[col.key], row, refresh)
-                                ) : (
-                                    String(row[col.key] ?? '-')
-                                )}
-                            </td>
-                        ))}
+                        {columns.map(col => {
+                            const value = row[col.key];
+                            // editing row
+                            if (editingKey === row[uniqueKey]) {
+                                // image edit
+                                if (imageColumns && col.key === imageColumns.urlKey) {
+                                    return (
+                                        <td key={String(col.key)}>
+                                            {row[imageColumns.pathKey] ? (
+                                                <>
+                                                    <button onClick={async () => {
+                                                        await deleteImage(row[imageColumns.pathKey] as string);
+                                                        await updateRow(row[uniqueKey], { [imageColumns.urlKey]: null, [imageColumns.pathKey]: null } as Partial<T>);
+                                                        await refresh();
+                                                    }}>🗑️</button>
+                                                    <input type="file" accept="image/*" onChange={e => handleFileChange(e, row[uniqueKey])} />
+                                                </>
+                                            ) : (
+                                                <input type="file" accept="image/*" onChange={e => handleFileChange(e, row[uniqueKey])} />
+                                            )}
+                                        </td>
+                                    );
+                                }
+                                // dropdown
+                                if (col.options) {
+                                    const opts = Array.isArray(col.options)
+                                        ? col.options
+                                        : optionsMap[col.options.fromTable] || [];
+                                    return (
+                                        <td key={String(col.key)}>
+                                            <select
+                                                value={formValues[col.key] ?? ''}
+                                                onChange={e => handleInputChange(col.key, e.target.value)}
+                                            >
+                                                <option value="">Select...</option>
+                                                {opts.map(opt => (
+                                                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                                                ))}
+                                            </select>
+                                        </td>
+                                    );
+                                }
+                                // text input
+                                if (col.editable) {
+                                    return (
+                                        <td key={String(col.key)}>
+                                            <input
+                                                value={formValues[col.key] ?? ''}
+                                                onChange={e => handleInputChange(col.key, e.target.value)}
+                                            />
+                                        </td>
+                                    );
+                                }
+                            }
+                            // display mode
+                            if (imageColumns && col.key === imageColumns.urlKey) {
+                                return (
+                                    <td key={String(col.key)}>
+                                        {value ? <img src={String(value)} width={50} alt="img" /> : '-'}
+                                    </td>
+                                );
+                            }
+                            if (col.render) return <td key={String(col.key)}>{col.render(value, row, refresh)}</td>;
+                            if (col.options) {
+                                const opts = Array.isArray(col.options)
+                                    ? col.options
+                                    : optionsMap[col.options.fromTable] || [];
+                                const found = opts.find(o => o.value === value);
+                                return <td key={String(col.key)}>{found ? found.label : String(value)}</td>;
+                            }
+                            return <td key={String(col.key)}>{String(value ?? '-')}</td>;
+                        })}
                         <td>
                             {editingKey === row[uniqueKey] ? (
                                 <>
