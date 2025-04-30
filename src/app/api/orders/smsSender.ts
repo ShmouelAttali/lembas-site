@@ -39,11 +39,18 @@ ${fulfillmentLine}
 
 export function sendSmsNotification(customer: CustomerInfo, order: OrderInfo, items: ItemInfo[]) {
     const message = buildOrderMessage(customer, order, items)
+    // twilioClient.messages
+    //     .create({
+    //         body: message,
+    //         messagingServiceSid: process.env.TWILIO_MESSAGING_SERVICE_SID,
+    //         to: toE164(customer.phone),
+    //     })
+    //     .catch(console.error);
     twilioClient.messages
         .create({
             body: message,
-            messagingServiceSid: process.env.TWILIO_MESSAGING_SERVICE_SID,
-            to: toE164(customer.phone),
+            from: `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`,
+            to: `whatsapp:${toE164(customer.phone)}`,
         })
         .catch(console.error);
 }

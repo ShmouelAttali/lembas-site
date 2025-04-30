@@ -1,6 +1,6 @@
 /* styles/styles.css */
 
-/* --- Variables & resets --- */
+/* --- Variables & Resets --- */
 :root {
     --clr-bg: #a7b68c;
     --clr-bg-secondary: #f3e4d6;
@@ -26,7 +26,7 @@ body {
     text-align: right;
 }
 
-/* --- Layout container --- */
+/* --- Layout Container --- */
 .container {
     width: 100%;
     max-width: 1200px;
@@ -34,7 +34,7 @@ body {
     padding: 0 var(--gap);
 }
 
-/* --- Header --- */
+/* --- Header (non-nav parts) --- */
 .header {
     position: sticky;
     top: 0;
@@ -47,160 +47,46 @@ body {
 .header-inner {
     display: flex;
     align-items: center;
-    gap: var(--gap);
     padding: var(--gap) 0;
-    height: 64px; /* adjust as needed */
-}
-
-/* Logo + site name */
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    flex-shrink: 0;
-}
-
-.logo-svg {
-    height: 65px;
-    margin-left: 10px;
-}
-
-.site-name {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 0;
-}
-
-/* --- Main navigation --- */
-.main-nav {
-    display: flex;
-    gap: var(--gap);
-    flex-grow: 1;
-    margin-inline-start: var(--gap);
-    /*background: var(--clr-bg);*/
-    padding: 0.5rem;
-    flex-direction: row-reverse;
-    /*border-radius: var(--radius);*/
-}
-
-.main-nav a {
-    padding: 0.25rem 0.5rem;
-    color: var(--clr-text);
-    font-weight: 500;
-    text-decoration: none;
-    border-radius: var(--radius);
-    float: left;
-}
-
-.main-nav a:hover {
-    background: var(--clr-primary);
-    color: white;
-}
-
-.main-nav a.active {
-    background: var(--clr-secondary);
-    color: white;
-
-    & a:hover {
-        background: var(--clr-primary);
-        color: white;
-    }
-}
-
-@media (min-width: 640px) {
-    .main-nav {
-    }
 }
 
 /* --- Cart Minimized --- */
 .cart-minimized {
-    position: relative; /* for the badge */
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 4px; /* small gap between icon and text */
-    margin-inline-start: auto; /* push to the right in RTL */
-    padding: 4px 8px; /* enough padding to breathe */
+    gap: 4px;
+    padding: 4px 8px;
     background: var(--clr-bg);
     border-radius: var(--radius);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5%);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     cursor: pointer;
     color: var(--clr-text);
-
-    &:hover {
-        background: var(--clr-primary);
-        color: white;
-
-        .bag-icon {
-            background: url('../../public/icons/bag-hovered.svg');
-        }
-    }
 }
 
-
-/* Icon size stays 24×24 */
 .cart-minimized .bag-icon {
-    background: url('../../public/icons/bag.svg');
+    background: url('../../public/icons/bag.svg') no-repeat center;
     width: 30px;
     height: 30px;
 }
 
-
-.cart-popup {
-    position: absolute;
-    top: 1.7rem; /* adjust to sit above the cart */
-    inset-inline-start: 50%; /* center horizontally in LTR/RTL */
-    /*transform: scale(50%);*/
-    background: var(--clr-text);
-    color: white;
-    padding: 0.25rem 0.5rem;
-    border-radius: var(--radius);
-    font-size: 0.85rem;
-    white-space: nowrap;
-    pointer-events: none;
-    /*opacity: 100%;*/
-    animation: fadeInOut 2s ease forwards;
-}
-
-@keyframes fadeInOut {
-    0% {
-        opacity: 0;
-        transform: scale(80%);
-    }
-    10% {
-        opacity: 1;
-        transform: scale(100%);
-    }
-    90% {
-        opacity: 1;
-        transform: scale(100%);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(80%);
-    }
-}
-
-
-/* Hide the text summary by default on small screens */
 .cart-minimized .cart-summary {
     display: none;
-
 }
 
-/* Show summary on tablets/desktop (≥640px) */
-@media (min-width: 640px) {
-    .cart-minimized .cart-summary {
-        display: inline-block;
-        font-size: 0.85rem;
-        margin-inline-start: 4px; /* space after the icon */
-    }
+.cart-minimized:hover {
+    background: var(--clr-primary);
+    color: white;
 }
 
-/* Badge in top-inner corner */
-.cart-minimized {
+.cart-minimized:hover .bag-icon {
+    background-image: url('../../public/icons/bag-hovered.svg');
+}
+
+.cart-minimized .badge {
     position: absolute;
     top: 2px;
-    inset-inline-start: 2px; /* in RTL this puts it on the right edge */
+    inset-inline-end: 2px;
     background: var(--clr-secondary);
     color: white;
     font-size: 0.625rem;
@@ -211,31 +97,60 @@ body {
     text-align: center;
 }
 
+/* Cart Popup */
+.cart-popup {
+    position: absolute;
+    top: 1.7rem;
+    inset-inline-start: 50%;
+    background: var(--clr-text);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: fadeInOut 2s ease forwards;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    10%, 90% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+/* --- User Controls & Cover Photo --- */
 .user-controls {
     margin-right: 0.5rem;
-
-    .rounded-full {
-        border-radius: 8px;
-        margin-left: 0.5rem;
-    }
-
-    .user-name {
-        vertical-align: 0.75rem;
-    }
-
-    .btn-icon {
-        vertical-align: 0.6rem;
-        margin-right: 0.5rem;
-    }
+}
+.user-controls .rounded-full {
+    border-radius: 8px;
+    margin-left: 0.5rem;
+}
+.user-controls .user-name {
+    vertical-align: 0.75rem;
+}
+.user-controls .btn-icon {
+    vertical-align: 0.6rem;
+    margin-right: 0.5rem;
 }
 
 .cover-photo {
     margin-top: 1rem;
     width: 100%;
     height: auto;
+    object-fit: cover;
 }
 
-/* --- Booking section --- */
+/* --- Booking Section --- */
 .booking {
     padding: var(--gap);
     background: var(--clr-bg-secondary);
@@ -243,19 +158,16 @@ body {
     border-radius: var(--radius);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 }
-
 .booking h2 {
     margin-bottom: var(--gap);
     font-size: 1.2rem;
 }
-
 .dates {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: var(--gap);
 }
-
 .date-btn {
+    width: 100%;
     padding: 12px;
     background: var(--clr-primary);
     color: var(--clr-bg-secondary);
@@ -265,23 +177,21 @@ body {
     font-size: 1rem;
     transition: background 0.2s;
     text-align: center;
-    margin: 5px;
-    &.selected,
-    &:hover,
-    &.active {
-        background-color: var(--clr-secondary); /* Highlight background */
-    }
+    margin: 0;
+}
+.date-btn.selected,
+.date-btn:hover,
+.date-btn.active {
+    background: var(--clr-secondary);
 }
 
-
-/* --- Products list --- */
+/* --- Products List --- */
 .products {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--gap);
     padding: var(--gap) 0;
 }
-
 .product-card {
     background: white;
     border-radius: var(--radius);
@@ -290,42 +200,26 @@ body {
     flex-direction: column;
     overflow: hidden;
 }
-
-.product-thumb {
+.product-thumb img {
     width: 100%;
-    height: 100%;
-    padding-bottom: 2rem; /* 16:9 ratio */
-    position: relative;
+    height: auto;
+    object-fit: cover;
 }
-
-.product-thumb img,
-    /*.product-thumb :global(img) {*/
-    /*  position: absolute;*/
-    /*  top: 0;*/
-    /*  left: 0;*/
-    /*  width: 100%;*/
-    /*  height: 100%;*/
-    /*  object-fit: cover;*/
-    /*}*/
-
 .product-info {
     padding: var(--gap);
     flex: 1;
     display: flex;
     flex-direction: column;
 }
-
 .product-info h3 {
     margin-bottom: 8px;
     font-size: 1.25rem;
 }
-
 .product-info p {
     flex: 1;
     color: var(--clr-muted);
     margin-bottom: var(--gap);
 }
-
 .add-to-cart {
     align-self: flex-end;
     padding: 8px 16px;
@@ -336,7 +230,111 @@ body {
     cursor: pointer;
     transition: background 0.2s;
 }
-
 .add-to-cart:hover {
     background: var(--clr-primary);
+}
+
+/* --- Desktop & Tablet (≥640px) non-nav overrides --- */
+@media (min-width: 640px) {
+    .header-inner {
+        justify-content: flex-start;
+    }
+
+    /* Products: adjust to auto-fill layout on wider screens */
+    .products {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+
+    /* Dates grid back to multiple columns */
+    .dates {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    /* Show cart summary on desktop */
+    .cart-minimized .cart-summary {
+        display: inline-block;
+        font-size: 0.85rem;
+        margin-inline-start: 4px;
+    }
+}
+/* styles/main-nav.css */
+
+/* --- Main Navigation Wrapper --- */
+.main-nav {
+    position: relative;
+}
+
+/* Top bar: always show Home + toggle */
+.nav-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--gap);
+    padding: 0 var(--gap);
+}
+
+/* Hamburger button (always visible for admins) */
+.mobile-menu-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--clr-text);
+    display: block;
+}
+
+/* Off-canvas menu items (mobile first) */
+.menu-items {
+    position: absolute;
+    top: 100%;
+    inset-inline-start: 0;
+    background: var(--clr-bg-secondary);
+    width: 80%;
+    max-width: 250px;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    padding: var(--gap);
+    border-radius: var(--radius) 0 0 var(--radius);
+    z-index: 40;
+}
+
+/* Slide in when “show” is toggled */
+.menu-items.show {
+    transform: translateX(0);
+}
+
+/* Links inside the drawer */
+.menu-items a {
+    padding: 0.5rem;
+    color: var(--clr-text);
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: var(--radius);
+}
+.menu-items a:hover {
+    background: var(--clr-primary);
+    color: white;
+}
+.menu-items a.active {
+    background: var(--clr-secondary);
+    color: white;
+}
+
+/* Desktop & Tablet (≥640px): always show links in a row */
+@media (min-width: 640px) {
+    .menu-items {
+        position: static;
+        transform: none !important;
+        display: flex !important;
+        flex-direction: row-reverse;
+        background: none;
+        padding: 0 var(--gap);
+        gap: var(--gap);
+        width: auto;
+        max-width: none;
+        border-radius: 0;
+    }
 }

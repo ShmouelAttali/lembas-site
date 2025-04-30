@@ -13,8 +13,7 @@ export default function ProductThumb({product}: { product: Product }) {
             <img src={swapped ? product.image_url1 : product.image_url2} alt={product.title} className="product-thumb"
                  onMouseEnter={() => setSwapped(true)}
                  onMouseLeave={() => setSwapped(false)}
-                 onTouchStart={() => setSwapped(true)}
-                 onTouchEnd={() => setSwapped(false)}/>
+                 onClick={() => setSwapped(prevState => !prevState)}/>
             <div className="product-info">
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>

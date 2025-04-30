@@ -17,7 +17,7 @@ const calculateSectionValues = (curQuantity: number, starterRatio: number, water
 export default function CalculatorPage() {
     const waterRatio = 1.2;
     const flourRatio = 1;
-    const [quantity, setQuantity] = useState(0);
+    const [quantity, setQuantity] = useState<number|string>(0);
     const [feedCount, setFeedCount] = useState(2);
     const [feedHours, setFeedHours] = useState<{ [key: number]: number }>({
         1: 12,
@@ -40,7 +40,7 @@ export default function CalculatorPage() {
             const curQty = sec === feedCount
                 ? quantity
                 : next[sec + 1].starter;
-            next[sec] = calculateSectionValues(curQty, starterRatios[hours], waterRatio, flourRatio);
+            next[sec] = calculateSectionValues(+curQty, starterRatios[hours], waterRatio, flourRatio);
         }
         setSectionValues(next);
     }, [feedCount, feedHours, quantity]);
@@ -52,7 +52,12 @@ export default function CalculatorPage() {
                 <input
                     type="number"
                     value={quantity}
-                    onChange={e => setQuantity(+e.target.value)}
+                    onFocus={() => quantity === 0 && setQuantity('')}
+                    onBlur={() => quantity === '' && setQuantity(0)}
+                    onChange={e => setQuantity(e.target.value === ''
+                        ? ''
+                        : +e.target.value
+                    )}
                 />
                 גרם
             </div>

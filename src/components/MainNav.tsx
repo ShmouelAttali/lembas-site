@@ -8,7 +8,6 @@ import {useSessionContext} from "@supabase/auth-helpers-react";
 export default function MainNav() {
     const path = usePathname();
     const {session} = useSessionContext();
-    console.log(session);
     const isAdmin = session?.user?.app_metadata?.role === 'admin';
 
     return (
