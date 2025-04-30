@@ -41,7 +41,6 @@ const Header: FC<HeaderProps> = ({ siteName }) => {
                     <h1 className="site-name">{siteName}</h1>
                 </div>
 
-                <MainNav />
 
                 <CartMinimized />
 
@@ -73,7 +72,9 @@ const Header: FC<HeaderProps> = ({ siteName }) => {
                             <User size={20} />
                         </Link>
                     )}
+
                 </div>
+                <MainNav />
             </div>
         </header>
     );
