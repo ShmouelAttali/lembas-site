@@ -5,7 +5,6 @@ import React, {useState} from "react";
 import Link from "next/link";
 import '@/styles/main-nav.css'
 import Image from "next/image";
-import {LogOut, User} from "lucide-react";
 
 export default function MainNav() {
     const {session, supabaseClient} = useSessionContext();
@@ -71,7 +70,7 @@ export default function MainNav() {
                             התחבר/הרשם
                         </Link></>
                 }
-                <div className="line"/>
+                <div className="line"></div>
                 <Link href="/" className={path === '/' ? 'active' : ''}>
                     בית
                 </Link>
