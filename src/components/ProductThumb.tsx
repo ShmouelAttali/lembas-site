@@ -10,7 +10,7 @@ export default function ProductThumb({product}: { product: Product }) {
 
     return (
         <div key={product.id} className="product-card">
-            <img src={swapped ? product.image_url1 : product.image_url2} alt={product.title} className="product-thumb"
+            <img src={swapped ? product.image_url2 : product.image_url1} alt={product.title} className="product-thumb"
                  onMouseEnter={() => setSwapped(true)}
                  onMouseLeave={() => setSwapped(false)}
                  onClick={() => setSwapped(prevState => !prevState)}/>

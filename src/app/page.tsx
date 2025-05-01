@@ -24,7 +24,7 @@ export default async function HomePage() {
     });
     return (
         <>
-            <img src='/bread.jpg' alt="Bread" className="cover-photo"/>
+            <img src='/bread1.JPG' alt="Bread" className="cover-photo"/>
             <section className="booking">
                 <h2>בחר תאריך להזמנה</h2>
                 <SelectOrderDate dates={dates}/>
