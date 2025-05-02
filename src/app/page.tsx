@@ -25,7 +25,11 @@ export default async function HomePage() {
     });
     return (
         <>
-            <Image src='/bread1.JPG' alt="Bread" className="cover-photo" sizes="(max-width: 768px) 100vw, 50vw" />
+            <Image src='/bread1.JPG'
+                   alt="Bread" className="cover-photo"
+                   width={800}      // actual image width in px
+                   height={600}     // actual image height in px
+                   />
             <section className="booking">
                 <h2>בחר תאריך להזמנה</h2>
                 <SelectOrderDate dates={dates}/>
