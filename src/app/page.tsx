@@ -18,8 +18,8 @@ export default async function HomePage() {
     const {data: datesStr} = await supabase.from('order_dates').select('date').gt('date', tomorrow).limit(3).order('date');
     const dates = datesStr?.map(d => new Date(d.date)) ?? [];
     const prods = (products || []).map((p) => {
-        p.image_url1 = supabase.storage.from('product-images').getPublicUrl(p.image_url1 + '.jpg').data.publicUrl;
-        p.image_url2 = supabase.storage.from('product-images').getPublicUrl(p.image_url2 + '.jpg').data.publicUrl;
+        p.image_url1 = supabase.storage.from('product-images').getPublicUrl(p.slug + '1-thumb.jpg').data.publicUrl;
+        p.image_url2 = supabase.storage.from('product-images').getPublicUrl(p.slug + '2-thumb.jpg').data.publicUrl;
         return {...p, weight: p.weight !== null ? String(p.weight) : "N/A"};
     });
     return (
