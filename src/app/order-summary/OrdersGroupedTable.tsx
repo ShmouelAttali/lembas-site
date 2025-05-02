@@ -17,7 +17,9 @@ const groupByDate = (orders: any[]) => {
         if (!grouped[key]) grouped[key] = [];
         grouped[key].push(order);
     }
-    return Object.entries(grouped);
+    return Object.entries(grouped).sort(([dateA], [dateB]) => {
+        return new Date(dateA).getTime() - new Date(dateB).getTime();
+    });
 };
 
 const groupProducts = (orders: any[]) => {
