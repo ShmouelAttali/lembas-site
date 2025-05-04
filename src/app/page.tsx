@@ -3,6 +3,7 @@ import ProductList from '@/components/ProductList';
 import {supabaseServer} from '@/lib/supabase-server';
 import {addDays} from '@/app/utils';
 import SelectOrderDate from '@/components/SelectOrderDate';
+import Image from "next/image";
 
 export default async function HomePage() {
     const supabase = await supabaseServer();
@@ -24,7 +25,11 @@ export default async function HomePage() {
     });
     return (
         <>
-            <img src='/bread1.JPG' alt="Bread" className="cover-photo"/>
+            <Image src='/bread1.JPG'
+                   alt="Bread" className="cover-photo"
+                   width={800}      // actual image width in px
+                   height={600}     // actual image height in px
+                   />
             <section className="booking">
                 <h2>בחר תאריך להזמנה</h2>
                 <SelectOrderDate dates={dates}/>

@@ -2,18 +2,28 @@
 
 import {useCart} from "@/contexts/CartContext";
 import {Product} from "@/components/ProductList";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import Image from "next/image";
 
 export default function ProductThumb({product}: { product: Product }) {
     const {addItem} = useCart();
     const [swapped, setSwapped] = useState(false);
 
+    useEffect(() => {
+        // Kick off a background load of the alternate image
+        const img = new window.Image()
+        img.src = product.image_url2
+    }, [product.image_url2])
+
     return (
         <div key={product.id} className="product-card">
-            <img src={swapped ? product.image_url2 : product.image_url1} alt={product.title} className="product-thumb"
-                 onMouseEnter={() => setSwapped(true)}
-                 onMouseLeave={() => setSwapped(false)}
-                 onClick={() => setSwapped(prevState => !prevState)}/>
+            <Image src={swapped ? product.image_url2 : product.image_url1} alt={product.title}
+                   width={300}      // actual image width in px
+                   height={300}     // actual image height in px
+                   className="product-thumb"
+                   onMouseEnter={() => setSwapped(true)}
+                   onMouseLeave={() => setSwapped(false)}
+                   onClick={() => setSwapped(prevState => !prevState)}/>
             <div className="product-info">
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
