@@ -290,7 +290,7 @@ h1 {
     overflow: hidden;
 }
 
-.product-thumb img {
+.product-thumb {
     width: 100%;
     height: auto;
     object-fit: cover;
@@ -332,7 +332,7 @@ h1 {
 
 /* Products: adjust to auto-fill layout on wider screens */
 .products {
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
 /* Dates grid back to multiple columns */
@@ -348,39 +348,38 @@ h1 {
 }
 .loginForm, .registerForm {
     padding: var(--gap);
+}
 
-    >* {
-       display: block;
-        &input {
-            margin-bottom: var(--gap);
-            padding: 5px;
-            border-radius: 4px;
-        }
+.loginForm input, .registerForm input {
+    display: block;
+    margin-bottom: var(--gap);
+    padding: 5px;
+    border-radius: 4px;
+}
 
-        &button {
-            padding: 10px var(--gap);
-            border-radius: 6px;
-            border: 0;
-            background-color: var(--clr-secondary);
-            color: white;
-            &:hover {
-                background: var(--clr-primary);
-                cursor: pointer;
-            }
-        }
+.loginForm button, .registerForm button {
+    display: block;
+    padding: 10px var(--gap);
+    border-radius: 6px;
+    border: 0;
+    background-color: var(--clr-secondary);
+    color: white;
+}
 
-    }
+.loginForm button:hover, .registerForm button:hover {
+    background: var(--clr-primary);
+    cursor: pointer;
+}
 
-    .divider {
-        margin-top: var(--gap);
-    }
+.loginForm .divider, .registerForm .divider {
+    margin-top: var(--gap);
+}
 
-    .line {
-        margin: 25px 0;
-        width: 50%;
-        height: 1px;
-        background: var(--clr-text);
-    }
+.loginForm .line, .registerForm .line {
+    margin: 25px 0;
+    width: 50%;
+    height: 1px;
+    background: var(--clr-text);
 }
 
 .cart, .orderSummary, .payment {
