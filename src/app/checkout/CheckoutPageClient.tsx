@@ -5,6 +5,7 @@ import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {CustomerInfo, CustomerInfoUi} from "@/types/types";
 import {EmptyCartMessage} from "@/components/EmptyCartMessage";
+import {OrderDateBanner} from "@/components/OrderDateBanner";
 import SelectOrderDate from "@/components/SelectOrderDate";
 import {OrderSummary} from "@/components/OrderSummary";
 import {CustomerForm} from "@/components/CustomerForm";

@@ -2,6 +2,7 @@ import CheckoutPageClient from "@/app/checkout/CheckoutPageClient";
 import {addDays} from "@/app/utils";
 import {supabaseServer} from "@/lib/supabase-server";
 
+const STORAGE_KEY = 'checkout_info';
 export default async function CheckoutPage() {
     const tomorrow = addDays(new Date(), 1).toISOString().slice(0, 10);
     const supabase = await supabaseServer();

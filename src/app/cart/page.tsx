@@ -6,7 +6,8 @@ import { supabase } from '@/lib/supabase';
 import { useCart } from '@/contexts/CartContext';
 import { EmptyCartMessage } from '@/components/EmptyCartMessage';
 import styles from './page.module.css';
-import {Trash} from "lucide-react";
+import {LucideTrash, Trash, TrashIcon} from "lucide-react";
+import {blue} from "next/dist/lib/picocolors";
 
 export default function CartPage() {
     const { items, total, clearCart, updateItem, removeItem } = useCart();

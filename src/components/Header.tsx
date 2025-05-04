@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import MainNav from './MainNav';
 import CartMinimized from './CartMinimized';
 import type {FC} from 'react';
@@ -16,7 +15,7 @@ const Header: FC<HeaderProps> = ({siteName}) => {
     return (
         <header className="header">
             <div className="container header-inner">
-                <Link href="/" className="logo-container">
+                <a href="/" className="logo-container">
                     <Image
                         className={"logo-svg"}
                         src="/lembasLogo.svg"
@@ -25,7 +24,7 @@ const Header: FC<HeaderProps> = ({siteName}) => {
                         height={65}
                     />
                     <h1 className="site-name">{siteName}</h1>
-                </Link>
+                </a>
 
                 <div className="header-button-items">
                     <CartMinimized/>
