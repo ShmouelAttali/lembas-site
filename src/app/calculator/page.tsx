@@ -17,7 +17,7 @@ const calculateSectionValues = (curQuantity: number, starterRatio: number, water
 export default function CalculatorPage() {
     const waterRatio = 1.2;
     const flourRatio = 1;
-    const [quantity, setQuantity] = useState<number|string>(0);
+    const [quantity, setQuantity] = useState<number | string>(0);
     const [feedCount, setFeedCount] = useState(2);
     const [feedHours, setFeedHours] = useState<{ [key: number]: number }>({
         1: 12,
@@ -25,15 +25,13 @@ export default function CalculatorPage() {
     });
     const [sectionValues, setSectionValues] = useState<{ [sec: number]: SectionVals }>({});
 
-    const starterRatios: { [key: number]: number } = {
-        3: 1,
-        7: 0.2,
-        12: 0.05,
-        15: 0.01,
-    };
-
-
     useEffect(() => {
+        const starterRatios: { [key: number]: number } = {
+            3: 1,
+            7: 0.2,
+            12: 0.05,
+            15: 0.01,
+        };
         const next: { [k: number]: SectionVals } = {};
         for (let sec = feedCount; sec >= 1; sec--) {
             const hours = feedHours[sec] ?? 0;

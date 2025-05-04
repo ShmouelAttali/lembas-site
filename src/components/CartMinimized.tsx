@@ -22,7 +22,7 @@ export default function CartMinimized() {
         }
     }, [count, controls]);
 
-    // 2) Popup guard: only allow popups after the first 500ms
+    // 2) Popup guard: only allow popups after the first 500 ms
     const [allowPopup, setAllowPopup] = useState(false);
     useEffect(() => {
         const t = setTimeout(() => setAllowPopup(true), 500);
@@ -35,7 +35,6 @@ export default function CartMinimized() {
 
     useEffect(() => {
         if (!allowPopup) {
-            // before we’re “armed”, just prime prevCount
             prevCount.current = count;
             return;
         }

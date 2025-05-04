@@ -13,7 +13,7 @@ export default function RegisterPage() {
     const [error, setError]       = useState<string>('');
 
     // 1) Handle Google callback: after OAuth, Supabase will redirect you back
-    //    with a ?access_token=… in the URL. We can detect that and redirect home.
+    //    with an "?access_token=…" in the URL. We can detect that and redirect home.
     useEffect(() => {
         if (params.get('access_token') || params.get('refresh_token')) {
             // user is now signed in

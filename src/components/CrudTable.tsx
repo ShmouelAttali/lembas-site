@@ -1,12 +1,12 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
-import { supabase } from '@/lib/supabase';
+import React, {useState, useEffect, ChangeEvent} from 'react';
+import {supabase} from '@/lib/supabase';
 
 export type Column<T> = {
     key: keyof T;
     label: string;
     editable?: boolean;
     /**
-     * For dropdowns: either a static array of options,
+     * For dropdowns: either a static array of options
      * or a spec to fetch from another table.
      */
     options?:
@@ -17,7 +17,7 @@ export type Column<T> = {
 
 type CrudTableProps<T> = {
     table: string;
-    definitions: {orderBy: string, columns:Column<T>[]};
+    definitions: { orderBy: string, columns: Column<T>[] };
     uniqueKey: keyof T;
     bucket?: string;
     imageColumns?: { pathKey: keyof T; urlKey: keyof T };
@@ -42,7 +42,7 @@ export function CrudTable<T extends Record<string, any>>({
     // load table rows
     const refresh = async () => {
         setLoading(true);
-        const { data, error } = await supabase.from(table).select('*').order(definitions.orderBy, { ascending: true });
+        const {data, error} = await supabase.from(table).select('*').order(definitions.orderBy, {ascending: true});
         if (error) setError(error.message);
         else setRows(data || []);
         setLoading(false);
@@ -50,28 +50,44 @@ export function CrudTable<T extends Record<string, any>>({
 
     // fetch dropdown options where defined
     useEffect(() => {
-        definitions.columns.forEach(col => {
-            if (col.options && !Array.isArray(col.options)) {
-                const { fromTable, valueKey, labelKey } = col.options;
-                if (!optionsMap[fromTable]) {
-                    supabase
-                        .from(fromTable)
-                        .select(`${valueKey},${labelKey}`)
-                        .then(({ data, error }) => {
-                            if (!error && data) {
-                                setOptionsMap(prev => ({
-                                    ...prev,
-                                    [fromTable]: data.map(row => ({
-                                        value: (row as any)[valueKey],
-                                        label: (row as any)[labelKey],
-                                    })),
-                                }));
-                            }
-                        });
-                }
-            }
+        const tablesToFetch = definitions.columns
+            .filter(col => col.options && !Array.isArray(col.options))
+            .map(col => {
+                const opts = col.options as { fromTable: string; valueKey: string; labelKey: string };
+                return opts.fromTable;
+            })
+            .filter(fromTable => !optionsMap[fromTable]);
+
+        if (!tablesToFetch.length) return;
+
+        tablesToFetch.forEach(fromTable => {
+            const col = definitions.columns.find(c =>
+                c.options &&
+                !Array.isArray(c.options) &&
+                (c.options as { fromTable: string }).fromTable === fromTable
+            );
+
+            if (!col || !col.options || Array.isArray(col.options)) return;
+
+            const {valueKey, labelKey} = col.options;
+
+            supabase
+                .from(fromTable)
+                .select(`${valueKey},${labelKey}`)
+                .then(({data, error}) => {
+                    if (!error && data) {
+                        setOptionsMap(prev => ({
+                            ...prev,
+                            [fromTable]: data.map(row => ({
+                                value: (row as any)[valueKey],
+                                label: (row as any)[labelKey],
+                            })),
+                        }));
+                    }
+                });
         });
-    }, [definitions.columns]);
+    }, [definitions.columns, optionsMap]);
+
 
     useEffect(() => {
         refresh();
@@ -79,13 +95,13 @@ export function CrudTable<T extends Record<string, any>>({
 
     // CRUD helpers
     const insert = async (newRow: Partial<T>) => {
-        const { data, error } = await supabase.from(table).insert(newRow).select();
+        const {data, error} = await supabase.from(table).insert(newRow).select();
         if (error) throw error;
         return data![0];
     };
 
     const updateRow = async (id: any, updates: Partial<T>) => {
-        const { data, error } = await supabase
+        const {data, error} = await supabase
             .from(table)
             .update(updates)
             .eq(String(uniqueKey), String(id))
@@ -95,7 +111,7 @@ export function CrudTable<T extends Record<string, any>>({
     };
 
     const deleteRow = async (id: any) => {
-        const { error } = await supabase.from(table).delete().eq(String(uniqueKey), String(id));
+        const {error} = await supabase.from(table).delete().eq(String(uniqueKey), String(id));
         if (error) throw error;
     };
 
@@ -103,16 +119,16 @@ export function CrudTable<T extends Record<string, any>>({
     const uploadImage = async (file: File): Promise<{ publicURL: string; path: string }> => {
         if (!bucket) throw new Error('No bucket specified');
         const path = `${Date.now()}_${file.name}`;
-        const { error: upErr } = await supabase.storage.from(bucket).upload(path, file);
+        const {error: upErr} = await supabase.storage.from(bucket).upload(path, file);
         if (upErr) throw upErr;
-        const { data: { publicUrl } } = supabase.storage.from(bucket).getPublicUrl(path);
+        const {data: {publicUrl}} = supabase.storage.from(bucket).getPublicUrl(path);
         if (!publicUrl) throw new Error('Failed to retrieve public URL');
-        return { publicURL: publicUrl, path };
+        return {publicURL: publicUrl, path};
     };
 
     const deleteImage = async (path: string) => {
         if (!bucket) throw new Error('No bucket specified');
-        const { error } = await supabase.storage.from(bucket).remove([path]);
+        const {error} = await supabase.storage.from(bucket).remove([path]);
         if (error) throw error;
     };
 
@@ -120,7 +136,7 @@ export function CrudTable<T extends Record<string, any>>({
         const file = e.target.files?.[0];
         if (!file || !imageColumns) return;
         try {
-            const { publicURL, path } = await uploadImage(file);
+            const {publicURL, path} = await uploadImage(file);
             await updateRow(rowKey, {
                 [imageColumns.urlKey]: publicURL,
                 [imageColumns.pathKey]: path,
@@ -131,9 +147,18 @@ export function CrudTable<T extends Record<string, any>>({
         }
     };
 
-    const startNew = () => { setEditingKey('new'); setFormValues({}); };
-    const startEdit = (row: T) => { setEditingKey(row[uniqueKey]); setFormValues(row); };
-    const cancelEdit = () => { setEditingKey(null); setFormValues({}); };
+    const startNew = () => {
+        setEditingKey('new');
+        setFormValues({});
+    };
+    const startEdit = (row: T) => {
+        setEditingKey(row[uniqueKey]);
+        setFormValues(row);
+    };
+    const cancelEdit = () => {
+        setEditingKey(null);
+        setFormValues({});
+    };
 
     const save = async () => {
         try {
@@ -147,7 +172,7 @@ export function CrudTable<T extends Record<string, any>>({
     };
 
     const handleInputChange = (key: keyof T, value: any) => {
-        setFormValues(vals => ({ ...vals, [key]: value }));
+        setFormValues(vals => ({...vals, [key]: value}));
     };
 
     // render table
@@ -155,7 +180,7 @@ export function CrudTable<T extends Record<string, any>>({
         <div>
             <button onClick={startNew}>+ New</button>
             {loading && <p>Loading…</p>}
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && <p style={{color: 'red'}}>{error}</p>}
             <table>
                 <thead>
                 <tr>
@@ -171,7 +196,7 @@ export function CrudTable<T extends Record<string, any>>({
                             <td key={String(col.key)}>
                                 {/* Image upload for new */}
                                 {imageColumns && col.key === imageColumns.urlKey ? (
-                                    <input type="file" accept="image/*" onChange={e => handleFileChange(e, null)} />
+                                    <input type="file" accept="image/*" onChange={e => handleFileChange(e, null)}/>
                                 ) : col.options ? (
                                     /* dropdown logic */
                                     Array.isArray(col.options)
@@ -226,13 +251,19 @@ export function CrudTable<T extends Record<string, any>>({
                                                 <>
                                                     <button onClick={async () => {
                                                         await deleteImage(row[imageColumns.pathKey] as string);
-                                                        await updateRow(row[uniqueKey], { [imageColumns.urlKey]: null, [imageColumns.pathKey]: null } as Partial<T>);
+                                                        await updateRow(row[uniqueKey], {
+                                                            [imageColumns.urlKey]: null,
+                                                            [imageColumns.pathKey]: null
+                                                        } as Partial<T>);
                                                         await refresh();
-                                                    }}>🗑️</button>
-                                                    <input type="file" accept="image/*" onChange={e => handleFileChange(e, row[uniqueKey])} />
+                                                    }}>🗑️
+                                                    </button>
+                                                    <input type="file" accept="image/*"
+                                                           onChange={e => handleFileChange(e, row[uniqueKey])}/>
                                                 </>
                                             ) : (
-                                                <input type="file" accept="image/*" onChange={e => handleFileChange(e, row[uniqueKey])} />
+                                                <input type="file" accept="image/*"
+                                                       onChange={e => handleFileChange(e, row[uniqueKey])}/>
                                             )}
                                         </td>
                                     );
@@ -272,7 +303,7 @@ export function CrudTable<T extends Record<string, any>>({
                             if (imageColumns && col.key === imageColumns.urlKey) {
                                 return (
                                     <td key={String(col.key)}>
-                                        {value ? <img src={String(value)} width={50} alt="img" /> : '-'}
+                                        {value ? <img src={String(value)} width={50} alt="img"/> : '-'}
                                     </td>
                                 );
                             }

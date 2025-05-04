@@ -22,27 +22,37 @@ export default function OrderSummaryPage() {
 
     const [summaryView, setSummaryView] = useState<'all' | 'grouped'>('all');
 
-    const loadData = async () => {
-        setLoading(true);
-        setError(null);
 
-        try {
-            const {data: orders, error} = await supabase
-                .from('orders')
-                .select('*, order_items(*, products(title))')
-                .gte('order_date', fromDate)
-                .lte('order_date', toDate);
-            if (error) throw error;
-            setData(orders || []);
-        } catch (err: any) {
-            setError(err.message);
-            setData([]);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     useEffect(() => {
+        const loadData = async () => {
+            setLoading(true);
+            setError(null);
+
+            const handleError = (message: string) => {
+                setError(message);
+                setData([]);
+            };
+
+            try {
+                const { data: orders, error } = await supabase
+                    .from('orders')
+                    .select('*, order_items(*, products(title))')
+                    .gte('order_date', fromDate)
+                    .lte('order_date', toDate);
+
+                if (error) {
+                    handleError(error.message);
+                    return; // Exit early
+                }
+
+                setData(orders || []);
+            } catch (err: any) {
+                handleError(err.message || "Unexpected error");
+            } finally {
+                setLoading(false);
+            }
+        };
         loadData();
     }, [fromDate, toDate, summaryView]);
 

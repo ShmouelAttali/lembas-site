@@ -2,11 +2,11 @@
 
 import {useCart} from "@/contexts/CartContext";
 import {Product} from "@/components/ProductList";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
+import {ProductImage} from "./ProductImage";
 
 export default function ProductThumb({product}: { product: Product }) {
     const {addItem} = useCart();
-    const [swapped, setSwapped] = useState(false);
 
     useEffect(() => {
         // Kick off a background load of the alternate image
@@ -16,20 +16,7 @@ export default function ProductThumb({product}: { product: Product }) {
 
     return (
         <div key={product.id} className="product-card">
-            <img
-                src={swapped ? product.image_url2 : product.image_url1}
-                alt={product.title}
-                className="product-thumb"
-                onPointerEnter={(e) => {
-                    if (e.pointerType !== 'mouse') return; // Ignore touch
-                    setSwapped(true);
-                }}
-                onPointerLeave={(e) => {
-                    if (e.pointerType !== 'mouse') return; // Ignore touch
-                    setSwapped(false);
-                }}
-                onClick={() => setSwapped(prevState => !prevState)}
-            />
+            <ProductImage product={product}/>
             <div className="product-info">
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>

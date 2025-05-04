@@ -24,7 +24,7 @@ export default function SelectOrderDate({dates}: Props) {
     }, []);
 
     const handleDateClick = (date: string) => {
-        setSelectedDate(date); // Update selected date in state
+        setSelectedDate(date); // Update the selected date in state
         localStorage.setItem('selected_order_date', date); // Store it in localStorage
     };
 
