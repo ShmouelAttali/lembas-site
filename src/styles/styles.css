@@ -162,7 +162,7 @@ h1 {
     background-image: url('../../public/icons/bag-hovered.svg');
 }
 
-.cart-minimized .badge {
+.cart-minimized {
     position: absolute;
     top: 2px;
     inset-inline-end: 2px;
@@ -207,22 +207,10 @@ h1 {
 }
 
 /* --- User Controls & Cover Photo --- */
-.user-controls {
-    margin-right: 0.5rem;
-}
 
 .user-controls .rounded-full {
     border-radius: 8px;
     margin-left: 0.5rem;
-}
-
-.user-controls .user-name {
-    vertical-align: 0.75rem;
-}
-
-.user-controls .btn-icon {
-    vertical-align: 0.6rem;
-    margin-right: 0.5rem;
 }
 
 .cover-photo {

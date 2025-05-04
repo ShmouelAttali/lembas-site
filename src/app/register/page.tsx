@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { User as UserIcon, ArrowRightCircle } from 'lucide-react';
 
 export default function RegisterPage() {
     const router   = useRouter();
