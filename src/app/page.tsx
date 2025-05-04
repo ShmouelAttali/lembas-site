@@ -3,7 +3,6 @@ import ProductList from '@/components/ProductList';
 import {supabaseServer} from '@/lib/supabase-server';
 import {addDays} from '@/app/utils';
 import SelectOrderDate from '@/components/SelectOrderDate';
-import Image from "next/image";
 
 export default async function HomePage() {
     const supabase = await supabaseServer();
