@@ -29,6 +29,23 @@ body {
     text-align: right;
 }
 
+h2 {
+    font-size: 1rem;
+}
+
+
+.my-button {
+    padding: 10px var(--gap);
+    border-radius: 6px;
+    border: 0;
+    background-color: var(--clr-secondary);
+    color: white;
+    &:hover {
+        background: var(--clr-primary);
+        cursor: pointer;
+    }
+}
+
 /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
 @media screen and (min-width: 601px) {
     body {
@@ -80,6 +97,11 @@ body {
     margin: auto;
 }
 
+h1 {
+    font-size: 2vmax;
+    margin: var(--gap) 0;
+}
+
 /* --- Desktop & Tablet (≥640px) non-nav overrides --- */
 @media (min-width: 640px) {
     .header-inner {
@@ -91,6 +113,8 @@ body {
     display: flex;
     flex-flow: row nowrap;
     justify-content: center;
+    text-decoration: none;
+    color: var(--clr-text);
 
     .site-name {
         margin: 10px var(--gap) 10px 0;
@@ -98,7 +122,7 @@ body {
     }
 }
 
-.header-left-items {
+.header-button-items {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -251,7 +275,7 @@ body {
 /* --- Products List --- */
 .products {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
     /*margin: calc(var(--gap)*-1) 0 0 calc(var(--gap)*-1);*/
     /*width: calc(100% + var(--gap));*/
     gap: var(--gap);
@@ -308,7 +332,7 @@ body {
 
 /* Products: adjust to auto-fill layout on wider screens */
 .products {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
 }
 
 /* Dates grid back to multiple columns */
@@ -321,4 +345,76 @@ body {
     display: inline-block;
     font-size: 0.85rem;
     margin-inline-start: 4px;
+}
+.loginForm, .registerForm {
+    padding: var(--gap);
+
+    >* {
+       display: block;
+        &input {
+            margin-bottom: var(--gap);
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        &button {
+            padding: 10px var(--gap);
+            border-radius: 6px;
+            border: 0;
+            background-color: var(--clr-secondary);
+            color: white;
+            &:hover {
+                background: var(--clr-primary);
+                cursor: pointer;
+            }
+        }
+
+    }
+
+    .divider {
+        margin-top: var(--gap);
+    }
+
+    .line {
+        margin: 25px 0;
+        width: 50%;
+        height: 1px;
+        background: var(--clr-text);
+    }
+}
+
+.cart, .orderSummary, .payment {
+    padding: 0 var(--gap);
+}
+
+.orderSummary {
+    h2 {
+        margin-bottom: 5px;
+    }
+    .radio, .remember {
+        input {
+            margin: 5px;
+        }
+    }
+
+    .line {
+        margin-top: 25px;
+    }
+
+    .summary {
+        padding: var(--gap);
+        .totalPrice {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+    }
+
+    .payment {
+        margin-bottom: var(--gap);
+    }
+
+    .makeOrder {
+        margin: 30px 0;
+        float: left;
+    }
 }

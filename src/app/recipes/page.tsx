@@ -103,14 +103,14 @@ export default function RecipesPage() {
 
     return (
         <div className={styles.container}>
-            <aside className={styles.sidebar}>
+            <aside className={styles.rightPane}>
                 {loading && <p>טוען…</p>}
                 {error && <p className={styles.error}>{error}</p>}
                 <ul className={styles.productList}>
                     {products.map((p) => (
                         <li
                             key={p.id}
-                            className={selected?.id === p.id ? styles.selected : ''}
+                            className={styles.productItem + (selected?.id === p.id ? ' ' + styles.selected : '')}
                             onClick={() => {
                                 setError(null)
                                 setIngredients([])
@@ -124,7 +124,7 @@ export default function RecipesPage() {
                 </ul>
             </aside>
 
-            <main className={styles.main}>
+            <main className={styles.leftPane}>
                 {selected ? (
                     <>
                         <h1>
@@ -143,7 +143,8 @@ export default function RecipesPage() {
 
                         <table className={styles.ingredientsTable}>
                             <thead>
-                            <tr>
+                            <tr className={styles.ingredientItem}>
+                                <th></th>
                                 <th>מרכיב</th>
                                 <th>גרם (ל-{numLoaves})</th>
                                 <th>עלות ליחידה (₪)</th>
@@ -155,6 +156,7 @@ export default function RecipesPage() {
                                 const cost = (ingredient.price_per_100g * weight) / 100
                                 return (
                                     <tr key={ingredient.name}>
+                                        <td><input type="checkbox"/></td>
                                         <td>{ingredient.name}</td>
                                         <td>{totalGrams}</td>
                                         <td>{cost.toFixed(2)}</td>

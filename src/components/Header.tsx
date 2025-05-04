@@ -15,7 +15,7 @@ const Header: FC<HeaderProps> = ({siteName}) => {
     return (
         <header className="header">
             <div className="container header-inner">
-                <div className="logo-container">
+                <a href="/" className="logo-container">
                     <Image
                         className={"logo-svg"}
                         src="/lembasLogo.svg"
@@ -24,9 +24,9 @@ const Header: FC<HeaderProps> = ({siteName}) => {
                         height={65}
                     />
                     <h1 className="site-name">{siteName}</h1>
-                </div>
+                </a>
 
-                <div className="header-left-items">
+                <div className="header-button-items">
                     <CartMinimized/>
                     <MainNav/>
                 </div>

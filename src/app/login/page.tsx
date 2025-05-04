@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter } from 'next/navigation';
 
@@ -25,16 +25,23 @@ export default function LoginPage() {
     }
 
     return (
-        <form onSubmit={onSubmit} className="max-w-sm mx-auto mt-20 flex flex-col gap-4">
-            <input type="email"    required placeholder="Email"    value={email}    onChange={e => setEmail(e.target.value)}    className="input" />
-            <input type="password" required placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="input" />
-            <button type="submit" className="btn-primary">Sign In</button>
-            <button type="button" onClick={onGoogle} className="btn-secondary">
-                Continue with Google
+        <form onSubmit={onSubmit} className="loginForm">
+            <h1>התחברות למערכת</h1>
+            <button type="button" onClick={onGoogle} className="btn-secondary google">
+                להתחברות עם חשבון גוגל
             </button>
+            <div className="line"></div>
+            <label>אימייל:</label>
+            <input type="email"    required placeholder="Email"    value={email}    onChange={e => setEmail(e.target.value)}    className="input email" />
+            <label>סיסמה:</label>
+            <input type="password" required placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="input password" />
+
+            <button type="submit" className="btn-primary submit">התחבר</button>
+
             {error && <p className="text-red-600">{error}</p>}
+            <div className="line"></div>
             <p>
-                Don’t have an account? <a href="/register" className="text-blue-500">Register here</a>
+                אין לך חשבון? <a href="/register" className="register">הרשם כאן</a>
             </p>
         </form>
     );

@@ -6,6 +6,8 @@ import { supabase } from '@/lib/supabase';
 import { useCart } from '@/contexts/CartContext';
 import { EmptyCartMessage } from '@/components/EmptyCartMessage';
 import styles from './page.module.css';
+import {LucideTrash, Trash, TrashIcon} from "lucide-react";
+import {blue} from "next/dist/lib/picocolors";
 
 export default function CartPage() {
     const { items, total, clearCart, updateItem, removeItem } = useCart();
@@ -38,7 +40,7 @@ export default function CartPage() {
     }, []);
 
     return (
-        <div className={styles.page_12 + ' container'}>
+        <div className={'container cart'}>
             <h1>עגלת הקניות שלי</h1>
 
             {items.length === 0 ? (
@@ -79,7 +81,7 @@ export default function CartPage() {
                                     onClick={() => removeItem(item.id)}
                                     className={styles.page_57}
                                 >
-                                    ×
+                                    <Trash color={"#41780c"} size={20}/>
                                 </button>
                             </li>
                         ))}
@@ -87,7 +89,7 @@ export default function CartPage() {
 
                     {/* checkout controls */}
                     <div className={styles.page_67}>
-                        <button onClick={clearCart} className={styles.page_71}>
+                        <button onClick={clearCart} className={styles.page_71 + ' my-button'}>
                             נקה עגלה
                         </button>
 
@@ -97,7 +99,7 @@ export default function CartPage() {
 
                         {isValidOrderDate ? (
                             <Link href="/checkout">
-                                <button className={styles.page_82}>
+                                <button className={styles.page_82 + ' my-button'}>
                                     המשך לתשלום
                                 </button>
                             </Link>

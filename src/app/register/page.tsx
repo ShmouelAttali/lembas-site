@@ -1,6 +1,6 @@
 // src/app/register/page.tsx
 'use client';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { User as UserIcon, ArrowRightCircle } from 'lucide-react';
@@ -51,18 +51,22 @@ export default function RegisterPage() {
 
     return (
         <div className="max-w-md mx-auto mt-20 space-y-6">
-            <h2 className="text-2xl font-bold text-center">הרשמה</h2>
 
-            <button
-                onClick={onGoogle}
-                className="w-full btn-secondary flex items-center justify-center gap-2"
-            >
-                <UserIcon size={20} /> המשך עם Google
-            </button>
 
-            <div className="divider">או</div>
+            <form onSubmit={onEmailSubmit} className="space-y-4 registerForm">
+                <h1>הרשמה</h1>
 
-            <form onSubmit={onEmailSubmit} className="space-y-4">
+                <button
+                    onClick={onGoogle}
+                    className="w-full btn-secondary flex items-center justify-center gap-2"
+                >
+                    המשך עם Google
+                </button>
+                <div className="divider">או:</div>
+
+                <div className="line"></div>
+
+                <label>שם מלא</label>
                 <input
                     placeholder="שם מלא"
                     value={fullName}
@@ -70,6 +74,7 @@ export default function RegisterPage() {
                     required
                     className="input"
                 />
+                <label>כתובת מייל</label>
                 <input
                     type="email"
                     placeholder="Email"
@@ -78,6 +83,8 @@ export default function RegisterPage() {
                     required
                     className="input"
                 />
+
+                <label>בחר סיסמה</label>
                 <input
                     type="password"
                     placeholder="Password"
@@ -87,7 +94,7 @@ export default function RegisterPage() {
                     className="input"
                 />
                 <button type="submit" className="w-full btn-primary flex items-center justify-center gap-2">
-                    הרשמה <ArrowRightCircle size={20} />
+                    הרשמה
                 </button>
             </form>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./OrderSummary.module.css";
 
-export function OrderSummary({ items, itemsPrice, shippingFee, totalPrice }: { items: { id: string, title: string, quantity: number, price: number }[], itemsPrice: number, shippingFee: number, totalPrice: number }) {
+export function OrderSummary({ items, itemsPrice }: { items: { id: string, title: string, quantity: number, price: number }[], itemsPrice: number }) {
     return (
         <>
             <ul className={styles.OrderSummary_6}>
@@ -15,16 +15,6 @@ export function OrderSummary({ items, itemsPrice, shippingFee, totalPrice }: { i
 
             <div className={styles.OrderSummary_15}>
                 סה״כ לתשלום פריטים: <strong>₪{itemsPrice.toFixed(2)}</strong>
-            </div>
-
-            {shippingFee > 0 && (
-                <div className={styles.shippingFee}>
-                    דמי משלוח: <strong>₪{shippingFee}</strong>
-                </div>
-            )}
-
-            <div className={styles.totalPrice}>
-                סכום לתשלום כולל: <strong>₪{totalPrice.toFixed(2)}</strong>
             </div>
         </>
     );
