@@ -16,10 +16,20 @@ export default function ProductThumb({product}: { product: Product }) {
 
     return (
         <div key={product.id} className="product-card">
-            <img src={swapped ? product.image_url2 : product.image_url1} alt={product.title} className="product-thumb"
-                 onMouseEnter={() => setSwapped(true)}
-                 onMouseLeave={() => setSwapped(false)}
-                 onClick={() => setSwapped(prevState => !prevState)}/>
+            <img
+                src={swapped ? product.image_url2 : product.image_url1}
+                alt={product.title}
+                className="product-thumb"
+                onPointerEnter={(e) => {
+                    if (e.pointerType !== 'mouse') return; // Ignore touch
+                    setSwapped(true);
+                }}
+                onPointerLeave={(e) => {
+                    if (e.pointerType !== 'mouse') return; // Ignore touch
+                    setSwapped(false);
+                }}
+                onClick={() => setSwapped(prevState => !prevState)}
+            />
             <div className="product-info">
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
