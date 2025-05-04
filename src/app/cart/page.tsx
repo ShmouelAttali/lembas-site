@@ -1,50 +1,22 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
-import { useCart } from '@/contexts/CartContext';
-import { EmptyCartMessage } from '@/components/EmptyCartMessage';
+import {supabase} from '@/lib/supabase';
+import {useCart} from '@/contexts/CartContext';
+import {EmptyCartMessage} from '@/components/EmptyCartMessage';
 import styles from './page.module.css';
-import {LucideTrash, Trash, TrashIcon} from "lucide-react";
-import {blue} from "next/dist/lib/picocolors";
+import {Trash} from "lucide-react";
 
 export default function CartPage() {
-    const { items, total, clearCart, updateItem, removeItem } = useCart();
-
-    const [isValidOrderDate, setIsValidOrderDate] = useState(false);
-
-    useEffect(() => {
-        const checkDate = async () => {
-            const selected = localStorage.getItem('selected_order_date');
-            if (!selected) {
-                setIsValidOrderDate(false);
-                return;
-            }
-
-            const { data, error } = await supabase
-                .from('order_dates')
-                .select('date', { count: 'exact' })
-                .eq('date', selected)
-                .limit(1);
-
-            if (error) {
-                console.error('Error checking order date:', error);
-                setIsValidOrderDate(false);
-            } else {
-                setIsValidOrderDate(data && data.length > 0);
-            }
-        };
-
-        checkDate();
-    }, []);
+    const {items, total, clearCart, updateItem, removeItem} = useCart();
 
     return (
         <div className={'container cart'}>
             <h1>עגלת הקניות שלי</h1>
 
             {items.length === 0 ? (
-                <EmptyCartMessage />
+                <EmptyCartMessage/>
             ) : (
                 <>
                     <ul className={styles.page_16}>
@@ -96,18 +68,11 @@ export default function CartPage() {
                         <div className={styles.page_76}>
                             סה״כ: <strong>₪{total.toFixed(2)}</strong>
                         </div>
-
-                        {isValidOrderDate ? (
-                            <Link href="/checkout">
-                                <button className={styles.page_82 + ' my-button'}>
-                                    המשך לתשלום
-                                </button>
-                            </Link>
-                        ) : (
-                            <div>
-                                  לא ניתן להמשיך. נא לחזור ולבחור תאריך הזמנה
-                            </div>
-                        )}
+                        <Link href="/checkout">
+                            <button className={styles.page_82 + ' my-button'}>
+                                המשך לתשלום
+                            </button>
+                        </Link>
                     </div>
                 </>
             )}

@@ -44,12 +44,6 @@
     margin-bottom: 16px;
 }
 
-.inputGroup {
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-}
-
 .inputGroup label {
     margin-right: 8px;
 }

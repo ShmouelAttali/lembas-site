@@ -114,7 +114,7 @@ export function CustomerForm({
                     דמי משלוח: <strong>₪{shippingFee}</strong>
                 </div>
                 <div className={'totalPrice'}>
-                    סה"כ לתשלום: <strong>₪{totalPrice.toFixed(2)}</strong>
+                    סה&quot;כ לתשלום: <strong>₪{totalPrice.toFixed(2)}</strong>
                 </div>
             </div>
 
