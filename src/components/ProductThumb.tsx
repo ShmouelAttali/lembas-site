@@ -15,7 +15,7 @@ export default function ProductThumb({product}: { product: Product }) {
     }, [product.image_url2])
 
     return (
-        <div key={product.id} className="product-card">
+        <div key={product.id} className={`product-card ${!product.in_stock ? 'out-of-stock' : ''}`}>
             <ProductImage product={product}/>
             <div className="product-info">
                 <h3>{product.title}</h3>

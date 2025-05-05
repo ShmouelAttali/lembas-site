@@ -6,12 +6,14 @@ import Link from 'next/link';
 import MainNav from './MainNav';
 import CartMinimized from './CartMinimized';
 import type {FC} from 'react';
+import {useGlobalLoader} from "@/components/GlobalLoaderProvider";
 
 interface HeaderProps {
     siteName: string;
 }
 
 const Header: FC<HeaderProps> = ({siteName}) => {
+    const { loading } = useGlobalLoader();
 
     return (
         <header className="header">
@@ -30,6 +32,7 @@ const Header: FC<HeaderProps> = ({siteName}) => {
                 <div className="header-button-items">
                     <CartMinimized/>
                     <MainNav/>
+                    {loading && <div className="small-spinner" aria-label="Loading"></div>}
                 </div>
             </div>
         </header>

@@ -11,6 +11,7 @@ export type Product = {
     image_url2: string;
     weight: string;
     price: number;
+    in_stock: boolean;
 };
 
 export default function ProductList({products}: { products: Product[] }) {
