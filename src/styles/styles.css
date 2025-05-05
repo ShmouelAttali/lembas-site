@@ -74,7 +74,7 @@ h2 {
 .container {
     width: 100%;
     max-width: 1232px;
-    margin: auto;
+    margin: auto auto 65px;
 }
 
 /* --- Header (non-nav parts) --- */
@@ -246,6 +246,17 @@ h1 {
     object-fit: cover;
 }
 
+.main-info {
+    box-shadow: var(--shadow);
+    margin-top: var(--gap);
+    background-color: rgba(0,0,0,0.1);
+    padding: 50px;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    border-radius: var(--radius);
+    border: 4px solid var(--clr-bg);
+}
+
 /* --- Booking Section --- */
 .booking {
     padding: var(--gap);
@@ -301,9 +312,51 @@ h1 {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    position: static;
+
 
     &.out-of-stock {
-        background: gray;
+        /*background: #90a56a;*/
+
+        .product-info {
+            opacity: 50%;
+            /*color: #cccccc;*/
+        }
+
+        .add-to-cart.disabled {
+            cursor: default;
+            pointer-events: none;
+            color: #666666;
+            background-color: darkgrey;
+        }
+
+        h3 {
+            /*color: var(--clr-bg);*/
+        }
+
+        img {
+            opacity: 0.5;
+        }
+
+        .wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .unavailable {
+            position: absolute;
+            padding: 25px;
+            top: 200px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            text-align: center;
+            border-radius: 15px;
+            opacity: 200%;
+            font-size: 1.7em;
+            font-weight: bold;
+        }
     }
 }
 
@@ -457,5 +510,18 @@ h1 {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 3px;
+    background-color: #af9b86;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.75);;
 }

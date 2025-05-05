@@ -6,6 +6,8 @@ export function ProductImage({ product }: { product: any }) {
     const [isTouchDevice, setIsTouchDevice] = useState(false);
     const [index, setIndex] = useState(0);
     const images = [product.image_url1, product.image_url2];
+    const opacityByStock = product.in_stock ? 1 : 0.5;
+
 
     useEffect(() => {
         const hasTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
@@ -39,16 +41,17 @@ export function ProductImage({ product }: { product: any }) {
                 overflow: "hidden",
                 position: "relative",
                 cursor: isTouchDevice ? "pointer" : "default",
-                backgroundColor: "var(--clr-bg)",
+                backgroundColor: product.in_stock ? "var(--clr-bg)" : "white",
             }}
         >
+            <div className={"wrapper"}>
             {images.map((img, i) => {
                 const isActive = index === i;
 
                 // Choose animation per device type
                 const animateProps = isTouchDevice
-                    ? { x: isActive ? 0 : index < i ? "100%" : "-100%", opacity: isActive ? 1 : 0 }
-                    : { x: 0, opacity: isActive ? 1 : 0 };
+                    ? { x: isActive ? 0 : index < i ? "100%" : "-100%", opacity: isActive ? opacityByStock : 0 }
+                    : { x: 0, opacity: isActive ? opacityByStock : 0 };
 
                 const transitionProps = isTouchDevice
                     ? { type: "spring", stiffness: 300, damping: 30 }
@@ -94,13 +97,15 @@ export function ProductImage({ product }: { product: any }) {
                                 height: "12px",
                                 borderRadius: "50%",
                                 backgroundColor: "#000",
-                                opacity: index === i ? 0.2 : 1,
+                                opacity: index === i ? 0.2 : opacityByStock,
                                 transition: "opacity 0.3s",
                             }}
                         />
                     ))}
                 </div>
             )}
+            {!product.in_stock && <div className="unavailable">אזל במלאי</div>}
+        </div>
         </div>
     );
 }

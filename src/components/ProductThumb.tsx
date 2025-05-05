@@ -16,21 +16,22 @@ export default function ProductThumb({product}: { product: Product }) {
 
     return (
         <div key={product.id} className={`product-card ${!product.in_stock ? 'out-of-stock' : ''}`}>
-            <ProductImage product={product}/>
-            <div className="product-info">
-                <h3>{product.title}</h3>
-                <p>{product.description}</p>
-                <p>{product.weight + ' גרם'}</p>
-                <p>{'₪' + product.price}</p>
-                <button type={"button"}
-                        className="add-to-cart"
-                        onClick={() =>
-                            addItem({id: product.id, title: product.title, price: product.price})
-                        }
-                >
-                    הוסף לסל
-                </button>
-            </div>
+                <ProductImage product={product}/>
+                <div className="product-info">
+                    <h3>{product.title}</h3>
+                    <p>{product.description}</p>
+                    <p>{product.weight + ' גרם'}</p>
+                    <p>{'₪' + product.price}</p>
+                    <button type={"button"}
+                            className={`add-to-cart ${!product.in_stock ? 'disabled' : ''}`}
+                            onClick={() =>
+                                addItem({id: product.id, title: product.title, price: product.price})
+                            }
+                    >
+                        הוסף לסל
+                    </button>
+                </div>
+
         </div>
 
     );

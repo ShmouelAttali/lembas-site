@@ -1,14 +1,14 @@
 import {HDate} from "@hebcal/core";
 import {CustomerInfo, ItemInfo, OrderInfo} from "@/types/types";
 
-export function getFormattedDateLabel(d: Date) {
+export function getFormattedDateLabel(d: Date, onlyDayOfWeek = false) {
     const weekdayFmt = new Intl.DateTimeFormat('he-IL', {weekday: 'long'});
     const gregFmt = new Intl.DateTimeFormat('he-IL', {day: '2-digit', month: '2-digit'});
     const weekday = weekdayFmt.format(d).replace(/^יום\s*/, '');
     const hd = new HDate(d);
     const [dayMon] = hd.renderGematriya(true).split(' תשפ'); // "כ"ו ניסן"
     const greg = gregFmt.format(d);
-    return `${weekday} - ${dayMon} (${greg})`;
+    return onlyDayOfWeek ? `${weekday}` : `${weekday} - ${dayMon} (${greg})`;
 }
 
 export function addDays(d: Date, daysToAdd: number) {

@@ -3,6 +3,7 @@ import ProductList from '@/components/ProductList';
 import {supabaseServer} from '@/lib/supabase-server';
 import {addDays} from '@/app/utils';
 import SelectOrderDate from '@/components/SelectOrderDate';
+import {getFormattedDateLabel} from "@/app/utils";
 
 export default async function HomePage() {
     const supabase = await supabaseServer();
@@ -25,11 +26,29 @@ export default async function HomePage() {
     return (
         <>
             <img src='/bread1.JPG' alt="Bread" className="cover-photo"/>
+
+            <div className={"main-info"}>
+                <p>ברוכים הבאים!</p>
+                <br/>
+                <p>הלחמים שלנו מוכנים ללא שמרים תעשייתים כלל, עם הרבה יחס אישי ובאפייה ביתית.</p>
+                <p>התפחה באמצעות מחמצת דורשת תהליכים ארוכים, אבל נותנת תוצר שהוא ייחודי בטעם ובאיכות ושונה מלחם
+                    רגיל.</p>
+                <p>זו הסיבה לכך שיש להזמין את הלחם שלנו לפחות יומיים מראש - כדי להבטיח שהוא יהיה מוכן בזמן ומותסס
+                    היטב.</p>
+                <br/>
+                <p>הזמינו עכשיו כדי לקבל את הלחם הטרי שלכם כבר ביום {getFormattedDateLabel(dates[0], true)} הקרוב.</p>
+
+
+            </div>
             <section className="booking">
-                <h2>בחר תאריך להזמנה</h2>
+                <h2>בחר תאריך להזמנה:</h2>
                 <SelectOrderDate dates={dates}/>
             </section>
             <ProductList products={prods}/>
+            <footer>
+                <p>לכל שאלה ופניה אפשר ליצור קשר 0542338344</p>
+                <p><a href="mailto:ester.attali@gmail.com">ester.attali@gmail.com</a></p>
+            </footer>
         </>
     );
 }
