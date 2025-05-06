@@ -66,10 +66,9 @@ export function CustomerForm({
                     ]}
                     onChange={(val) => setInfoAction({...info, slice: val === 'slice'})}
                 />
-                כן
             </div>
 
-            <div className={styles.CustomerForm_45 + ' radio'}>
+            <div className={styles.CustomerForm_45 + ' radio ' + styles.twoRows}>
                 <RadioGroup
                     label="משלוח או איסוף עצמי?"
                     name="fulfillment"
@@ -77,7 +76,7 @@ export function CustomerForm({
                     onChange={(val) => setInfoAction({...info, fulfillment: val as FulfillmentMethods})}
                     options={[
                         {value: 'delivery', label: 'משלוח בכל גוש שילה-עלי (10 ש"ח)'},
-                        {value: 'pickup', label: 'איסוף עצמי'},
+                        {value: 'pickup', label: 'איסוף עצמי מהקטורת 48, שילה'},
                     ]}
                 />
             </div>
@@ -120,17 +119,17 @@ export function CustomerForm({
 
 
             <div className={styles.CustomerForm_45 + ' radio'}>
-            <RadioGroup
-                label="אופן התשלום"
-                name="paymentMethod"
-                selected={info.paymentMethod}
-                onChange={(val) => setInfoAction({...info, paymentMethod: val as PaymentMethod})}
-                options={[
-                    {value: 'paybox', label: 'פייבוקס'},
-                    {value: 'bit', label: 'ביט'},
-                    {value: 'cash', label: 'מזומן'},
-                ]}
-            />
+                <RadioGroup
+                    label="אופן התשלום"
+                    name="paymentMethod"
+                    selected={info.paymentMethod}
+                    onChange={(val) => setInfoAction({...info, paymentMethod: val as PaymentMethod})}
+                    options={[
+                        {value: 'paybox', label: 'פייבוקס'},
+                        {value: 'bit', label: 'ביט'},
+                        {value: 'cash', label: 'מזומן'},
+                    ]}
+                />
 
             </div>
             <div className={'payment'}>

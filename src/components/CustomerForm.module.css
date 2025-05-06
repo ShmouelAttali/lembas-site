@@ -1,16 +1,25 @@
 .CustomerForm_21 {
-  /*max-width: 400px;*/
+    /*max-width: 400px;*/
 }
 
 .CustomerForm_45 {
-  margin-bottom: 1rem;
+    margin-bottom: 1rem;
+
 }
 
+.twoRows {
+    :global(label[class^="RadioGroup-module__"]) {
+        display: block;
+        margin-bottom: 0.2rem;
+    }
+}
+
+
 .CustomerForm_117 {
-  padding: 0.75rem 1.5rem;
-  background: var(--clr-secondary);
-  color: white;
-  border: none;
-  border-radius: var(--radius);
+    padding: 0.75rem 1.5rem;
+    background: var(--clr-secondary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
 }
 

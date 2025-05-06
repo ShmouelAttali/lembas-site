@@ -29,6 +29,16 @@ body {
     text-align: right;
 }
 
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.page-wrapper main {
+    flex: 1;
+}
+
 h2 {
     font-size: 1rem;
 }
@@ -145,6 +155,7 @@ h1 {
     justify-content: center;
     align-items: center;
     color: var(--clr-text);
+
     img.logo-svg {
         max-height: 150px;
         width: auto;
@@ -249,6 +260,7 @@ h1 {
     display: flex;
     justify-content: flex-end;
 }
+
 /* --- User Controls & Cover Photo --- */
 .user-controls {
     margin-right: 0.5rem;
@@ -279,7 +291,7 @@ h1 {
 .main-info {
     box-shadow: var(--shadow);
     margin-top: var(--gap);
-    background-color: rgba(0,0,0,0.1);
+    background-color: rgba(0, 0, 0, 0.1);
     padding: 50px;
     font-size: 1.2em;
     line-height: 1.2em;
@@ -453,6 +465,7 @@ h1 {
         margin-inline-start: 4px;
     }
 }
+
 .loginForm, .registerForm {
     padding: var(--gap);
 }
@@ -554,6 +567,7 @@ footer {
     bottom: 0;
     left: 0;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.75);
+
     a {
         color: var(--clr-secondary);
     }
