@@ -104,7 +104,7 @@ export function ProductImage({ product }: { product: any }) {
                     ))}
                 </div>
             )}
-            {!product.in_stock && <div className="unavailable">אזל במלאי</div>}
+            {!product.in_stock && <div className="unavailable">חסר זמנית</div>}
         </div>
         </div>
     );

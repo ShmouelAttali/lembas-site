@@ -9,31 +9,32 @@ import type {FC} from 'react';
 import {useGlobalLoader} from "@/components/GlobalLoaderProvider";
 
 interface HeaderProps {
-    siteName: string;
+    suffix: string;
 }
 
-const Header: FC<HeaderProps> = ({siteName}) => {
+const Header: FC<HeaderProps> = ({suffix}) => {
     const { loading } = useGlobalLoader();
 
     return (
         <header className="header">
             <div className="container header-inner">
+                <CartMinimized/>
                 <Link href="/" className="logo-container">
-                    <Image
+                    <img
                         className={"logo-svg"}
-                        src="/lembasLogo.svg"
+                        srcSet="/lembasLogo.svg 358w, /lembasLogo-vertical.svg 595w"
+                        sizes="(max-width: 600px) 595px, 358px"
                         alt="למבס logo"
-                        width={100}
-                        height={65}
+                        // width={}
+                        // height={65}
                     />
-                    <h1 className="site-name">{siteName}</h1>
+                    <h1 className="suffix">{suffix}</h1>
                 </Link>
 
-                <div className="header-button-items">
-                    <CartMinimized/>
+                {/*<div className="header-button-items">*/}
                     <MainNav/>
                     {loading && <div className="small-spinner" aria-label="Loading"></div>}
-                </div>
+                {/*</div>*/}
             </div>
         </header>
     );

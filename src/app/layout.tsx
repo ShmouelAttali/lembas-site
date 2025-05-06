@@ -13,14 +13,13 @@ export default async function RootLayout({children}: { children: ReactNode }) {
     const supabase = await supabaseServer();
     const {data: suffixes, error} = await supabase.rpc('get_random_suffix', {});
     const suffix = error || !suffixes?.length ? '' : suffixes[0].suffix;
-    const siteName = `למבס - ${suffix}`;
 
     return (
         <html lang="he" dir="rtl">
         <body>
         <SupabaseProvider>
             <CartProvider>
-                <Header siteName={siteName}/>
+                <Header suffix={suffix}/>
                 <GlobalLoaderProvider>
                     <main className="container">{children}</main>
                 </GlobalLoaderProvider>
