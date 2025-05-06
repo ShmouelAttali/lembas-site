@@ -76,7 +76,7 @@ export function CustomerForm({
                     selected={info.fulfillment}
                     onChange={(val) => setInfoAction({...info, fulfillment: val as FulfillmentMethods})}
                     options={[
-                        {value: 'delivery', label: 'משלוח (10 ש"ח)'},
+                        {value: 'delivery', label: 'משלוח בכל גוש שילה-עלי (10 ש"ח)'},
                         {value: 'pickup', label: 'איסוף עצמי'},
                     ]}
                 />

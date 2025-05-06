@@ -10,7 +10,7 @@ export default function ThankYouPage() {
         <div className={styles.page_9 + " container"}>
             <h1 className={styles.page_10}>תודה על הזמנתך!</h1>
             <p className={styles.page_11}>
-                ההזמנה התקבלה בהצלחה ונשלחה אליך לאימייל.
+                ההזמנה התקבלה בהצלחה, ואישור נשלח לכתובת המייל שהגדרת.
             </p>
             <Link href="/" passHref>
                 <button

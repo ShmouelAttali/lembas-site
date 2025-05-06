@@ -152,7 +152,6 @@ h1 {
     }
 
     .suffix {
-        font-size: 1.5em;
         color: var(--clr-text);
         height: 100%;
         margin: 7px var(--gap) 0 var(--gap);
