@@ -6,7 +6,6 @@ import type {ReactNode} from 'react';
 import {supabaseServer} from '@/lib/supabase-server';
 import SupabaseProvider from '@/components/SupabaseProvider';
 import {GlobalLoaderProvider} from '@/components/GlobalLoaderProvider';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {Analytics} from "@vercel/analytics/react";
 
 export default async function RootLayout({children}: { children: ReactNode }) {
@@ -33,6 +32,7 @@ export default async function RootLayout({children}: { children: ReactNode }) {
                 </CartProvider>
             </SupabaseProvider>
         </div>
+        <Analytics/>
         </body>
         </html>
     );
