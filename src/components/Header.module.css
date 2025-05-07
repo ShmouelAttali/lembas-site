@@ -1,0 +1,85 @@
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--clr-bg-secondary);
+    box-shadow: var(--shadow);
+    width: 100%;
+}
+
+.headerScrolled {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.headerInner {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--gap);
+    max-width: 1200px;
+    margin: auto;
+    transition: padding 0.3s ease;
+}
+
+.headerScrolled .headerInner {
+    padding: 4px var(--gap);
+}
+
+.logoContainer {
+    display: flex;
+    flex-flow: row wrap;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+    color: var(--clr-text);
+    transition: padding 0.3s ease, height 0.3s ease;
+    height: 150px;
+}
+
+.headerScrolled .logoContainer {
+    height: 60px;
+}
+
+.logoSvg {
+    transition: transform 0.3s ease, max-height 0.3s ease;
+    max-height: 150px;
+    width: auto;
+    margin: 0 var(--gap);
+}
+
+.headerScrolled .logoSvg {
+    max-height: 60px;
+}
+
+.suffix {
+    transition: font-size 0.3s ease;
+    font-size: 24px;
+    color: var(--clr-text);
+    margin: 7px var(--gap) 0 var(--gap);
+    text-align: center;
+    font-weight: lighter;
+}
+
+.headerScrolled .suffix {
+    font-size: 14px;
+}
+
+.spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #ccc;
+    border-top-color: #0070f3;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

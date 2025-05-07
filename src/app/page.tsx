@@ -2,7 +2,6 @@ import React from 'react';
 import ProductList from '@/components/ProductList';
 import {supabaseServer} from '@/lib/supabase-server';
 import {addDays} from '@/app/utils';
-import SelectOrderDate from '@/components/SelectOrderDate';
 import {getFormattedDateLabel} from "@/app/utils";
 
 export default async function HomePage() {
@@ -40,10 +39,6 @@ export default async function HomePage() {
 
 
             </div>
-            <section className="booking">
-                <h2>בחר תאריך להזמנה:</h2>
-                <SelectOrderDate dates={dates}/>
-            </section>
             <ProductList products={prods}/>
         </>
     );

@@ -51,6 +51,7 @@ export function CustomerForm({
             <TextInput
                 label="אימייל (אופציונלי)"
                 type="email"
+                required
                 value={info.email}
                 onChange={handleChangeAction('email')}
             />
@@ -132,7 +133,7 @@ export function CustomerForm({
                 />
 
             </div>
-            <div className={'payment'}>
+            <div className={styles.payment + ' payment'}>
                 <a href={payboxUrl} target="_blank">לתשלום בפייבוקס</a>
                 <br/>
                 <br/>

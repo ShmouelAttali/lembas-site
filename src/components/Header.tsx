@@ -1,35 +1,59 @@
 'use client';
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
 import MainNav from './MainNav';
 import CartMinimized from './CartMinimized';
-import type {FC} from 'react';
 import {useGlobalLoader} from "@/components/GlobalLoaderProvider";
+import styles from './Header.module.css';
 
 interface HeaderProps {
     suffix: string;
 }
 
-const Header: FC<HeaderProps> = ({suffix}) => {
-    const { loading } = useGlobalLoader();
+const Header: React.FC<HeaderProps> = ({suffix}) => {
+    const {loading} = useGlobalLoader();
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        let lastScrollY = window.scrollY;
+
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            const isMobile = window.innerWidth <= 600;
+
+            const shrinkUpperThreshold = isMobile ? 180 : 100;
+            const shrinkLowerThreshold = isMobile ? 30 : 30;
+
+            // Scrolling Down
+            if (currentScrollY > lastScrollY && currentScrollY > shrinkUpperThreshold) {
+                setScrolled(true);
+            } else if (currentScrollY < lastScrollY && currentScrollY < shrinkLowerThreshold) {
+                setScrolled(false);
+
+            }
+            lastScrollY = currentScrollY;
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
-        <header className="header">
-            <div className="container header-inner">
+        <header className={`${styles.header} ${scrolled ? styles.headerScrolled : ''}`}>
+            <div className={styles.headerInner}>
                 <CartMinimized/>
-                <Link href="/" className="logo-container">
+                <Link href="/" className={styles.logoContainer}>
                     <img
-                        className={"logo-svg"}
+                        className={styles.logoSvg}
                         srcSet="/lembasLogo.svg 358w, /lembasLogo-vertical.svg 595w"
                         sizes="(max-width: 600px) 595px, 358px"
                         alt="למבס logo"
                     />
-                    <h1 className="suffix">{suffix}</h1>
+                    <h1 className={styles.suffix}>{suffix}</h1>
                 </Link>
-
-                    <MainNav/>
-                    {loading && <div className="small-spinner" aria-label="Loading"></div>}
+                <MainNav/>
+                {loading && <div className={styles.spinner} aria-label="Loading"></div>}
             </div>
         </header>
     );

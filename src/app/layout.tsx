@@ -7,6 +7,7 @@ import {supabaseServer} from '@/lib/supabase-server';
 import SupabaseProvider from '@/components/SupabaseProvider';
 import {GlobalLoaderProvider} from '@/components/GlobalLoaderProvider';
 import {Analytics} from "@vercel/analytics/react";
+import Footer from "@/components/Footer";
 
 export default async function RootLayout({children}: { children: ReactNode }) {
     const supabase = await supabaseServer();
@@ -22,12 +23,7 @@ export default async function RootLayout({children}: { children: ReactNode }) {
                     <Header suffix={suffix}/>
                     <GlobalLoaderProvider>
                         <main className="container">{children}</main>
-                        <footer>
-                            <p>לכל שאלה ופניה אפשר ליצור קשר <a href="https://wa.me/972542338344"
-                                                                target="_blank">בוואטסאפ</a></p>
-                            <p>בטלפון - <a href="tel:+972542338344">0542338344</a>, או באימייל - <a
-                                href="mailto:ester.attali@gmail.com">ester.attali@gmail.com</a></p>
-                        </footer>
+                        <Footer/>
                     </GlobalLoaderProvider>
                 </CartProvider>
             </SupabaseProvider>

@@ -1,6 +1,81 @@
-.CartMinimized_54 {
-  display: flex;
-  align-items: center;
-  position: relative;
+.CartMinimizedWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: var(--clr-bg);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    color: var(--clr-text);
+    flex-flow: column wrap;
 }
 
+.CartMinimizedWrapper:hover {
+    background: var(--clr-primary);
+    color: white;
+}
+
+.CartMinimizedWrapper:hover .bag-icon {
+    background-image: url('../../public/icons/bag-hovered.svg');
+}
+
+.CartMinimized_54 {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.bagIcon {
+    background: url('../../public/icons/bag.svg') no-repeat center;
+    width: 30px;
+    height: 30px;
+}
+
+.badge {
+    position: absolute;
+    top: 2px;
+    inset-inline-end: 2px;
+    background: var(--clr-secondary);
+    color: white;
+    font-size: 0.625rem;
+    line-height: 1;
+    padding: 2px 4px;
+    border-radius: 8px;
+    min-width: 16px;
+    text-align: center;
+}
+
+.cartPopup {
+    position: absolute;
+    top: 1.7rem;
+    inset-inline-start: 50%;
+    background: var(--clr-text);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    white-space: nowrap;
+    pointer-events: none;
+    animation: fadeInOut 2s ease forwards;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    10%, 90% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+.cartSummary {
+
+}

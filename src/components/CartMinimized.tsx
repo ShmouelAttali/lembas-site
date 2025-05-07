@@ -1,23 +1,24 @@
-// src/components/CartMinimized.tsx
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
-import { useCart } from '@/contexts/CartContext';
-import { motion, useAnimation } from 'framer-motion';
+import React, {useEffect, useRef, useState} from 'react';
+import {useCart} from '@/contexts/CartContext';
+import {AnimatePresence, motion, useAnimation} from 'framer-motion';
 import styles from "./CartMinimized.module.css";
+import CartPopup from "@/components/CartPopup";
 
 export default function CartMinimized() {
-    const { items, total } = useCart();
+    const {items, total} = useCart();
     const count = items.reduce((sum, i) => sum + i.quantity, 0);
     const controls = useAnimation();
 
-    // 1) Bump animation
+    const [showPopup, setShowPopup] = useState(false);
+
+    // Bump animation
     useEffect(() => {
         if (count > 0) {
             controls.start({
                 scale: [1, 1.3, 1],
-                transition: { duration: 0.3, ease: 'easeInOut' },
+                transition: {duration: 0.3, ease: 'easeInOut'},
             });
         }
     }, [count, controls]);
@@ -29,9 +30,9 @@ export default function CartMinimized() {
         return () => clearTimeout(t);
     }, []);
 
-    // 3) Popup logic
+    // Item added popup
     const prevCount = useRef(count);
-    const [showPopup, setShowPopup] = useState(false);
+    const [showAddPopup, setShowAddPopup] = useState(false);
 
     useEffect(() => {
         if (!allowPopup) {
@@ -39,40 +40,37 @@ export default function CartMinimized() {
             return;
         }
         if (count > prevCount.current) {
-            setShowPopup(true);
-            const t = setTimeout(() => setShowPopup(false), 2000);
+            setShowAddPopup(true);
+            const t = setTimeout(() => setShowAddPopup(false), 2000);
             return () => clearTimeout(t);
         }
         prevCount.current = count;
-    }, [count, allowPopup]);
+    }, [count]);
 
     return (
-        <Link href="/cart" className="cart-minimized">
-            <motion.div
-                animate={controls}
-                className={styles.CartMinimized_54}
+        <>
+            <div className={styles.CartMinimizedWrapper + ' cart-minimized'}
+                 onClick={() => setShowPopup(true)}
             >
-                <div
-                    // src="/icons/bag.svg"
-                    // alt="Cart"
-                    // width={30}
-                    // height={30}
-                    className="bag-icon"
-                />
-                {count > 0 && (
-                    <span className="badge" aria-hidden="true">
-            {count}
-          </span>
-                )}
+                <motion.div
+                    animate={controls}
+                    className={styles.CartMinimized_54}
+                >
+                    <div className={styles.bagIcon}/>
+                    {count > 0 && <span className={styles.badge}>{count}</span>}
+                    {showAddPopup && <div className={styles.cartPopup}>המוצר התווסף לסל</div>}
+                </motion.div>
+
+                <span className={styles.cartSummary}>
+                    {count} פריטים — ₪{total.toFixed(2)}
+                </span>
+            </div>
+
+            <AnimatePresence>
                 {showPopup && (
-                    <div className="cart-popup">
-                        המוצר התווסף לסל
-                    </div>
+                    <CartPopup onClose={() => setShowPopup(false)}/>
                 )}
-            </motion.div>
-            <span className="cart-summary">
-        {count} פריטים — ₪{total.toFixed(2)}
-      </span>
-        </Link>
+            </AnimatePresence>
+        </>
     );
 }

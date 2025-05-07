@@ -14,7 +14,6 @@
     }
 }
 
-
 .CustomerForm_117 {
     padding: 0.75rem 1.5rem;
     background: var(--clr-secondary);
@@ -23,3 +22,8 @@
     border-radius: var(--radius);
 }
 
+.payment {
+    a {
+        color: var(--clr-secondary);
+    }
+}
