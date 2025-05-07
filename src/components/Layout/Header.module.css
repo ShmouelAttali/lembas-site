@@ -13,9 +13,9 @@
 
 .headerInner {
     display: flex;
+    align-items: flex-start; /* logo and suffix align right */
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: space-between;
     padding: var(--gap);
     max-width: 1200px;
@@ -27,19 +27,14 @@
     padding: 4px var(--gap);
 }
 
-.buttons {
-    display: flex;
-}
-
 .logoContainer {
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: row;
     text-decoration: none;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
     color: var(--clr-text);
     transition: padding 0.3s ease, height 0.3s ease;
-    height: 150px;
 }
 
 .headerScrolled .logoContainer {
@@ -52,6 +47,7 @@
     width: auto;
     margin: 0 var(--gap);
 }
+
 @media (min-width: 900px) {
     .logoSvg {
         max-height: 150px;
@@ -63,7 +59,7 @@
 }
 
 .suffix {
-    transition: font-size 0.3s ease;
+    transition: font-size 0.3s ease, opacity 0.3s ease;
     font-size: 24px;
     color: var(--clr-text);
     margin: 7px var(--gap) 0 var(--gap);
@@ -90,5 +86,34 @@
 @keyframes spin {
     to {
         transform: rotate(360deg);
+    }
+}
+.buttons {
+    display: flex;
+    gap: var(--gap);
+    padding-top: var(--gap);
+    align-self: flex-end; /* align the buttons block left and stay inline */
+}
+
+/* === MOBILE (max-width: 600px) === */
+
+@media (max-width: 600px) {
+
+    .logoContainer {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .suffix {
+        font-size: 18px;
+        opacity: 1;
+        height: auto;
+        text-align: right;
+        margin: 0.25rem var(--gap) 0 0;
+    }
+
+    .headerScrolled .suffix {
+        opacity: 0;
+        height: 0;
     }
 }

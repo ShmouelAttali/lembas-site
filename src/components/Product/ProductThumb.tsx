@@ -1,10 +1,10 @@
 'use client';
 
 import {useCart} from "@/contexts/CartContext";
-import {Product} from "@/components/ProductList";
 import {useEffect} from "react";
 import {ProductImage} from "./ProductImage";
 import styles from "./ProductThumb.module.css";
+import {Product} from "@/components/Product/ProductList";
 
 export default function ProductThumb({product}: { product: Product }) {
     const {addItem} = useCart();

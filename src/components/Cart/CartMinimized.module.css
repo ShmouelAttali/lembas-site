@@ -62,20 +62,19 @@
 }
 
 @keyframes fadeInOut {
-    0% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    10%, 90% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
+    0% { opacity: 0; transform: scale(0.8); }
+    10%, 90% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.8); }
 }
 
-.cartSummary {
+.cartSummary {}
 
+.mobile {
+    flex-flow: row nowrap;
+}
+
+@media (max-width: 600px) {
+    .cartSummary {
+        display: none;
+    }
 }
