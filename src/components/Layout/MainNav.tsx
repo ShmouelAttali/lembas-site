@@ -78,13 +78,20 @@ export default function MainNav() {
                 <div className={styles.menuItemsUserName}>{userName}</div>
 
                 {session?.user ? (
-                    <button
-                        onClick={handleLogout}
-                        className={styles.menuItemsLogout}
-                        aria-label="Logout"
-                    >
-                        התנתק
-                    </button>
+                    <>
+                        <button
+                            onClick={handleLogout}
+                            className={styles.menuItemsLogout}
+                            aria-label="Logout"
+                        >
+                            התנתק
+                        </button>
+                        <Link href="/user-orders"
+                              className={`${styles.menuItemLink} ${path.startsWith('/order-summary') ? styles.menuItemLinkActive : ''}`}
+                              onClick={handleMenuClick}>
+                            הזמנות קודמות
+                        </Link>
+                    </>
                 ) : (
                     <Link href="/login" className={styles.menuItemsLogin} aria-label="Login or Register"
                           onClick={handleMenuClick}>

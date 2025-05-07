@@ -82,7 +82,10 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        const curOrderDate = localStorage.getItem('selected_order_date');
+        if (curOrderDate) {
+            info.orderDate = new Date(curOrderDate);
+        }
         if (!info.orderDate) {
             alert('יש לבחור תאריך הזמנה לפני השלמת ההזמנה.');
             return;
@@ -130,7 +133,7 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
         <div className={styles.checkoutPage}>
             <h1>תשלום</h1>
 
-            <SelectOrderDate dates={dates}/>
+            <SelectOrderDate dates={dates} handleChangeAction={handleChange}/>
 
 
             <h2>פריטים לתשלום:</h2>

@@ -1,0 +1,35 @@
+.TableWrapper {
+    overflow-x: auto;
+    margin-top: 16px;
+}
+
+.Table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    font-size: 16px;
+    direction: rtl;
+}
+
+.Table th, .Table td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: right;
+}
+
+.Table th {
+    background-color: #f0f0f0;
+}
+
+.BreadList {
+    list-style-type: disc;
+    padding-inline-start: 20px;
+    margin: 0;
+}
+
+.EmptyState {
+    margin-top: 24px;
+    font-size: 18px;
+    text-align: center;
+    color: #777;
+}
