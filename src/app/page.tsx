@@ -27,16 +27,16 @@ export default async function HomePage() {
             <img src='/bread1.JPG' alt="Bread" className={styles.coverPhoto}/>
 
             <div className={styles.mainInfo}>
-                <p className={"bold"}>ברוכים הבאים!</p>
+                <p className={"bold"}>ברוכים הבאים ללמבס!</p>
                 <br/>
-                <p>הלחמים שלנו מוכנים ללא שמרים תעשייתים כלל, עם הרבה יחס אישי ובאפייה ביתית.</p>
+                <p>את הלחמים שלנו אנחנו מכינים ללא שמרים תעשייתים כלל, עם הרבה יחס אישי ובאפייה ביתית.</p>
                 <p>התפחה באמצעות מחמצת דורשת תהליכים ארוכים, אבל נותנת תוצר שהוא ייחודי בטעם ובאיכות ושונה מלחם
                     רגיל.</p>
                 <p>זו הסיבה לכך שיש להזמין את הלחם שלנו לפחות יומיים מראש - כדי להבטיח שהוא יהיה מוכן בזמן ומותסס
                     היטב.</p>
                 <br/>
-                <p className={styles.bold}>הזמינו עכשיו כדי לקבל את הלחם הטרי שלכם כבר
-                    ביום {getFormattedDateLabel(dates[0], true)} הקרוב.</p>
+                <div className={styles.orderNow}>הזמינו עכשיו כדי לקבל את הלחם הטרי שלכם כבר
+                    ביום {getFormattedDateLabel(dates[0], true)} הקרוב.</div>
 
 
             </div>

@@ -9,22 +9,25 @@
 
 .headerScrolled {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+
 }
 
 .headerInner {
     display: flex;
-    align-items: flex-start; /* logo and suffix align right */
+    align-items: flex-end; /* logo and suffix align right */
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: var(--gap);
-    max-width: 1200px;
+    max-width: 1232px;
     margin: auto;
     transition: padding 0.3s ease;
 }
 
 .headerScrolled .headerInner {
     padding: 4px var(--gap);
+        align-items: center;
 }
 
 .logoContainer {
@@ -45,7 +48,7 @@
     transition: transform 0.3s ease, max-height 0.3s ease;
     max-height: 50px;
     width: auto;
-    margin: 0 var(--gap);
+    /*margin: 0 var(--gap);*/
 }
 
 @media (min-width: 900px) {
@@ -91,8 +94,11 @@
 .buttons {
     display: flex;
     gap: var(--gap);
-    padding-top: var(--gap);
-    align-self: flex-end; /* align the buttons block left and stay inline */
+    /*align-self: flex-end; !* align the buttons block left and stay inline *!*/
+}
+
+.headerScrolled .buttons {
+    margin-bottom: 6px;
 }
 
 /* === MOBILE (max-width: 600px) === */

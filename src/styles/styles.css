@@ -32,6 +32,10 @@ h2 {
     font-size: 1rem;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 @media screen and (min-width: 601px) {
     body {
         font-size: 18px;

@@ -8,6 +8,7 @@ import SelectOrderDate from "@/components/SelectOrderDate";
 import {EmptyCartMessage} from "@/components/Cart/EmptyCartMessage";
 import {OrderSummary} from "@/components/Layout/OrderSummary";
 import {CustomerForm} from "@/components/Customer/CustomerForm";
+import styles from './CheckoutPageClient.module.css'
 
 const STORAGE_KEY = 'checkout_info';
 export default function CheckoutPageClient({dates}: { dates: Date[] }) {
@@ -126,7 +127,7 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
     if (items.length === 0) return <EmptyCartMessage/>;
 
     return (
-        <div className={" container orderSummary"}>
+        <div className={styles.checkoutPage}>
             <h1>תשלום</h1>
 
             <SelectOrderDate dates={dates}/>

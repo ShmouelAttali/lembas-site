@@ -61,8 +61,8 @@ export default function MainNav() {
                         <Image
                             src={session.user.user_metadata.picture}
                             alt="Your avatar"
-                            width={40}
-                            height={40}
+                            width={46}
+                            height={46}
                             className={styles.roundedFull}
                         />
                     ) : (

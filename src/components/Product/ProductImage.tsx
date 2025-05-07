@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import styles from "./ProductThumb.module.css";
 import {motion} from "framer-motion";
 import {useSwipeable} from "react-swipeable";
 
@@ -104,7 +105,7 @@ export function ProductImage({product}: { product: any }) {
                         ))}
                     </div>
                 )}
-                {!product.in_stock && <div className="unavailable">חסר זמנית</div>}
+                {!product.in_stock && <div className={styles.unavailable}>חסר זמנית</div>}
             </div>
         </div>
     );

@@ -4,7 +4,7 @@ import React from 'react';
 import {CustomerInfoUi, FulfillmentMethods, PaymentMethod} from "@/types/types";
 import styles from "./CustomerForm.module.css";
 import {RadioGroup} from "@/components/Forms/RadioGroup";
-import { TextArea } from '../Forms/TextArea';
+import {TextArea} from '../Forms/TextArea';
 import {TextInput} from "@/components/Forms/TextInput";
 
 interface Props {
@@ -52,7 +52,7 @@ export function CustomerForm({
             />
 
             <TextInput
-                label="אימייל (אופציונלי)"
+                label="אימייל *"
                 type="email"
                 required
                 value={info.email}
@@ -135,6 +135,8 @@ export function CustomerForm({
             </div>
 
             <div className={styles.payment + ' payment'}>
+                <p className='bold'>נא לשלוח הוכחת תשלום (צילום מסך) לוואצאפ</p>
+
                 <a href={payboxUrl} target="_blank">לתשלום בפייבוקס</a>
                 <br/>
                 <br/>

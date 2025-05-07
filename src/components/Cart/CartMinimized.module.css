@@ -3,13 +3,15 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    padding: 4px 8px;
+    padding: 8px 8px 0 8px;
+    height: 46px;
     background: var(--clr-bg);
     border-radius: var(--radius);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
     cursor: pointer;
     color: var(--clr-text);
     flex-flow: column wrap;
+    top: 6px;
 }
 
 .CartMinimizedWrapper:hover {
@@ -35,12 +37,12 @@
 
 .badge {
     position: absolute;
-    top: 2px;
+    top: -5px;
     inset-inline-end: 2px;
     background: var(--clr-secondary);
     color: white;
     font-size: 0.625rem;
-    line-height: 1;
+    /*line-height: 1;*/
     padding: 2px 4px;
     border-radius: 8px;
     min-width: 16px;
@@ -67,7 +69,9 @@
     100% { opacity: 0; transform: scale(0.8); }
 }
 
-.cartSummary {}
+.cartSummary {
+    line-height: 1.7em;
+}
 
 .mobile {
     flex-flow: row nowrap;

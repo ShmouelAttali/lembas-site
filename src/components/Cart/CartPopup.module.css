@@ -12,11 +12,11 @@
 }
 
 .popup {
-    background: white;
+    background: var(--clr-bg-secondary);
     width: 90%;
-    max-width: 420px;
+    max-width: 500px;
     padding: 24px;
-    border-radius: 12px;
+    border-radius: var(--radius);
     position: relative;
     max-height: 90vh;
     overflow-y: auto;
@@ -25,18 +25,22 @@
 
 .closeButton {
     position: absolute;
-    right: 12px;
-    top: 12px;
-    width: 32px;
-    height: 32px;
-    background-color: #41780c;
-    color: white;
+    right: var(--gap);
+    top: var(--gap);
+    width: 25px;
+    height: 25px;
+    background-color: var(--clr-text);
+    color: var(--clr-bg-secondary);
     border-radius: 50%;
     border: none;
     cursor: pointer;
     font-size: 18px;
-    line-height: 32px;
+    line-height: 26px;
     text-align: center;
+    &:hover {
+        background-color: var(--clr-bg);
+
+    }
 }
 
 .popupTitle {
@@ -44,7 +48,6 @@
     margin-bottom: 20px;
     text-align: center;
     font-size: 20px;
-    color: #333;
 }
 
 
@@ -58,8 +61,17 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px;
-    border-bottom: 1px solid #eee;
+    padding: 10px;
+    gap: 10px 20px;
+    border-bottom: 1px solid var(--clr-text);
+}
+
+.title {
+    width: 45%;
+}
+
+.price {
+    width: 30%;
 }
 
 .item strong {
@@ -70,13 +82,15 @@
 .quantityControl {
     display: flex;
     align-items: center;
+ justify-content: space-between;
+    width: 25%;
     gap: 6px;
 }
 
 .quantityControl button {
     width: 28px;
     height: 28px;
-    background-color: #41780c;
+    background-color: var(--clr-bg);
     color: white;
     border: none;
     border-radius: 4px;
@@ -85,7 +99,7 @@
 }
 
 .quantityControl button:hover {
-    background-color: #356608;
+    background-color: var(--clr-text);
 }
 
 .total {
@@ -104,15 +118,20 @@
 
 .popupActions button {
     flex: 1;
-    padding: 12px;
-    background-color: #41780c;
-    color: white;
+    padding: var(--gap);
+    background-color: var(--clr-bg);
+    color: var(--clr-text);
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
+    &.secondaryButton {
+        background-color: var(--clr-muted);
+        color: var(--clr-bg-secondary);
+    }
 }
 
 .popupActions button:hover {
-    background-color: #356608;
+    background-color: var(--clr-primary);
+    color: var(--clr-bg-secondary);
 }

@@ -55,7 +55,7 @@ export default function CartPopup({onClose}: Props) {
                         <ul className={styles.itemsList}>
                             {items.map((item) => (
                                 <li key={item.id} className={styles.item}>
-                                    <strong>{item.title}</strong>
+                                    <p className={styles.title}>{item.title}</p>
 
                                     <div className={styles.quantityControl}>
                                         <button onClick={() => updateItem(item.id, item.quantity - 1)}>-</button>
@@ -63,7 +63,7 @@ export default function CartPopup({onClose}: Props) {
                                         <button onClick={() => updateItem(item.id, item.quantity + 1)}>+</button>
                                     </div>
 
-                                    <span>₪{(item.price * item.quantity).toFixed(2)}</span>
+                                    <span className={styles.price}>₪{(item.price * item.quantity).toFixed(2)}</span>
 
                                     <button onClick={() => removeItem(item.id)}>
                                         <Trash color={"#41780c"} size={20}/>
@@ -73,11 +73,11 @@ export default function CartPopup({onClose}: Props) {
                         </ul>
 
                         <div className={styles.total}>
-                            <strong>סה״כ: ₪{total.toFixed(2)}</strong>
+                            <p>סה&quot;כ: ₪{total.toFixed(2)}</p>
                         </div>
 
                         <div className={styles.popupActions}>
-                            <button onClick={clearCart}>נקה עגלה</button>
+                            <button className={styles.secondaryButton} onClick={clearCart}>נקה עגלה</button>
                             <button onClick={() => {
                                 onClose();
                                 router.push('/checkout');
