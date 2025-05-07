@@ -1,13 +1,13 @@
 'use client'
-import { usePathname, useRouter } from "next/navigation";
-import { useSessionContext } from "@supabase/auth-helpers-react";
-import React, { useState, useEffect, useRef } from "react";
+import {usePathname, useRouter} from "next/navigation";
+import {useSessionContext} from "@supabase/auth-helpers-react";
+import React, {useEffect, useRef, useState} from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from './MainNav.module.css';
 
 export default function MainNav() {
-    const { session, supabaseClient } = useSessionContext();
+    const {session, supabaseClient} = useSessionContext();
     const router = useRouter();
     const path = usePathname();
     const isAdmin = session?.user?.app_metadata?.role === 'admin';
@@ -86,32 +86,44 @@ export default function MainNav() {
                         התנתק
                     </button>
                 ) : (
-                    <Link href="/login" className={styles.menuItemsLogin} aria-label="Login or Register" onClick={handleMenuClick}>
+                    <Link href="/login" className={styles.menuItemsLogin} aria-label="Login or Register"
+                          onClick={handleMenuClick}>
                         התחבר/הרשם
                     </Link>
                 )}
 
                 <div className={styles.line}></div>
 
-                <Link href="/" className={`${styles.menuItemLink} ${path === '/' ? styles.menuItemLinkActive : ''}`} onClick={handleMenuClick}>
+                <Link href="/" className={`${styles.menuItemLink} ${path === '/' ? styles.menuItemLinkActive : ''}`}
+                      onClick={handleMenuClick}>
                     בית
                 </Link>
 
                 {isAdmin && (
                     <>
-                        <Link href="/order-summary" className={`${styles.menuItemLink} ${path.startsWith('/order-summary') ? styles.menuItemLinkActive : ''}`} onClick={handleMenuClick}>
+                        <Link href="/order-summary"
+                              className={`${styles.menuItemLink} ${path.startsWith('/order-summary') ? styles.menuItemLinkActive : ''}`}
+                              onClick={handleMenuClick}>
                             ניהול הזמנות
                         </Link>
-                        <Link href="/data" className={`${styles.menuItemLink} ${path.startsWith('/data') ? styles.menuItemLinkActive : ''}`} onClick={handleMenuClick}>
+                        <Link href="/data"
+                              className={`${styles.menuItemLink} ${path.startsWith('/data') ? styles.menuItemLinkActive : ''}`}
+                              onClick={handleMenuClick}>
                             נתונים
                         </Link>
-                        <Link href="/recipes" className={`${styles.menuItemLink} ${path.startsWith('/recipes') ? styles.menuItemLinkActive : ''}`} onClick={handleMenuClick}>
+                        <Link href="/recipes"
+                              className={`${styles.menuItemLink} ${path.startsWith('/recipes') ? styles.menuItemLinkActive : ''}`}
+                              onClick={handleMenuClick}>
                             מתכונים
                         </Link>
-                        <Link href="/calculator" className={`${styles.menuItemLink} ${path.startsWith('/calculator') ? styles.menuItemLinkActive : ''}`} onClick={handleMenuClick}>
+                        <Link href="/calculator"
+                              className={`${styles.menuItemLink} ${path.startsWith('/calculator') ? styles.menuItemLinkActive : ''}`}
+                              onClick={handleMenuClick}>
                             מחשבון מחמצת
                         </Link>
-                        <Link href="/order-dates" className={`${styles.menuItemLink} ${path.startsWith('/order-dates') ? styles.menuItemLinkActive : ''}`} onClick={handleMenuClick}>
+                        <Link href="/order-dates"
+                              className={`${styles.menuItemLink} ${path.startsWith('/order-dates') ? styles.menuItemLinkActive : ''}`}
+                              onClick={handleMenuClick}>
                             תאריכי הזמנה
                         </Link>
                     </>

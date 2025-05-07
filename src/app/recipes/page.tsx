@@ -55,7 +55,7 @@ export default function RecipesPage() {
         const fetchIngredients = async () => {
             setLoading(true)
             try {
-                const { data, error } = await supabase
+                const {data, error} = await supabase
                     .from('product_ingredients')
                     .select('weight, ingredient:ingredients(name, price_per_100g)')
                     .eq('product_id', selected.id)
@@ -74,7 +74,7 @@ export default function RecipesPage() {
                         console.warn('missing ingredient for row', row)
                         return {
                             weight: row.weight,
-                            ingredient: { name: '–', price_per_100g: 0 },
+                            ingredient: {name: '–', price_per_100g: 0},
                         }
                     }
                     return {

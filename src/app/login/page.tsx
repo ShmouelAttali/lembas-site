@@ -1,7 +1,7 @@
 'use client';
-import React, { useState } from 'react';
-import { supabase } from '@/lib/supabase';
-import { useRouter } from 'next/navigation';
+import React, {useState} from 'react';
+import {supabase} from '@/lib/supabase';
+import {useRouter} from 'next/navigation';
 import styles from './LoginPage.module.css';
 
 export default function LoginPage() {
@@ -12,15 +12,15 @@ export default function LoginPage() {
 
     async function onSubmit(e: React.FormEvent) {
         e.preventDefault();
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const {error} = await supabase.auth.signInWithPassword({email, password});
         if (error) return setError(error.message);
         router.push('/');
     }
 
     async function onGoogle() {
-        const { error } = await supabase.auth.signInWithOAuth({
+        const {error} = await supabase.auth.signInWithOAuth({
             provider: 'google',
-            options: { redirectTo: `${location.origin}/auth/callback` },
+            options: {redirectTo: `${location.origin}/auth/callback`},
         });
         if (error) setError(error.message);
     }
@@ -33,9 +33,11 @@ export default function LoginPage() {
             </button>
             <div className={styles.line}></div>
             <label>אימייל:</label>
-            <input type="email" required placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className={styles.input} />
+            <input type="email" required placeholder="Email" value={email} onChange={e => setEmail(e.target.value)}
+                   className={styles.input}/>
             <label>סיסמה:</label>
-            <input type="password" required placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className={styles.input} />
+            <input type="password" required placeholder="Password" value={password}
+                   onChange={e => setPassword(e.target.value)} className={styles.input}/>
 
             <button type="submit" className={styles.button}>התחבר</button>
 

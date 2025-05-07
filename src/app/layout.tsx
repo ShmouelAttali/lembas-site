@@ -1,14 +1,14 @@
 import styles from './PageLayout.module.css'; // <-- new import
 import '@/styles/styles.css'; // keep the global styles
+import type {ReactNode} from 'react';
 import React from 'react';
 import {CartProvider} from '@/contexts/CartContext';
-import Header from '@/components/Header';
-import type {ReactNode} from 'react';
 import {supabaseServer} from '@/lib/supabase-server';
 import SupabaseProvider from '@/components/SupabaseProvider';
 import {GlobalLoaderProvider} from '@/components/GlobalLoaderProvider';
 import {Analytics} from "@vercel/analytics/react";
-import Footer from "@/components/Footer";
+import Footer from "@/components/Layout/Footer";
+import Header from "@/components/Layout/Header";
 
 export default async function RootLayout({children}: { children: ReactNode }) {
     const supabase = await supabaseServer();

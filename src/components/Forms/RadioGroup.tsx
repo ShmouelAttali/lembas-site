@@ -9,10 +9,10 @@ interface RadioGroupProps {
     onChange: (value: string) => void;
 }
 
-export function RadioGroup({ label, options, name, selected, onChange }: RadioGroupProps) {
+export function RadioGroup({label, options, name, selected, onChange}: RadioGroupProps) {
     return (
         <div className={styles.RadioGroup_13}>
-            <label>{label}</label><br />
+            <label>{label}</label><br/>
             {options.map(opt => (
                 <label key={opt.value} className={styles.RadioGroup_16}>
                     <input

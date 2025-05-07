@@ -1,6 +1,7 @@
 'use client'
 import React from "react";
 import styles from "./Footer.module.css";
+
 export default function Footer() {
     const isBrowser = typeof window !== 'undefined';
     const isMobile = isBrowser && window.innerWidth <= 600;

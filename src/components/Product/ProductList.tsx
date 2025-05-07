@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import ProductThumb from "@/components/ProductThumb";
 import styles from "./ProductList.module.css";
+import ProductThumb from "@/components/Product/ProductThumb";
+
 export type Product = {
     id: string;
     title: string;

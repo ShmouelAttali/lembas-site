@@ -1,14 +1,14 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { getFormattedDateLabel } from "@/app/utils";
+import React, {useEffect, useState} from 'react';
+import {getFormattedDateLabel} from "@/lib/utils";
 import styles from './SelectOrderDate.module.css';
 
 type Props = {
     dates: Date[];
 };
 
-export default function SelectOrderDate({ dates }: Props) {
+export default function SelectOrderDate({dates}: Props) {
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [ready, setReady] = useState(false);
 

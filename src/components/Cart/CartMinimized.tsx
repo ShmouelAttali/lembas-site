@@ -4,7 +4,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useCart} from '@/contexts/CartContext';
 import {AnimatePresence, motion, useAnimation} from 'framer-motion';
 import styles from "./CartMinimized.module.css";
-import CartPopup from "@/components/CartPopup";
+import CartPopup from "@/components/Cart/CartPopup";
 
 export default function CartMinimized() {
     const {items, total} = useCart();

@@ -1,7 +1,10 @@
 import React from 'react';
 import styles from "./OrderSummary.module.css";
 
-export function OrderSummary({ items, itemsPrice }: { items: { id: string, title: string, quantity: number, price: number }[], itemsPrice: number }) {
+export function OrderSummary({items, itemsPrice}: {
+    items: { id: string, title: string, quantity: number, price: number }[],
+    itemsPrice: number
+}) {
     return (
         <>
             <ul className={styles.OrderSummary_6}>

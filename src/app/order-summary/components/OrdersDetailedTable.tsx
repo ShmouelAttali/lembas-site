@@ -9,7 +9,7 @@ const cell = {
     whiteSpace: 'nowrap' as const,
 };
 
-const OrdersDetailedTable = ({ orders }: { orders: any[] }) => (
+const OrdersDetailedTable = ({orders}: { orders: any[] }) => (
     <div className={styles.OrdersDetailedTable_12}>
         <table className={styles.OrdersDetailedTable_13}>
             <thead>

@@ -1,9 +1,8 @@
 import React from 'react';
-import ProductList from '@/components/ProductList';
 import {supabaseServer} from '@/lib/supabase-server';
-import {addDays} from '@/app/utils';
-import {getFormattedDateLabel} from "@/app/utils";
+import {addDays, getFormattedDateLabel} from '@/lib/utils';
 import styles from './HomePage.module.css'
+import ProductList from "@/components/Product/ProductList";
 
 export default async function HomePage() {
     const supabase = await supabaseServer();
@@ -36,7 +35,8 @@ export default async function HomePage() {
                 <p>זו הסיבה לכך שיש להזמין את הלחם שלנו לפחות יומיים מראש - כדי להבטיח שהוא יהיה מוכן בזמן ומותסס
                     היטב.</p>
                 <br/>
-                <p className={styles.bold}>הזמינו עכשיו כדי לקבל את הלחם הטרי שלכם כבר ביום {getFormattedDateLabel(dates[0], true)} הקרוב.</p>
+                <p className={styles.bold}>הזמינו עכשיו כדי לקבל את הלחם הטרי שלכם כבר
+                    ביום {getFormattedDateLabel(dates[0], true)} הקרוב.</p>
 
 
             </div>

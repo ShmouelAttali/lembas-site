@@ -1,10 +1,10 @@
 // src/app/api/orders/route.ts
 // 'use server';        // ✱ keep Node runtime (don’t mark “edge”)
 
+import type {NextRequest} from 'next/server';
 import {NextResponse} from 'next/server';
 import {supabaseServer} from '@/lib/supabase-server';
-import type {NextRequest} from 'next/server';
-import {sendOrderTelegram} from "@/app/utils";
+import {sendOrderTelegram} from "@/lib/utils"
 import {sendSmsNotification} from "@/app/api/orders/smsSender";
 import {sendOrderEmail} from "@/app/api/orders/emailSender";
 import {CustomerInfo, ItemInfo} from "@/types/types";

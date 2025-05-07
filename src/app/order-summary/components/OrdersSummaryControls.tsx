@@ -32,7 +32,9 @@ const OrdersSummaryControls = ({
             <button onClick={() => onSummaryViewChange('all')}
                     className={styles.OrdersSummaryControls_24 + (summaryView === 'all' ? ' selected' : '')}>All Orders
             </button>
-            <button onClick={() => onSummaryViewChange('grouped')} className={styles.OrdersSummaryControls_25 + (summaryView === 'grouped' ? ' selected' : '')}>Group by
+            <button onClick={() => onSummaryViewChange('grouped')}
+                    className={styles.OrdersSummaryControls_25 + (summaryView === 'grouped' ? ' selected' : '')}>Group
+                by
                 Date
             </button>
         </div>

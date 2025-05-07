@@ -3,9 +3,9 @@
 import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
 import MainNav from './MainNav';
-import CartMinimized from './CartMinimized';
 import {useGlobalLoader} from "@/components/GlobalLoaderProvider";
 import styles from './Header.module.css';
+import CartMinimized from "@/components/Cart/CartMinimized";
 
 interface HeaderProps {
     suffix: string;

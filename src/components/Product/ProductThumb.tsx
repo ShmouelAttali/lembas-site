@@ -1,13 +1,13 @@
 'use client';
 
-import { useCart } from "@/contexts/CartContext";
-import { Product } from "@/components/ProductList";
-import { useEffect } from "react";
-import { ProductImage } from "./ProductImage";
+import {useCart} from "@/contexts/CartContext";
+import {Product} from "@/components/ProductList";
+import {useEffect} from "react";
+import {ProductImage} from "./ProductImage";
 import styles from "./ProductThumb.module.css";
 
-export default function ProductThumb({ product }: { product: Product }) {
-    const { addItem } = useCart();
+export default function ProductThumb({product}: { product: Product }) {
+    const {addItem} = useCart();
 
     useEffect(() => {
         const img = new window.Image();
@@ -19,7 +19,7 @@ export default function ProductThumb({ product }: { product: Product }) {
             key={product.id}
             className={`${styles.productCard} ${!product.in_stock ? styles.outOfStock : ''}`}
         >
-            <ProductImage product={product} />
+            <ProductImage product={product}/>
             <div className={styles.productInfo}>
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
@@ -29,7 +29,7 @@ export default function ProductThumb({ product }: { product: Product }) {
                     type="button"
                     className={`${styles.addToCart} ${!product.in_stock ? styles.addToCartDisabled : ''}`}
                     onClick={() =>
-                        addItem({ id: product.id, title: product.title, price: product.price })
+                        addItem({id: product.id, title: product.title, price: product.price})
                     }
                 >
                     הוסף לסל

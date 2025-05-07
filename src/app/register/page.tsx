@@ -1,7 +1,7 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
-import { useRouter, useSearchParams } from 'next/navigation';
+import React, {useEffect, useState} from 'react';
+import {supabase} from '@/lib/supabase';
+import {useRouter, useSearchParams} from 'next/navigation';
 import styles from './RegisterPage.module.css';
 
 export default function RegisterPage() {
@@ -21,10 +21,10 @@ export default function RegisterPage() {
     async function onEmailSubmit(e: React.FormEvent) {
         e.preventDefault();
         setError('');
-        const { error: signUpError } = await supabase.auth.signUp({
+        const {error: signUpError} = await supabase.auth.signUp({
             email,
             password,
-            options: { data: { full_name: fullName } },
+            options: {data: {full_name: fullName}},
         });
         if (signUpError) return setError(signUpError.message);
         router.replace('/login?from=register');
@@ -32,7 +32,7 @@ export default function RegisterPage() {
 
     async function onGoogle() {
         setError('');
-        const { error: oauthError } = await supabase.auth.signInWithOAuth({
+        const {error: oauthError} = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
                 redirectTo: `${location.origin}/register`,

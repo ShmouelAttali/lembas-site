@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
-import { TextInput } from './form/TextInput';
-import { TextArea } from './form/TextArea';
-import { RadioGroup } from './form/RadioGroup';
-import { CustomerInfoUi, FulfillmentMethods, PaymentMethod } from "@/types/types";
+import {CustomerInfoUi, FulfillmentMethods, PaymentMethod} from "@/types/types";
 import styles from "./CustomerForm.module.css";
+import {RadioGroup} from "@/components/Forms/RadioGroup";
+import { TextArea } from '../Forms/TextArea';
+import {TextInput} from "@/components/Forms/TextInput";
 
 interface Props {
     info: CustomerInfoUi;
@@ -65,10 +65,10 @@ export function CustomerForm({
                     name="slice"
                     selected={info.slice ? 'slice' : 'whole'}
                     options={[
-                        { value: 'slice', label: 'פרוס' },
-                        { value: 'whole', label: 'שלם' },
+                        {value: 'slice', label: 'פרוס'},
+                        {value: 'whole', label: 'שלם'},
                     ]}
-                    onChange={(val) => setInfoAction({ ...info, slice: val === 'slice' })}
+                    onChange={(val) => setInfoAction({...info, slice: val === 'slice'})}
                 />
             </div>
 
@@ -77,10 +77,10 @@ export function CustomerForm({
                     label="משלוח או איסוף עצמי?"
                     name="fulfillment"
                     selected={info.fulfillment}
-                    onChange={(val) => setInfoAction({ ...info, fulfillment: val as FulfillmentMethods })}
+                    onChange={(val) => setInfoAction({...info, fulfillment: val as FulfillmentMethods})}
                     options={[
-                        { value: 'delivery', label: 'משלוח בכל גוש שילה-עלי (10 ש"ח)' },
-                        { value: 'pickup', label: 'איסוף עצמי מהקטורת 48, שילה' },
+                        {value: 'delivery', label: 'משלוח בכל גוש שילה-עלי (10 ש"ח)'},
+                        {value: 'pickup', label: 'איסוף עצמי מהקטורת 48, שילה'},
                     ]}
                 />
             </div>
@@ -125,20 +125,20 @@ export function CustomerForm({
                     label="אופן התשלום"
                     name="paymentMethod"
                     selected={info.paymentMethod}
-                    onChange={(val) => setInfoAction({ ...info, paymentMethod: val as PaymentMethod })}
+                    onChange={(val) => setInfoAction({...info, paymentMethod: val as PaymentMethod})}
                     options={[
-                        { value: 'paybox', label: 'פייבוקס' },
-                        { value: 'bit', label: 'ביט' },
-                        { value: 'cash', label: 'מזומן' },
+                        {value: 'paybox', label: 'פייבוקס'},
+                        {value: 'bit', label: 'ביט'},
+                        {value: 'cash', label: 'מזומן'},
                     ]}
                 />
             </div>
 
             <div className={styles.payment + ' payment'}>
                 <a href={payboxUrl} target="_blank">לתשלום בפייבוקס</a>
-                <br />
-                <br />
-                <a href={bitUrl} target="_blank">לתשלום בביט</a><br />
+                <br/>
+                <br/>
+                <a href={bitUrl} target="_blank">לתשלום בביט</a><br/>
                 (במקרה והקישור לתשלום בביט לא עובד - יש לשלוח לאסתר אטלי 0542338344)
             </div>
 

@@ -1,11 +1,11 @@
 'use client';
 import React, {useEffect, useState} from "react";
 import styles from "@/app/data/AdminPageClient.module.css";
-import OrdersSummaryControls from "@/app/order-summary/OrdersSummaryControls";
-import OrdersGroupedTable from "@/app/order-summary/OrdersGroupedTable";
-import OrdersDetailedTable from "@/app/order-summary/OrdersDetailedTable";
 import {supabase} from "@/lib/supabase";
 import {OrderInfo} from "@/types/types";
+import OrdersSummaryControls from "@/app/order-summary/components/OrdersSummaryControls";
+import OrdersGroupedTable from "@/app/order-summary/components/OrdersGroupedTable";
+import OrdersDetailedTable from "@/app/order-summary/components/OrdersDetailedTable";
 
 
 export default function OrderSummaryPage() {
@@ -23,7 +23,6 @@ export default function OrderSummaryPage() {
     const [summaryView, setSummaryView] = useState<'all' | 'grouped'>('all');
 
 
-
     useEffect(() => {
         const loadData = async () => {
             setLoading(true);
@@ -35,7 +34,7 @@ export default function OrderSummaryPage() {
             };
 
             try {
-                const { data: orders, error } = await supabase
+                const {data: orders, error} = await supabase
                     .from('orders')
                     .select('*, order_items(*, products(title))')
                     .gte('order_date', fromDate)

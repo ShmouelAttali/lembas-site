@@ -18,7 +18,7 @@
 }
 
 .CartMinimizedWrapper:hover .bag-icon {
-    background-image: url('../../public/icons/bag-hovered.svg');
+    background-image: url('/icons/bag-hovered.svg');
 }
 
 .CartMinimized_54 {
@@ -28,7 +28,7 @@
 }
 
 .bagIcon {
-    background: url('../../public/icons/bag.svg') no-repeat center;
+    background: url('/icons/bag.svg') no-repeat center;
     width: 30px;
     height: 30px;
 }

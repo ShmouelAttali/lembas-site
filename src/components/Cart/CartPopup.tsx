@@ -2,11 +2,11 @@
 
 import React, {useEffect} from 'react';
 import {useCart} from '@/contexts/CartContext';
-import {EmptyCartMessage} from '@/components/EmptyCartMessage';
 import styles from './CartPopup.module.css';
 import {Trash} from "lucide-react";
 import {motion} from "framer-motion";
 import {useRouter} from "next/navigation";
+import {EmptyCartMessage} from "@/components/Cart/EmptyCartMessage";
 
 type Props = {
     onClose: () => void;

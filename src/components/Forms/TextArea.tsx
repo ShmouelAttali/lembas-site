@@ -5,7 +5,7 @@ interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
     label: string;
 }
 
-export function TextArea({ label, ...props }: TextAreaProps) {
+export function TextArea({label, ...props}: TextAreaProps) {
     return (
         <div className={styles.TextArea_9}>
             <label>{label}</label>

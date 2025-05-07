@@ -1,4 +1,4 @@
-import {getFormattedDateLabel, toE164} from "@/app/utils";
+import {getFormattedDateLabel, toE164} from "@/lib/utils"
 import twilio from "twilio";
 import {CustomerInfo, ItemInfo, OrderInfo} from "@/types/types";
 

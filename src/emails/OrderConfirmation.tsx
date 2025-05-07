@@ -1,7 +1,7 @@
 // src/emails/OrderConfirmation.tsx
 import * as React from 'react';
 import {CustomerInfo, ItemInfo, OrderInfo} from "@/types/types";
-import {getFormattedDateLabel} from "@/app/utils";
+import {getFormattedDateLabel} from "@/lib/utils"
 import styles from "./OrderConfirmation.module.css";
 
 export function OrderConfirmation({
@@ -31,7 +31,7 @@ export function OrderConfirmation({
             className={styles.OrderConfirmation_30}
         >
             <h1>
-                {customer.name}, איזה כיף  – הזמנה מספר {order.id} התקבלה בהצלחה!
+                {customer.name}, איזה כיף – הזמנה מספר {order.id} התקבלה בהצלחה!
             </h1>
 
             <h2>פרטי ההזמנה:</h2>

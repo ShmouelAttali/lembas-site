@@ -1,5 +1,5 @@
 import CheckoutPageClient from "@/app/checkout/CheckoutPageClient";
-import {addDays} from "@/app/utils";
+import {addDays} from "@/lib/utils"
 import {supabaseServer} from "@/lib/supabase-server";
 
 export default async function CheckoutPage() {

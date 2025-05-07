@@ -4,10 +4,10 @@ import {useSessionContext} from "@supabase/auth-helpers-react";
 import {useRouter} from "next/navigation";
 import React, {useEffect, useState} from "react";
 import {CustomerInfo, CustomerInfoUi} from "@/types/types";
-import {EmptyCartMessage} from "@/components/EmptyCartMessage";
 import SelectOrderDate from "@/components/SelectOrderDate";
-import {OrderSummary} from "@/components/OrderSummary";
-import {CustomerForm} from "@/components/CustomerForm";
+import {EmptyCartMessage} from "@/components/Cart/EmptyCartMessage";
+import {OrderSummary} from "@/components/Layout/OrderSummary";
+import {CustomerForm} from "@/components/Customer/CustomerForm";
 
 const STORAGE_KEY = 'checkout_info';
 export default function CheckoutPageClient({dates}: { dates: Date[] }) {

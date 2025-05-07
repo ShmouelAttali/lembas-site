@@ -1,7 +1,7 @@
 // OrdersGroupedTable.tsx
 import React from 'react';
 import styles from "./OrdersGroupedTable.module.css";
-import {getFormattedDateLabel} from "@/app/utils";
+import {getFormattedDateLabel} from "@/lib/utils"
 
 const cell = {
     border: '1px solid #ccc',
@@ -41,7 +41,7 @@ const groupProducts = (orders: any[]) => {
     return Object.values(grouped);
 };
 
-const OrdersGroupedTable = ({ orders }: { orders: any[] }) => {
+const OrdersGroupedTable = ({orders}: { orders: any[] }) => {
     const byDate = groupByDate(orders);
     return (
         <div className={styles.OrdersGroupedTable_44}>
