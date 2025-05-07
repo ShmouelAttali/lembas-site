@@ -15,7 +15,7 @@
     margin-bottom: 1rem;
 }
 
-.twoRows :global(label[class^="RadioGroup-module__"]) {
+.twoRows :global(label[class^="RadioGroup-"]) {
     display: block;
     margin-bottom: 0.2rem;
 }

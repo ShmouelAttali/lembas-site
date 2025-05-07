@@ -135,8 +135,10 @@ export function CustomerForm({
             </div>
 
             <div className={styles.payment + ' payment'}>
-                <p className='bold'>נא לשלוח הוכחת תשלום (צילום מסך) לוואצאפ</p>
-
+                <p className='bold'>נא לשלוח הודעה  <a href="https://wa.me/972542338344" target="_blank">
+                    <span>בוואטסאפ</span>
+                </a> לאחר התשלום </p>
+                <br/>
                 <a href={payboxUrl} target="_blank">לתשלום בפייבוקס</a>
                 <br/>
                 <br/>
