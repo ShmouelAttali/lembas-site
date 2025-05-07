@@ -42,17 +42,18 @@ const Header: React.FC<HeaderProps> = ({suffix}) => {
     return (
         <header className={`${styles.header} ${scrolled ? styles.headerScrolled : ''}`}>
             <div className={styles.headerInner}>
-                <CartMinimized/>
                 <Link href="/" className={styles.logoContainer}>
                     <img
                         className={styles.logoSvg}
-                        srcSet="/lembasLogo.svg 358w, /lembasLogo-vertical.svg 595w"
-                        sizes="(max-width: 600px) 595px, 358px"
+                        srcSet="/lembasLogo.svg"
                         alt="למבס logo"
                     />
                     <h1 className={styles.suffix}>{suffix}</h1>
                 </Link>
-                <MainNav/>
+                <div className={styles.buttons}>
+                    <CartMinimized/>
+                    <MainNav/>
+                </div>
                 {loading && <div className={styles.spinner} aria-label="Loading"></div>}
             </div>
         </header>
