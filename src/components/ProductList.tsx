@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ProductThumb from "@/components/ProductThumb";
-
+import styles from "./ProductList.module.css";
 export type Product = {
     id: string;
     title: string;
@@ -16,7 +16,7 @@ export type Product = {
 
 export default function ProductList({products}: { products: Product[] }) {
     return (
-        <section className="products">
+        <section className={styles.products}>
             {products.map((p) => (
                 <ProductThumb key={p.id} product={p}/>
             ))}

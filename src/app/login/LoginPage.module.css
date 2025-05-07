@@ -1,0 +1,35 @@
+.form {
+    padding: var(--gap);
+}
+
+.input {
+    display: block;
+    margin-bottom: var(--gap);
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.button {
+    display: block;
+    padding: 10px var(--gap);
+    border-radius: 6px;
+    border: 0;
+    background-color: var(--clr-secondary);
+    color: white;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: var(--clr-primary);
+}
+
+.line {
+    margin: 25px 0;
+    width: 50%;
+    height: 1px;
+    background: var(--clr-text);
+}
+
+.register {
+    color: var(--clr-secondary);
+}

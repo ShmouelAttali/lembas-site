@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import {TextInput} from './form/TextInput';
-import {TextArea} from './form/TextArea';
-import {RadioGroup} from './form/RadioGroup';
-import {CustomerInfoUi, FulfillmentMethods, PaymentMethod} from "@/types/types";
+import { TextInput } from './form/TextInput';
+import { TextArea } from './form/TextArea';
+import { RadioGroup } from './form/RadioGroup';
+import { CustomerInfoUi, FulfillmentMethods, PaymentMethod } from "@/types/types";
 import styles from "./CustomerForm.module.css";
 
 interface Props {
@@ -30,8 +30,9 @@ export function CustomerForm({
                              }: Props) {
     const payboxUrl = 'https://link.payboxapp.com/QbpGp2SCZ4qgABAb6';
     const bitUrl = 'https://www.bitpay.co.il/app/me/5DCEBBEE-5BA3-47C4-AC9C-12B8946182C0';
+
     return (
-        <form onSubmit={handleSubmitAction} className={styles.CustomerForm_21}>
+        <form onSubmit={handleSubmitAction} className={styles.customerForm}>
             <TextInput
                 label="שם מלא *"
                 type="text"
@@ -44,6 +45,8 @@ export function CustomerForm({
                 label="טלפון *"
                 type="tel"
                 required
+                inputMode="numeric"
+                pattern="[0-9]*"
                 value={info.phone}
                 onChange={handleChangeAction('phone')}
             />
@@ -56,28 +59,28 @@ export function CustomerForm({
                 onChange={handleChangeAction('email')}
             />
 
-            <div className={styles.CustomerForm_45 + ' radio'}>
+            <div className={styles.section + ' radio'}>
                 <RadioGroup
                     label="לפרוס?"
                     name="slice"
                     selected={info.slice ? 'slice' : 'whole'}
                     options={[
-                        {value: 'slice', label: 'פרוס'},
-                        {value: 'whole', label: 'שלם'},
+                        { value: 'slice', label: 'פרוס' },
+                        { value: 'whole', label: 'שלם' },
                     ]}
-                    onChange={(val) => setInfoAction({...info, slice: val === 'slice'})}
+                    onChange={(val) => setInfoAction({ ...info, slice: val === 'slice' })}
                 />
             </div>
 
-            <div className={styles.CustomerForm_45 + ' radio ' + styles.twoRows}>
+            <div className={styles.section + ' radio ' + styles.twoRows}>
                 <RadioGroup
                     label="משלוח או איסוף עצמי?"
                     name="fulfillment"
                     selected={info.fulfillment}
-                    onChange={(val) => setInfoAction({...info, fulfillment: val as FulfillmentMethods})}
+                    onChange={(val) => setInfoAction({ ...info, fulfillment: val as FulfillmentMethods })}
                     options={[
-                        {value: 'delivery', label: 'משלוח בכל גוש שילה-עלי (10 ש"ח)'},
-                        {value: 'pickup', label: 'איסוף עצמי מהקטורת 48, שילה'},
+                        { value: 'delivery', label: 'משלוח בכל גוש שילה-עלי (10 ש"ח)' },
+                        { value: 'pickup', label: 'איסוף עצמי מהקטורת 48, שילה' },
                     ]}
                 />
             </div>
@@ -90,8 +93,7 @@ export function CustomerForm({
                 onChange={handleChangeAction('address')}
             />
 
-
-            <div className={'remember'}>
+            <div className={styles.remember}>
                 <label>
                     <input
                         type="checkbox"
@@ -102,45 +104,43 @@ export function CustomerForm({
                 </label>
             </div>
 
-            <div className={'line'}></div>
+            <div className={styles.line}></div>
 
-            <div className='summary'>
-                <div className={styles.OrderSummary_15}>
+            <div className={styles.summary}>
+                <div className={styles.orderSummaryItem}>
                     סה״כ לתשלום פריטים: <strong>₪{itemsPrice.toFixed(2)}</strong>
                 </div>
-
 
                 <div className={styles.shippingFee}>
                     דמי משלוח: <strong>₪{shippingFee}</strong>
                 </div>
-                <div className={'totalPrice'}>
+
+                <div className={styles.totalPrice}>
                     סה&quot;כ לתשלום: <strong>₪{totalPrice.toFixed(2)}</strong>
                 </div>
             </div>
 
-
-            <div className={styles.CustomerForm_45 + ' radio'}>
+            <div className={styles.section + ' radio'}>
                 <RadioGroup
                     label="אופן התשלום"
                     name="paymentMethod"
                     selected={info.paymentMethod}
-                    onChange={(val) => setInfoAction({...info, paymentMethod: val as PaymentMethod})}
+                    onChange={(val) => setInfoAction({ ...info, paymentMethod: val as PaymentMethod })}
                     options={[
-                        {value: 'paybox', label: 'פייבוקס'},
-                        {value: 'bit', label: 'ביט'},
-                        {value: 'cash', label: 'מזומן'},
+                        { value: 'paybox', label: 'פייבוקס' },
+                        { value: 'bit', label: 'ביט' },
+                        { value: 'cash', label: 'מזומן' },
                     ]}
                 />
-
             </div>
+
             <div className={styles.payment + ' payment'}>
                 <a href={payboxUrl} target="_blank">לתשלום בפייבוקס</a>
-                <br/>
-                <br/>
-                <a href={bitUrl} target="_blank">לתשלום בביט</a><br/>
+                <br />
+                <br />
+                <a href={bitUrl} target="_blank">לתשלום בביט</a><br />
                 (במקרה והקישור לתשלום בביט לא עובד - יש לשלוח לאסתר אטלי 0542338344)
             </div>
-
 
             <TextArea
                 label="הערות נוספות"
@@ -148,11 +148,10 @@ export function CustomerForm({
                 onChange={handleChangeAction('notes')}
             />
 
-
             <button
                 type="submit"
                 disabled={submitting}
-                className={styles.CustomerForm_117 + " makeOrder my-button"}
+                className={styles.submitButton}
             >
                 {submitting ? 'שולח…' : 'בצע הזמנה'}
             </button>

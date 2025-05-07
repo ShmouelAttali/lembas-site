@@ -26,7 +26,7 @@ export type FulfillmentMethods = 'delivery' | 'pickup';
 export type CustomerInfo = {
     name: string;
     phone: string;
-    email?: string;
+    email: string;
     slice: boolean;
     fulfillment: FulfillmentMethods;
     address?: string;

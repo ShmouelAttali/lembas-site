@@ -1,4 +1,5 @@
-import '@/styles/styles.css';
+import styles from './PageLayout.module.css'; // <-- new import
+import '@/styles/styles.css'; // keep the global styles
 import React from 'react';
 import {CartProvider} from '@/contexts/CartContext';
 import Header from '@/components/Header';
@@ -17,12 +18,12 @@ export default async function RootLayout({children}: { children: ReactNode }) {
     return (
         <html lang="he" dir="rtl">
         <body>
-        <div className="page-wrapper">
+        <div className={styles.pageWrapper}>
             <SupabaseProvider>
                 <CartProvider>
                     <Header suffix={suffix}/>
                     <GlobalLoaderProvider>
-                        <main className="container">{children}</main>
+                        <main className={styles.container}>{children}</main>
                         <Footer/>
                     </GlobalLoaderProvider>
                 </CartProvider>

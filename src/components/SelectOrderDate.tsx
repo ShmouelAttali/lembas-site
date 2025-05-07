@@ -1,13 +1,14 @@
 'use client';
 
-import React, {useState, useEffect} from 'react';
-import {getFormattedDateLabel} from "@/app/utils";
+import React, { useState, useEffect } from 'react';
+import { getFormattedDateLabel } from "@/app/utils";
+import styles from './SelectOrderDate.module.css';
 
 type Props = {
     dates: Date[];
 };
 
-export default function SelectOrderDate({dates}: Props) {
+export default function SelectOrderDate({ dates }: Props) {
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [ready, setReady] = useState(false);
 
@@ -18,7 +19,7 @@ export default function SelectOrderDate({dates}: Props) {
         } else {
             localStorage.removeItem('selected_order_date');
         }
-        setReady(true); // Only mark ready after we've processed localStorage
+        setReady(true);
     }, [dates]);
 
     const handleDateClick = (date: string) => {
@@ -27,16 +28,21 @@ export default function SelectOrderDate({dates}: Props) {
     };
 
     return (
-        <div className="dates">
-            {dates.map((d) => (
-                <button
-                    key={d.toISOString()}
-                    className={`date-btn ${(ready && selectedDate === d.toISOString()) ? 'selected' : ''}`}
-                    onClick={() => handleDateClick(d.toISOString())}
-                >
-                    {getFormattedDateLabel(d)}
-                </button>
-            ))}
-        </div>
+        <section className={styles.booking}>
+            <h2 className={styles.bookingTitle}>
+                {selectedDate ? 'תאריך איסוף ההזמנה:' : 'בחר תאריך לאיסוף ההזמנה:'}
+            </h2>
+            <div className={styles.dates}>
+                {dates.map((d) => (
+                    <button
+                        key={d.toISOString()}
+                        className={`${styles.dateBtn} ${(ready && selectedDate === d.toISOString()) ? styles.dateBtnSelected : ''}`}
+                        onClick={() => handleDateClick(d.toISOString())}
+                    >
+                        {getFormattedDateLabel(d)}
+                    </button>
+                ))}
+            </div>
+        </section>
     );
 }

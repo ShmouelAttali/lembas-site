@@ -1,0 +1,115 @@
+.mainNav {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navTop {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navLink {
+    padding: var(--gap);
+    color: var(--clr-text);
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: var(--radius);
+}
+
+.navLinkActive {
+    background: var(--clr-secondary);
+    color: white;
+}
+
+.navLink:hover {
+    background: var(--clr-primary);
+    color: white;
+}
+
+.mobileMenuToggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    margin-right: var(--gap);
+    cursor: pointer;
+    color: var(--clr-text);
+    display: block;
+}
+
+.menuItems {
+    position: absolute;
+    top: 100%;
+    left: calc(var(--gap) * -1);
+    background: var(--clr-bg-secondary);
+    max-width: 250px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    border-radius: var(--radius) 0;
+    z-index: 40;
+    pointer-events: none;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.5);
+}
+
+.menuItemsShow {
+    opacity: 1;
+    pointer-events: all;
+    padding: var(--gap);
+}
+
+.menuItemsUserName {
+    text-align: center;
+}
+
+.menuItemsLogout,
+.menuItemsLogin {
+    font-size: 0.8em;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+
+.menuItemsLogout:hover,
+.menuItemsLogin:hover {
+    color: var(--clr-secondary);
+}
+
+.line {
+    width: calc(100% - (var(--gap) * 2));
+    margin-right: var(--gap);
+    margin-left: var(--gap);
+    height: 1px;
+    background: var(--clr-text);
+}
+
+.menuItemLink {
+    padding: 0.5rem;
+    color: var(--clr-text);
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: var(--radius);
+}
+
+.menuItemLink:hover {
+    background: var(--clr-primary);
+    color: white;
+}
+
+.menuItemLinkActive {
+    background: var(--clr-secondary);
+    color: white;
+}
+
+.roundedFull {
+    border-radius: 8px;
+    margin-left: 0.5rem;
+}
+
+.userName {
+    vertical-align: 0.75rem;
+}

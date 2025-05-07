@@ -1,27 +1,23 @@
-// src/app/register/page.tsx
 'use client';
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
 import { useRouter, useSearchParams } from 'next/navigation';
+import styles from './RegisterPage.module.css';
 
 export default function RegisterPage() {
-    const router   = useRouter();
-    const params   = useSearchParams();
-    const [email, setEmail]       = useState('');
-    const [password, setPassword]   = useState('');
-    const [fullName, setFullName]   = useState('');
-    const [error, setError]       = useState<string>('');
+    const router = useRouter();
+    const params = useSearchParams();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [error, setError] = useState<string>('');
 
-    // 1) Handle Google callback: after OAuth, Supabase will redirect you back
-    //    with an "?access_token=…" in the URL. We can detect that and redirect home.
     useEffect(() => {
         if (params.get('access_token') || params.get('refresh_token')) {
-            // user is now signed in
             router.replace('/');
         }
     }, [params, router]);
 
-    // 2) Email/password flow
     async function onEmailSubmit(e: React.FormEvent) {
         e.preventDefault();
         setError('');
@@ -31,17 +27,14 @@ export default function RegisterPage() {
             options: { data: { full_name: fullName } },
         });
         if (signUpError) return setError(signUpError.message);
-        // optionally upsert into `profile` here
         router.replace('/login?from=register');
     }
 
-    // 3) Google OAuth flow
     async function onGoogle() {
         setError('');
         const { error: oauthError } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
-                // Supabase will bring you back to /register?access_token=…
                 redirectTo: `${location.origin}/register`,
             },
         });
@@ -50,20 +43,20 @@ export default function RegisterPage() {
 
     return (
         <div className="max-w-md mx-auto mt-20 space-y-6">
-
-
-            <form onSubmit={onEmailSubmit} className="space-y-4 registerForm">
+            <form onSubmit={onEmailSubmit} className={styles.form}>
                 <h1>הרשמה</h1>
 
                 <button
                     onClick={onGoogle}
-                    className="w-full btn-secondary flex items-center justify-center gap-2"
+                    type="button"
+                    className={styles.button}
                 >
                     המשך עם Google
                 </button>
-                <div className="divider">או:</div>
 
-                <div className="line"></div>
+                <div className={styles.divider}>או:</div>
+
+                <div className={styles.line}></div>
 
                 <label>שם מלא</label>
                 <input
@@ -71,7 +64,7 @@ export default function RegisterPage() {
                     value={fullName}
                     onChange={e => setFullName(e.target.value)}
                     required
-                    className="input"
+                    className={styles.input}
                 />
                 <label>כתובת מייל</label>
                 <input
@@ -80,7 +73,7 @@ export default function RegisterPage() {
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     required
-                    className="input"
+                    className={styles.input}
                 />
 
                 <label>בחר סיסמה</label>
@@ -90,9 +83,9 @@ export default function RegisterPage() {
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     required
-                    className="input"
+                    className={styles.input}
                 />
-                <button type="submit" className="w-full btn-primary flex items-center justify-center gap-2">
+                <button type="submit" className={styles.button}>
                     הרשמה
                 </button>
             </form>
@@ -101,7 +94,7 @@ export default function RegisterPage() {
 
             <p className="text-center text-sm">
                 כבר רשום?{' '}
-                <a href="/login" className="text-blue-500 underline">
+                <a href="/login" className={styles.loginLink}>
                     היכנס כאן
                 </a>
             </p>

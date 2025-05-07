@@ -1,0 +1,43 @@
+.booking {
+    padding: var(--gap);
+    background: var(--clr-bg-secondary);
+    margin: var(--gap) 0;
+    border-radius: var(--radius);
+    box-shadow: var(--soft-shadow);
+}
+
+.bookingTitle {
+    margin-bottom: var(--gap);
+    font-size: 1.2rem;
+}
+
+.dates {
+    display: grid;
+    gap: var(--gap);
+}
+
+.dateBtn {
+    width: 100%;
+    padding: 12px;
+    background: var(--clr-primary);
+    color: var(--clr-bg-secondary);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+    text-align: center;
+    margin: 0;
+}
+
+.dateBtnSelected,
+.dateBtn:hover,
+.dateBtnActive {
+    background: var(--clr-secondary);
+}
+
+@media (min-width: 900px) {
+    .dates {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+}

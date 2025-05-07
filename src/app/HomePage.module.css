@@ -1,0 +1,22 @@
+.coverPhoto {
+    box-shadow: var(--soft-shadow);
+    margin-top: 1rem;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.mainInfo {
+    box-shadow: var(--shadow);
+    margin-top: var(--gap);
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 50px;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    border-radius: var(--radius);
+    border: 4px solid var(--clr-bg);
+}
+
+.bold {
+    font-weight: bold;
+}

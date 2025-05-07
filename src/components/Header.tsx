@@ -22,7 +22,7 @@ const Header: React.FC<HeaderProps> = ({suffix}) => {
             const currentScrollY = window.scrollY;
             const isMobile = window.innerWidth <= 600;
 
-            const shrinkUpperThreshold = isMobile ? 180 : 100;
+            const shrinkUpperThreshold = isMobile ? 180 : 200;
             const shrinkLowerThreshold = isMobile ? 30 : 30;
 
             // Scrolling Down

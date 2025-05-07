@@ -3,6 +3,7 @@ import ProductList from '@/components/ProductList';
 import {supabaseServer} from '@/lib/supabase-server';
 import {addDays} from '@/app/utils';
 import {getFormattedDateLabel} from "@/app/utils";
+import styles from './HomePage.module.css'
 
 export default async function HomePage() {
     const supabase = await supabaseServer();
@@ -24,9 +25,9 @@ export default async function HomePage() {
     });
     return (
         <>
-            <img src='/bread1.JPG' alt="Bread" className="cover-photo"/>
+            <img src='/bread1.JPG' alt="Bread" className={styles.coverPhoto}/>
 
-            <div className={"main-info"}>
+            <div className={styles.mainInfo}>
                 <p className={"bold"}>ברוכים הבאים!</p>
                 <br/>
                 <p>הלחמים שלנו מוכנים ללא שמרים תעשייתים כלל, עם הרבה יחס אישי ובאפייה ביתית.</p>
@@ -35,7 +36,7 @@ export default async function HomePage() {
                 <p>זו הסיבה לכך שיש להזמין את הלחם שלנו לפחות יומיים מראש - כדי להבטיח שהוא יהיה מוכן בזמן ומותסס
                     היטב.</p>
                 <br/>
-                <p className={"bold"}>הזמינו עכשיו כדי לקבל את הלחם הטרי שלכם כבר ביום {getFormattedDateLabel(dates[0], true)} הקרוב.</p>
+                <p className={styles.bold}>הזמינו עכשיו כדי לקבל את הלחם הטרי שלכם כבר ביום {getFormattedDateLabel(dates[0], true)} הקרוב.</p>
 
 
             </div>

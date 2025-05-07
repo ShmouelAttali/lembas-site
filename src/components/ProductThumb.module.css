@@ -1,0 +1,82 @@
+.productCard {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--soft-shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: static;
+}
+
+.outOfStock .productInfo {
+    opacity: 0.5;
+}
+
+.outOfStock .addToCartDisabled {
+    cursor: default;
+    pointer-events: none;
+    color: #666;
+    background-color: darkgrey;
+}
+
+.outOfStock img {
+    opacity: 0.5;
+}
+
+.outOfStock .wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.outOfStock .unavailable {
+    position: absolute;
+    padding: 25px;
+    top: 200px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    text-align: center;
+    border-radius: 15px;
+    font-size: 1.7em;
+    font-weight: bold;
+}
+
+.productThumb {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.productInfo {
+    padding: var(--gap);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.productInfo h3 {
+    margin-bottom: 8px;
+    font-size: 1.25rem;
+}
+
+.productInfo p {
+    flex: 1;
+    color: var(--clr-muted);
+    margin-bottom: var(--gap);
+}
+
+.addToCart {
+    align-self: flex-end;
+    padding: 8px 16px;
+    background: var(--clr-secondary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.addToCart:hover {
+    background: var(--clr-primary);
+}

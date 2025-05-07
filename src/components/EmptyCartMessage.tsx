@@ -3,7 +3,7 @@ import styles from "./EmptyCartMessage.module.css";
 
 export function EmptyCartMessage() {
     return (
-        <div className={styles.EmptyCartMessage_5 + "container"}>
+        <div className={styles.EmptyCartMessage}>
             <h1>העגלה ריקה</h1>
             <p>
                 אין פריטים לתשלום.{' '}

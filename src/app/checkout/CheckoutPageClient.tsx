@@ -129,11 +129,8 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
         <div className={" container orderSummary"}>
             <h1>תשלום</h1>
 
-            <section className="booking">
-            {info.orderDate && <h2>תאריך איסוף ההזמנה:</h2>}
-            {!info.orderDate && <h2>בחר תאריך לאיסוף ההזמנה:</h2>}
             <SelectOrderDate dates={dates}/>
-            </section>
+
 
             <h2>פריטים לתשלום:</h2>
             <OrderSummary

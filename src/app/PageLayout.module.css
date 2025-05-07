@@ -1,0 +1,15 @@
+.pageWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.pageWrapper main {
+    flex: 1;
+}
+
+.container {
+    width: 100%;
+    max-width: 1232px;
+    margin: auto auto 65px;
+}
