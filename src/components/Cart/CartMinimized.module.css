@@ -52,7 +52,8 @@
 .cartPopup {
     position: absolute;
     top: 1.7rem;
-    inset-inline-start: 50%;
+    z-index: 100;
+    inset-inline-start: -50%;
     background: var(--clr-text);
     color: white;
     padding: 0.25rem 0.5rem;
@@ -61,6 +62,7 @@
     white-space: nowrap;
     pointer-events: none;
     animation: fadeInOut 2s ease forwards;
+
 }
 
 @keyframes fadeInOut {
