@@ -9,6 +9,8 @@
     padding: var(--gap);
     background-color: var(--clr-bg-secondary);
     color: var(--clr-text);
+    font-size: small;
+    line-height: 1.2em;
 }
 
 .footer a {
@@ -22,8 +24,8 @@
 }
 
 .icon {
-    width: 20px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     vertical-align: middle;
     display: inline-block;
     margin-right: 0.3rem;

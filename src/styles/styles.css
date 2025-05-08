@@ -21,11 +21,24 @@
 }
 
 body {
-    font-family: sans-serif;
     background: var(--clr-bg);
     color: var(--clr-text);
     direction: rtl;
     text-align: right;
+    font-family: sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: FbDvashVeHalav, sans-serif;
+    src: url(/FbDvashVeHalav-Halul.otf);
+}
+
+.lembas {
+    /*font-family: FbDvashVeHalav;*/
+    /*font-size: 1.5em;*/
+    font-weight: 600;
 }
 
 h2 {

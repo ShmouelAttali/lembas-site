@@ -29,10 +29,7 @@ export default function Footer() {
                     <span>בוואטסאפ</span>{" "}
                     <img src="/icons/whatsapp.svg" alt="Whatsapp" className={styles.icon} />
                 </a>
-            </p>
-
-            <p>
-                בטלפון -{" "}
+                {" "}בטלפון -{" "}
                 <a href="tel:+972542338344">
                     {isMobile ? <img src="/icons/phone.svg" alt="Phone" className={styles.icon} /> : "0542338344"}
                 </a>, או באימייל -{" "}
@@ -40,6 +37,7 @@ export default function Footer() {
                     {isMobile ? <img src="/icons/email.svg" alt="Email" className={styles.icon} /> : "ester.attali@gmail.com"}
                 </a>
             </p>
+            <p>כתובת לאיסוף הזמנות - הקטורת 48, שילה</p>
         </footer>
     );
 }
