@@ -39,7 +39,7 @@ export async function sendOrderTelegram(customer: CustomerInfo, order: OrderInfo
         items.map((i: ItemInfo) => `• ${i.title} x${i.quantity}`).join('\n') + '\n\n' +
         `הערות: ${customer.notes || ''}`;
 
-    console.log('sending telegram message', telegramMessage);
+    console.log('Sending Telegram message...');
 
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/send-telegram`, {
@@ -47,14 +47,21 @@ export async function sendOrderTelegram(customer: CustomerInfo, order: OrderInfo
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 chat_id: process.env.TELEGRAM_CHAT_ID,
-                text: telegramMessage
+                text: telegramMessage,
+                retries: 3,
             }),
         });
 
         const data = await res.json();
-        console.log("Telegram response:", data);
-    } catch (error) {
-        console.error("Error sending Telegram message:", error);
+
+        if (data.status === 'ok') {
+            console.log('Telegram message sent successfully:', data.data);
+        } else {
+            console.error('Failed to send Telegram message:', data.error);
+        }
+    } catch (err) {
+        console.error("Unexpected error sending Telegram message:", err);
     }
 }
+
 

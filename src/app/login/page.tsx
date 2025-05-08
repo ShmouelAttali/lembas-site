@@ -12,7 +12,7 @@ export default function LoginPage() {
 
     async function onSubmit(e: React.FormEvent) {
         e.preventDefault();
-        const {error} = await supabase.auth.signInWithPassword({email, password});
+        const {error} = await supabase.auth.signUp({email, password});
         if (error) return setError(error.message);
         router.push('/');
     }
