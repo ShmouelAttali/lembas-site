@@ -10,10 +10,11 @@ export function sendOrderEmail(
     order: OrderInfo,
     orderItemsPayload: any[]
 ) {
+    console.info('sending email to ', customer.name, customer.email)
     resend.emails
         .send({
             from: 'lembas@shmouel.com',
-            to: customer.email!,
+            to: customer.email,
             subject: `הזמנה מספר ${order.id} מלמבס התקבלה`,
             react: (
                 <OrderConfirmation
@@ -25,6 +26,6 @@ export function sendOrderEmail(
         })
         .catch(console.error)
         .then((res) => {
-            console.log('email sent', res);
+            console.info('email sent', res);
         });
 }

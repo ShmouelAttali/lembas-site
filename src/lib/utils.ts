@@ -28,8 +28,8 @@ export function toE164(phone: string): string {
     return cleaned.startsWith('+') ? cleaned : '+' + cleaned;
 }
 
-export function sendOrderTelegram(customer: CustomerInfo, order: OrderInfo, items: ItemInfo[]) {
-    /* 4 . Send Telegram */
+export async function sendOrderTelegram(customer: CustomerInfo, order: OrderInfo, items: ItemInfo[]) {
+
     const telegramMessage = `יש הזמנה חדשה!\n` +
         `מ: ${customer.name}\n` +
         `טלפון: ${customer.phone}\n` +
@@ -39,10 +39,22 @@ export function sendOrderTelegram(customer: CustomerInfo, order: OrderInfo, item
         items.map((i: ItemInfo) => `• ${i.title} x${i.quantity}`).join('\n') + '\n\n' +
         `הערות: ${customer.notes || ''}`;
 
-    const telegramUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${process.env.TELEGRAM_CHAT_ID}&text=${encodeURIComponent(telegramMessage)}`;
+    console.log('sending telegram message', telegramMessage);
 
-    fetch(telegramUrl)
-        .then(response => response.json())
-        .then(data => console.log('Telegram response:', data))
-        .catch(error => console.error('Error sending Telegram message:', error));
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/send-telegram`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: process.env.TELEGRAM_CHAT_ID,
+                text: telegramMessage
+            }),
+        });
+
+        const data = await res.json();
+        console.log("Telegram response:", data);
+    } catch (error) {
+        console.error("Error sending Telegram message:", error);
+    }
 }
+
