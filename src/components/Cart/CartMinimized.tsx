@@ -62,7 +62,7 @@ export default function CartMinimized() {
             </div>
 
             <AnimatePresence>
-                {showPopup && <CartPopup onClose={() => setShowPopup(false)} />}
+                {showPopup && <CartPopup onCloseAction={() => setShowPopup(false)} />}
             </AnimatePresence>
         </>
     );

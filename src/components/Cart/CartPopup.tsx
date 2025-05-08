@@ -9,23 +9,22 @@ import {useRouter} from "next/navigation";
 import {EmptyCartMessage} from "@/components/Cart/EmptyCartMessage";
 
 type Props = {
-    onClose: () => void;
+    onCloseAction: () => void;
 };
 
-export default function CartPopup({onClose}: Props) {
+export default function CartPopup({onCloseAction}: Props) {
     const {items, total, clearCart, updateItem, removeItem} = useCart();
     const router = useRouter();
 
-    // Close on ESC key
     useEffect(() => {
         const handleKey = (e: KeyboardEvent) => {
             if (e.key === 'Escape') {
-                onClose();
+                onCloseAction();
             }
         };
         window.addEventListener('keydown', handleKey);
         return () => window.removeEventListener('keydown', handleKey);
-    }, [onClose]);
+    }, [onCloseAction]);
 
     return (
         <motion.div
@@ -34,7 +33,7 @@ export default function CartPopup({onClose}: Props) {
             exit={{opacity: 0}}
             transition={{duration: 0.3}}
             className={styles.overlay}
-            onClick={onClose}
+            onClick={onCloseAction}
         >
             <motion.div
                 initial={{opacity: 0, scale: 0.95}}
@@ -44,7 +43,7 @@ export default function CartPopup({onClose}: Props) {
                 className={styles.popup}
                 onClick={(e) => e.stopPropagation()}
             >
-                <button onClick={onClose} className={styles.closeButton}>X</button>
+                <button onClick={onCloseAction} className={styles.closeButton}>X</button>
 
                 <h2 className={styles.popupTitle}>העגלה שלי</h2>
 
@@ -79,7 +78,7 @@ export default function CartPopup({onClose}: Props) {
                         <div className={styles.popupActions}>
                             <button className={styles.secondaryButton} onClick={clearCart}>נקה עגלה</button>
                             <button onClick={() => {
-                                onClose();
+                                onCloseAction();
                                 router.push('/checkout');
                             }}>המשך לתשלום
                             </button>
