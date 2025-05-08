@@ -133,7 +133,7 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
         <div className={styles.checkoutPage}>
             <h1>תשלום</h1>
 
-            <SelectOrderDate dates={dates} handleChangeAction={handleChange}/>
+            <SelectOrderDate dates={dates}/>
 
 
             <h2>פריטים לתשלום:</h2>
