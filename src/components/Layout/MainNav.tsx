@@ -21,7 +21,7 @@ export default function MainNav() {
     };
 
     const userName = session?.user.user_metadata?.full_name ?? session?.user.email;
-
+console.log(session, session?.user, session?.user.user_metadata.name);
     // Close menu when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -59,7 +59,7 @@ export default function MainNav() {
                 >
                     {session?.user ? (
                         <Image
-                            src={session.user.user_metadata.picture}
+                            src={session.user.user_metadata.picture ?? '/icons/default_avatar.svg'}
                             alt="Your avatar"
                             width={46}
                             height={46}
