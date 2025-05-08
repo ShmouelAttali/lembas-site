@@ -1,7 +1,7 @@
 'use client';
 import React, {useState} from 'react';
 import {supabase} from '@/lib/supabase';
-import {useRouter} from 'next/navigation';
+import {useRouter, useSearchParams} from 'next/navigation';
 import styles from './LoginPage.module.css';
 
 export default function LoginPage() {
@@ -9,6 +9,8 @@ export default function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string>('');
+    const searchParams = useSearchParams();
+    const fromRegister = searchParams.get('from') === 'register';
 
     async function onSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -42,6 +44,13 @@ export default function LoginPage() {
             <button type="submit" className={styles.button}>התחבר</button>
 
             {error && <p className="text-red-600">{error}</p>}
+
+            {fromRegister && (
+                <p className="bold">
+                    שלחנו אליכם הודעת אימייל לאישור. <br/>אנא בדקו את תיבת הדואר האלקטרוני, ואשרו את כתובת האימייל שלכם
+                    כדי להתחבר לאתר.
+                </p>
+            )}
             <div className={styles.line}></div>
             <p>
                 אין לך חשבון? <a href="/register" className={styles.register}>הרשם כאן</a>
