@@ -1,3 +1,9 @@
+
+
+.userOrdersPage {
+    padding: var(--gap) 0;
+}
+
 .TableWrapper {
     overflow-x: auto;
     margin-top: 16px;

@@ -3,6 +3,7 @@
 import { useSessionContext } from '@supabase/auth-helpers-react';
 import { useEffect, useState } from 'react';
 import UserOrdersClient from './UserOrdersClient';
+import styles from "./UserOrdersClient.module.css";
 
 export default function UserOrdersPage() {
     const { session, supabaseClient } = useSessionContext();
@@ -40,7 +41,7 @@ export default function UserOrdersPage() {
     }
 
     return (
-        <div>
+        <div className={styles.userOrdersPage}>
             <h1>שם המשתמש - {user?.user_metadata?.full_name ?? user?.email}</h1>
             <h2>ההזמנות שלך:</h2>
             <UserOrdersClient orders={orders} />
