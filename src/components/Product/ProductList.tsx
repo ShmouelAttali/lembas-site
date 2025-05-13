@@ -13,6 +13,8 @@ export type Product = {
     weight: string;
     price: number;
     in_stock: boolean;
+    is_new: boolean;
+    is_soon: boolean;
 };
 
 export default function ProductList({products}: { products: Product[] }) {

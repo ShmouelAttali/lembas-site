@@ -11,7 +11,10 @@ export default async function HomePage() {
     const {data: products} = await supabase
         .from('products_with_buy_counts')
         .select('*')
-        .eq('visible', true).order('in_stock', {ascending: false})
+        .eq('visible', true)
+        .order('in_stock', {ascending: false})
+        .order('is_soon', {ascending: false})
+        .order('is_new', {ascending: false})
         .order('buy_count', {ascending: false})
 
     const tomorrow = addDays(new Date(), 1).toISOString().slice(0, 10);
@@ -29,12 +32,14 @@ export default async function HomePage() {
             <div className={styles.mainInfo}>
                 <p className={styles.header + " notoHeader"}>לחם עם אופי</p>
                 <br/>
-                <p>ב<span className={"lembas"}>לֶמבָּס</span> מכינים לחם טרי, איכותי ובעיקר טעים – בלי שמרים תעשייתיים ובלי קיצורי דרך.</p>
+                <p>ב<span className={"lembas"}>לֶמבָּס</span> מכינים לחם טרי, איכותי ובעיקר טעים – בלי שמרים תעשייתיים
+                    ובלי קיצורי דרך.</p>
                 <p>הכל פה מחמצת, תהליך איטי שדורש לפחות יומיים מראש.</p>
                 <p>כל כיכר תופחת לאט, מעוצבת באהבה ונאפית בזמן הנכון.</p>
                 <br/>
                 <div className={styles.orderNow}>הזמינו עכשיו – ותשכחו מלחם של סופר כבר
-                    ביום {getFormattedDateLabel(dates[0], true)} הקרוב.</div>
+                    ביום {getFormattedDateLabel(dates[0], true)} הקרוב.
+                </div>
 
 
             </div>

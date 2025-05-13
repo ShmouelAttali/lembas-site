@@ -16,8 +16,10 @@ const tabs: Record<string, { orderBy: string, columns: Column<any>[] }> = {
             {key: 'price', label: 'Price', editable: true},
             {key: 'description', label: 'Description', editable: true},
             {key: 'slug', label: 'Slug', editable: true},
-            {key: 'visible', label: 'Visible', editable: true},
-            {key: 'in_stock', label: 'In Stock', editable: true},
+            {key: 'visible', label: 'Visible', type: 'boolean', editable: true},
+            {key: 'in_stock', label: 'In Stock', type: 'boolean', editable: true},
+            {key: 'is_new', label: 'Is New', type: 'boolean', editable: true},
+            {key: 'is_soon', label: 'Is Soon', type: 'boolean', editable: true},
             {key: 'weight', label: 'Weight', editable: true},
             {
                 key: 'image_url',

@@ -1,20 +1,49 @@
+/* Wrapper: allows horizontal scroll on overflow */
 .OrdersDetailedTable_12 {
+    width: 100%;
     overflow-x: auto;
 }
 
+/* Table: responsive full width and collapses borders */
 .OrdersDetailedTable_13 {
     width: 100%;
+    min-width: 1200px; /* prevents cramping on small screens */
     border-collapse: collapse;
     border: 1px solid #ccc;
+    table-layout: auto;
 }
 
+/* Header Cells */
 .OrdersDetailedTable_19 {
-    width: fit-content;
+    padding: 0.75rem;
     background: #f0f0f0;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    text-align: left;
+    white-space: nowrap;
 }
 
+/* Data Cells (shared class) */
+.cell {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+/* Products list in cell */
 .OrdersDetailedTable_41 {
     margin: 0;
     padding-left: 1rem;
+    list-style-type: disc;
 }
 
+/* Buttons */
+.cell button {
+    padding: 0.3rem 0.6rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
