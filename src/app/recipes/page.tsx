@@ -137,6 +137,7 @@ export default function RecipesPage() {
                                 type="number"
                                 min={1}
                                 value={numLoaves}
+                                onFocus={(e) => e.target.value = ''}
                                 onChange={(e) => setNumLoaves(Math.max(1, +e.target.value))}
                             />
                         </label>

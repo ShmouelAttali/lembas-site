@@ -87,7 +87,7 @@ console.log(session, session?.user, session?.user.user_metadata.name);
                             התנתק
                         </button>
                         <Link href="/user-orders"
-                              className={`${styles.menuItemLink} ${path.startsWith('/order-summary') ? styles.menuItemLinkActive : ''}`}
+                              className={`${styles.menuItemLink} ${path.startsWith('/user-orders') ? styles.menuItemLinkActive : ''}`}
                               onClick={handleMenuClick}>
                             הזמנות קודמות
                         </Link>
