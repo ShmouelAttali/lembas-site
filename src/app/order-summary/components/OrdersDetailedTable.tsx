@@ -14,7 +14,7 @@ const OrdersDetailedTable = ({orders}: { orders: any[] }) => (
         <table className={styles.OrdersDetailedTable_13}>
             <thead>
             <tr>
-                {['ID', 'Date', 'Customer', 'Email', 'Phone', 'Address', 'Fulfillment', 'Shipping ₪', 'Items ₪', 'Total ₪', 'Notes', 'Products'].map((col) => (
+                {['ID', 'Date', 'Customer', 'Email', 'Phone', 'Address', 'Fulfillment', 'Shipping ₪', 'Items ₪', 'Total ₪', 'Paying Method', 'Notes', 'Products'].map((col) => (
                     <th
                         key={col}
                         className={styles.OrdersDetailedTable_19}
@@ -37,6 +37,7 @@ const OrdersDetailedTable = ({orders}: { orders: any[] }) => (
                     <td style={cell}>{order.shipping_fee}</td>
                     <td style={cell}>{order.items_price}</td>
                     <td style={cell}>{order.total_price}</td>
+                    <td style={cell}>{order.payment_method}</td>
                     <td style={cell}>{order.notes}</td>
                     <td style={cell}>
                         <ul className={styles.OrdersDetailedTable_41}>
