@@ -31,9 +31,12 @@ body {
 }
 
 @font-face {
-    font-family: FbDvashVeHalav, sans-serif;
-    src: url(/FbDvashVeHalav-Halul.otf);
+    font-family: 'FbDvashVeHalav';
+    src: url('/FbDvashVeHalav-Halul.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
 }
+
 
 .lembas {
     /*font-family: FbDvashVeHalav;*/
