@@ -38,7 +38,7 @@ export default function OrderSummaryPage() {
                     .from('orders')
                     .select('*, order_items(*, products(title))')
                     .gte('order_date', fromDate)
-                    .lte('order_date', toDate);
+                    .lte('order_date', toDate).order('order_date').order('id', {ascending: true});
 
                 if (error) {
                     handleError(error.message);

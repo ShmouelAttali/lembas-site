@@ -48,7 +48,7 @@ const OrdersGroupedTable = ({orders}: { orders: any[] }) => {
             {byDate.map(([date, orders]) => {
                 const d = new Date(date);
                 const grouped = groupProducts(orders);
-
+                const totalPrice = orders.reduce((acc, order) => acc + order.total_price, 0);
                 return (
                     <div key={date}>
                         <h3 className={styles.OrdersGroupedTable_52}>{getFormattedDateLabel(d)}</h3>
@@ -70,6 +70,7 @@ const OrdersGroupedTable = ({orders}: { orders: any[] }) => {
                             ))}
                             </tbody>
                         </table>
+                        <h3 className={styles.OrdersGroupedTable_52}>{`מחיר כולל - ${totalPrice} ש"ח`}</h3>
                     </div>
                 );
             })}
