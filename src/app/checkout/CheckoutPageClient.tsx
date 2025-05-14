@@ -118,8 +118,11 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
         });
 
         if (res.ok) {
+            const params = new URLSearchParams({
+                payment: customer.paymentMethod
+            })
+            router.push(`/thank-you?${params.toString()}`);
             clearCart();
-            router.push('/thank-you');
         } else {
             console.error(await res.text());
             setSubmitting(false);

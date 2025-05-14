@@ -28,8 +28,6 @@ export function CustomerForm({
                                  itemsPrice,
                                  shippingFee
                              }: Props) {
-    const payboxUrl = 'https://link.payboxapp.com/QbpGp2SCZ4qgABAb6';
-    const bitUrl = 'https://www.bitpay.co.il/app/me/5DCEBBEE-5BA3-47C4-AC9C-12B8946182C0';
 
     return (
         <form onSubmit={handleSubmitAction} className={styles.customerForm}>
@@ -81,6 +79,7 @@ export function CustomerForm({
                     options={[
                         {value: 'delivery', label: 'משלוח בכל גוש שילה-עלי (10 ש"ח)'},
                         {value: 'pickup', label: 'איסוף עצמי מהקטורת 48, שילה'},
+                        // {value: 'pickup-beruchin', label: 'איסוף מברוכין (משפחת שטרן) - בימי חמישי בין 17:00-19:00'},
                     ]}
                 />
             </div>
@@ -132,18 +131,6 @@ export function CustomerForm({
                         {value: 'cash', label: 'מזומן'},
                     ]}
                 />
-            </div>
-
-            <div className={styles.payment + ' payment'}>
-                <p className='bold'>נא לשלוח הודעה  <a href="https://wa.me/972542338344" target="_blank">
-                    <span>בוואטסאפ</span>
-                </a> לאחר התשלום </p>
-                <br/>
-                <a href={payboxUrl} target="_blank">לתשלום בפייבוקס</a>
-                <br/>
-                <br/>
-                <a href={bitUrl} target="_blank">לתשלום בביט</a><br/>
-                (במקרה והקישור לתשלום בביט לא עובד - יש לשלוח לאסתר אטלי 0542338344)
             </div>
 
             <TextArea
