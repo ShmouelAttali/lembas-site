@@ -48,6 +48,20 @@
     object-fit: cover;
 }
 
+.newItem {
+    position: absolute;
+    padding: 8px 15px;
+    top: 40px;
+    left: 20%;
+    transform: rotate(-30deg) translate(-50%, -50%);
+    font-size: 1.7em;
+    font-weight: bold;
+    background: var(--clr-primary);
+    color: white;
+    text-align: center;
+    border-radius: 15px;
+}
+
 .productInfo {
     padding: var(--gap);
     flex: 1;

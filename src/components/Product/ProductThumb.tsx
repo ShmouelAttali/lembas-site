@@ -23,7 +23,7 @@ export default function ProductThumb({product}: { product: Product }) {
             <div className={styles.productInfo}>
                 <h3>{product.title}</h3>
                 <p>{product.description}</p>
-                <p>{product.weight + ' גרם'}</p>
+                <p>{'כ-' +product.weight + ' גרם'}</p>
                 <p>{'₪' + product.price}</p>
                 <button
                     type="button"
