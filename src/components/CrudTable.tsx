@@ -91,6 +91,13 @@ export function CrudTable<T extends Record<string, any>>({
         if (error) throw error;
         return data![0];
     };
+    const confirmAndDelete = async (id: any) => {
+        const confirmed = window.confirm('Are you sure you want to delete this row?');
+        if (confirmed) {
+            await deleteRow(id);
+            await refresh();
+        }
+    };
 
     const deleteRow = async (id: any) => {
         const {error} = await supabase.from(table).delete().eq(String(uniqueKey), String(id));
@@ -292,7 +299,7 @@ export function CrudTable<T extends Record<string, any>>({
                                 ) : (
                                     <>
                                         <button onClick={() => startEdit(row)}>Edit</button>
-                                        <button onClick={() => deleteRow(row[uniqueKey]).then(refresh)}>Delete</button>
+                                        <button onClick={() => confirmAndDelete(row[uniqueKey])}>Delete</button>
                                     </>
                                 )}
                             </td>

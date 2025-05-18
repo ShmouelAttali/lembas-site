@@ -52,7 +52,9 @@ export async function sendOrderTelegram(customer: CustomerInfo, order: OrderInfo
             }),
         });
 
+        console.log('HTTP status:', res.status);
         const data = await res.json();
+        console.log('Telegram API response:', data);
 
         if (data.status === 'ok') {
             console.log('Telegram message sent successfully:', data.data);
