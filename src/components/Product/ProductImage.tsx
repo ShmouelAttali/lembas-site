@@ -105,6 +105,7 @@ export function ProductImage({product}: { product: any }) {
                         ))}
                     </div>
                 )}
+                {product.is_new && <div className={styles.newItem}>חדש!</div>}
                 {!product.in_stock && <div className={styles.unavailable}>חסר זמנית</div>}
             </div>
         </div>
