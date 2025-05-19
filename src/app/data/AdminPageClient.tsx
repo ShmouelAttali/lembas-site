@@ -60,6 +60,7 @@ const tabs: Record<string, { orderBy: string, columns: Column<any>[] }> = {
             {key: 'id', label: 'ID'},
             {key: 'price_per_100g', label: 'Price per 100g', editable: true},
             {key: 'name', label: 'Name', editable: true},
+            {key: 'low_stock_threshold', label: 'Low Stock Threshold', editable: true},
         ]
     },
     product_ingredients: {
@@ -80,6 +81,18 @@ const tabs: Record<string, { orderBy: string, columns: Column<any>[] }> = {
             {key: 'weight', label: 'Weight (g)', editable: true},
         ]
     },
+    ingredients_inventory: {
+        orderBy: 'ingredient_id',
+        columns: [
+            {
+                key: 'ingredient_id',
+                label: 'Ingredient',
+                editable: true,
+                options: {fromTable: 'ingredients', valueKey: 'id', labelKey: 'name'}
+            },
+            {key: 'amount', label: 'Amount (g)', editable: true},
+        ]
+    }
 
 };
 

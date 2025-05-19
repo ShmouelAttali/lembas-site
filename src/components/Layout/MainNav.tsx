@@ -21,7 +21,6 @@ export default function MainNav() {
     };
 
     const userName = session?.user.user_metadata?.full_name ?? session?.user.email;
-console.log(session, session?.user, session?.user.user_metadata.name);
     // Close menu when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -123,11 +122,15 @@ console.log(session, session?.user, session?.user.user_metadata.name);
                               onClick={handleMenuClick}>
                             מתכונים
                         </Link>
-                        <Link href="/calculator"
-                              className={`${styles.menuItemLink} ${path.startsWith('/calculator') ? styles.menuItemLinkActive : ''}`}
+                        <Link href="/inventory"
+                              className={`${styles.menuItemLink} ${path.startsWith('/inventory') ? styles.menuItemLinkActive : ''}`}
                               onClick={handleMenuClick}>
-                            מחשבון מחמצת
-                        </Link>
+                            מצאי
+                        </Link><Link href="/calculator"
+                                     className={`${styles.menuItemLink} ${path.startsWith('/calculator') ? styles.menuItemLinkActive : ''}`}
+                                     onClick={handleMenuClick}>
+                        מחשבון מחמצת
+                    </Link>
                         <Link href="/order-dates"
                               className={`${styles.menuItemLink} ${path.startsWith('/order-dates') ? styles.menuItemLinkActive : ''}`}
                               onClick={handleMenuClick}>

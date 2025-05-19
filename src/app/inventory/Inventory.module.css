@@ -1,0 +1,65 @@
+.wrapper {
+    padding: 2rem;
+    max-width: 900px;
+    margin: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    text-align: left;
+}
+
+.alert {
+    background-color: #ffe0e0;
+}
+
+.inventoryTable {
+    margin-bottom: 2rem;
+}
+
+.orderSummary {
+    margin-top: 2rem;
+}
+
+.deductButton {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background: #b60000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.modalBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+.modalActions {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}

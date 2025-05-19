@@ -5,7 +5,7 @@ async function sendTelegramMessage(chat_id: string, text: string) {
     const timeout = setTimeout(() => controller.abort(), 5000); // 5 seconds timeout
 
     try {
-        const telegramRes = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        const telegramRes = await fetch(`https://api.telegram.org/bot${process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ chat_id, text }),

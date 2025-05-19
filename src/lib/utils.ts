@@ -1,5 +1,4 @@
 import {HDate} from "@hebcal/core";
-import {CustomerInfo, ItemInfo, OrderInfo} from "@/types/types";
 
 export function getFormattedDateLabel(d: Date, onlyDayOfWeek = false) {
     const weekdayFmt = new Intl.DateTimeFormat('he-IL', {weekday: 'long'});
@@ -28,26 +27,15 @@ export function toE164(phone: string): string {
     return cleaned.startsWith('+') ? cleaned : '+' + cleaned;
 }
 
-export async function sendOrderTelegram(customer: CustomerInfo, order: OrderInfo, items: ItemInfo[]) {
-
-    const telegramMessage = `יש הזמנה חדשה!\n` +
-        `מ: ${customer.name}\n` +
-        `טלפון: ${customer.phone}\n` +
-        `לתאריך: ${getFormattedDateLabel(customer.orderDate)}\n` +
-        `סה"כ לתשלום: ₪${order.total_price}\n\n` +
-        `פרטי ההזמנה:\n` +
-        items.map((i: ItemInfo) => `• ${i.title} x${i.quantity}`).join('\n') + '\n\n' +
-        `הערות: ${customer.notes || ''}`;
-
+export async function sendTelegramMessage(message: string) {
     console.log('Sending Telegram message...');
-
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/send-telegram`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                chat_id: process.env.TELEGRAM_CHAT_ID,
-                text: telegramMessage,
+                chat_id: process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID,
+                text: message,
                 retries: 3,
             }),
         });

@@ -4,10 +4,11 @@
 import type {NextRequest} from 'next/server';
 import {NextResponse} from 'next/server';
 import {supabaseServer} from '@/lib/supabase-server';
-import {sendOrderTelegram} from "@/lib/utils"
+import {sendTelegramMessage} from "@/lib/utils"
 import {sendSmsNotification} from "@/app/api/orders/smsSender";
 import {sendOrderEmail} from "@/app/api/orders/emailSender";
 import {CustomerInfo, ItemInfo} from "@/types/types";
+import {orderAlertTemplate} from "@/lib/telegram-templates";
 
 
 export async function POST(req: NextRequest) {
@@ -60,18 +61,18 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({error: itemsErr.message}, {status: 500});
     }
 
-    if (customer.email && process.env.SEND_EMAIL) {
+    if (customer.email && process.env.NEXT_PUBLIC_SEND_EMAIL) {
         /* 3 . Send email — fire-and-forget (don’t block response) */
         sendOrderEmail(customer, order, items);
     }
 
     /* 4 . Send SMS */
-    if (process.env.SEND_SMS) {
+    if (process.env.NEXT_PUBLIC_SEND_SMS) {
         sendSmsNotification(customer, order, items);
     }
 
-    if (process.env.SEND_TELEGRAM) {
-        sendOrderTelegram(customer, order, items);
+    if (process.env.NEXT_PUBLIC_SEND_TELEGRAM) {
+        sendTelegramMessage(orderAlertTemplate(customer, order, items));
     }
     /* 5 . Return success */
     return NextResponse.json({success: true, orderId: order.id});
