@@ -34,7 +34,6 @@ export async function sendTelegramMessage(message: string) {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                chat_id: process.env.NEXT_PUBLIC_TELEGRAM_CHAT_ID,
                 text: message,
                 retries: 3,
             }),

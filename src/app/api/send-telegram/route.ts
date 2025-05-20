@@ -1,11 +1,12 @@
 import {NextResponse} from 'next/server';
 
-async function sendTelegramMessage(chat_id: string, text: string) {
+async function sendTelegramMessage(text: string) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 5000); // 5 seconds timeout
     console.log("Sending Telegram message...", text);
     try {
-        const telegramRes = await fetch(`https://api.telegram.org/bot${process.env.NEXT_PUBLIC_TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        const chat_id = process.env.TELEGRAM_CHAT_ID;
+        const telegramRes = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({chat_id, text}),
@@ -31,13 +32,13 @@ async function sendTelegramMessage(chat_id: string, text: string) {
 
 export async function POST(req: Request) {
     const body = await req.json();
-    const {chat_id, text, retries = 3} = body;
+    const {text, retries = 3} = body;
 
     let attempt = 0;
     let result;
 
     while (attempt < retries) {
-        result = await sendTelegramMessage(chat_id, text);
+        result = await sendTelegramMessage(text);
         if (result.success) break;
 
         attempt++;

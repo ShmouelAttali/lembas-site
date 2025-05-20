@@ -61,17 +61,17 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({error: itemsErr.message}, {status: 500});
     }
 
-    if (customer.email && process.env.NEXT_PUBLIC_SEND_EMAIL) {
+    if (customer.email && process.env.SEND_EMAIL) {
         /* 3 . Send email — fire-and-forget (don’t block response) */
         sendOrderEmail(customer, order, items);
     }
 
     /* 4 . Send SMS */
-    if (process.env.NEXT_PUBLIC_SEND_SMS) {
+    if (process.env.SEND_SMS) {
         sendSmsNotification(customer, order, items);
     }
 
-    if (process.env.NEXT_PUBLIC_SEND_TELEGRAM) {
+    if (process.env.SEND_TELEGRAM) {
         sendTelegramMessage(orderAlertTemplate(customer, order, items));
     }
     /* 5 . Return success */
