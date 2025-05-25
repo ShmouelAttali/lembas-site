@@ -28,29 +28,41 @@ export function toE164(phone: string): string {
 }
 
 export async function sendTelegramMessage(message: string) {
-    console.log('Sending Telegram message...');
+    console.log('[Client] Sending Telegram message...');
+
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/send-telegram`, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 text: message,
                 retries: 3,
             }),
         });
 
-        console.log('HTTP status:', res.status);
-        const data = await res.json();
-        console.log('Telegram API response:', data);
+        console.log('[Client] HTTP status:', res.status);
+
+        let data;
+        try {
+            data = await res.json();
+            console.log('[Client] Telegram API response:', data);
+        } catch (jsonErr) {
+            console.error('[Client] Error parsing response as JSON:', jsonErr);
+            const raw = await res.text();
+            console.error('[Client] Raw response:', raw);
+            return;
+        }
 
         if (data.status === 'ok') {
-            console.log('Telegram message sent successfully:', data.data);
+            console.log('[Client] Telegram message sent successfully:', data.data);
         } else {
-            console.error('Failed to send Telegram message:', data.error);
+            console.error('[Client] Telegram send failed:', data.error);
         }
+
     } catch (err) {
-        console.error("Unexpected error sending Telegram message:", err);
+        console.error('[Client] Unexpected error sending Telegram message:', err);
     }
 }
+
 
 
