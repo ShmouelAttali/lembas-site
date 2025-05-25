@@ -44,7 +44,7 @@ const tabs: Record<string, { orderBy: string, columns: Column<any>[] }> = {
             {key: 'id', label: 'ID'},
             {key: 'customer_name', label: 'Customer', editable: true},
             {key: 'order_date', label: 'Order Date', editable: true},
-            // …add more fields you care about
+            {key: 'created_at', label: 'Created at', editable: false}
         ]
     },
     name_suffixes: {
