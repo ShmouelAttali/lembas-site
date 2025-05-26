@@ -17,7 +17,7 @@ export function orderAlertTemplate(customer: CustomerInfo, order: any, items: It
     return `יש הזמנה חדשה!\n` +
         `מ: ${customer.name}\n` +
         `טלפון: ${customer.phone}\n` +
-        `לתאריך: ${getFormattedDateLabel(order.order_date)}\n` +
+        `לתאריך: ${getFormattedDateLabel(new Date(order.order_date))}\n` +
         `סה\"כ לתשלום: ₪${order.total_price}\n\n` +
         `פרטי ההזמנה:\n` +
         items.map(i => `• ${i.title} x${i.quantity}`).join('\n') + '\n\n' +
