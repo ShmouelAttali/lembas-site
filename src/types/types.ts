@@ -21,7 +21,7 @@ export interface ItemInfo {
     quantity: number;
 }
 
-export type FulfillmentMethods = 'delivery' | 'pickup';
+export type FulfillmentMethods = 'delivery' | 'pickup' | 'pickup-beruchin';
 
 export type CustomerInfo = {
     name: string;

@@ -1,6 +1,7 @@
 // lib/telegramTemplates.ts
 
 import {CustomerInfo, ItemInfo} from "@/types/types";
+import {getFormattedDateLabel} from "@/lib/utils";
 
 export function inventoryAlertTemplate(alerts: { name: string, remaining: number, threshold: number }[]) {
     const header = `\u26a0\ufe0f *התראת מצאי*\n`;
@@ -16,7 +17,7 @@ export function orderAlertTemplate(customer: CustomerInfo, order: any, items: It
     return `יש הזמנה חדשה!\n` +
         `מ: ${customer.name}\n` +
         `טלפון: ${customer.phone}\n` +
-        `לתאריך: ${order.order_date}\n` +
+        `לתאריך: ${getFormattedDateLabel(order.order_date)}\n` +
         `סה\"כ לתשלום: ₪${order.total_price}\n\n` +
         `פרטי ההזמנה:\n` +
         items.map(i => `• ${i.title} x${i.quantity}`).join('\n') + '\n\n' +

@@ -79,7 +79,7 @@ export function CustomerForm({
                     options={[
                         {value: 'delivery', label: 'משלוח בכל גוש שילה-עלי (10 ש"ח)'},
                         {value: 'pickup', label: 'איסוף עצמי מהקטורת 48, שילה'},
-                        // {value: 'pickup-beruchin', label: 'איסוף מברוכין (משפחת שטרן) - בימי חמישי בין 17:00-19:00'},
+                        {value: 'pickup-beruchin', label: 'איסוף מברוכין (משפחת שטרן, רחוב הצבי 22/3) - יש לבחור יום חמישי בלבד'},
                     ]}
                 />
             </div>

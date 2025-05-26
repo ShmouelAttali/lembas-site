@@ -16,21 +16,21 @@ export default function ThankYouPage() {
             <a href={payboxUrl} target="_blank">לתשלום בפייבוקס</a>
             <br/>
             <br/>
-            <p className='bold'>נא לשלוח הודעה <a href="https://wa.me/972542338344" target="_blank">
+            <div className='bold'>נא לשלוח הודעה <a href="https://wa.me/972542338344" target="_blank">
                 <span>בוואטסאפ</span>
-            </a> לאחר התשלום </p>
+            </a> לאחר התשלום </div>
         </div>,
         bit: <div className={styles.payment + ' payment'}>
             <a href={bitUrl} target="_blank">לתשלום בביט</a><br/>
             (במקרה והקישור לתשלום בביט לא עובד - יש לשלוח לאסתר אטלי 0542338344)
             <br/>
             <br/>
-            <p className='bold'>נא לשלוח הודעה <a href="https://wa.me/972542338344" target="_blank">
+            <div className='bold'>נא לשלוח הודעה <a href="https://wa.me/972542338344" target="_blank">
                 <span>בוואטסאפ</span>
-            </a> לאחר התשלום </p>
+            </a> לאחר התשלום </div>
         </div>,
         cash: <div className={styles.payment + ' payment'}>
-            <p className='bold'>בחרת בתשלום במזומן.</p>
+            <div className='bold'>בחרת בתשלום במזומן.</div>
         </div>
     };
 

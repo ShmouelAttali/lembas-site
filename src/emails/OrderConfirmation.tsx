@@ -1,7 +1,7 @@
 // src/emails/OrderConfirmation.tsx
 import * as React from 'react';
 import {CustomerInfo, ItemInfo, OrderInfo} from "@/types/types";
-import {getFormattedDateLabel} from "@/lib/utils"
+import {fulfillmentLines, getFormattedDateLabel} from "@/lib/utils"
 import styles from "./OrderConfirmation.module.css";
 
 export function OrderConfirmation({
@@ -17,10 +17,7 @@ export function OrderConfirmation({
     const sliceText = customer.slice ? 'פרוס' : 'לא פרוס';
 
     // 2. סוג מימוש
-    const fulfillmentLine =
-        customer.fulfillment === 'delivery'
-            ? `בחרת במשלוח לכתובת: ${customer.address ?? '—'}`
-            : 'בחרת באיסוף עצמי';
+    const fulfillmentLine = fulfillmentLines[customer.fulfillment](customer);
 
     // 3. תאריך בעברית (משתמש באותו util שלך)
     const dateHe = getFormattedDateLabel(customer.orderDate);

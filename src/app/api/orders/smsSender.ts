@@ -1,11 +1,7 @@
-import {getFormattedDateLabel, toE164} from "@/lib/utils"
-import twilio from "twilio";
+import {fulfillmentLines, getFormattedDateLabel, toE164} from "@/lib/utils"
 import {CustomerInfo, ItemInfo, OrderInfo} from "@/types/types";
+import {sendSms} from "@/app/api/orders/upsendSender";
 
-const twilioClient = twilio(
-    process.env.TWILIO_ACCOUNT_SID!,
-    process.env.TWILIO_AUTH_TOKEN!
-);
 
 export function buildOrderMessage(
     customer: CustomerInfo,
@@ -20,10 +16,7 @@ export function buildOrderMessage(
         .join('\n');
 
     // 2. סוג מימוש (משלוח / איסוף)
-    const fulfillmentLine =
-        customer.fulfillment === 'delivery'
-            ? `בחרת במשלוח לכתובת: ${customer.address ?? '—'}`
-            : 'בחרת באיסוף עצמי';
+    const fulfillmentLine = fulfillmentLines[customer.fulfillment](customer);
 
     // 3. תאריך בעברית
     const dateHe = getFormattedDateLabel(customer.orderDate);
@@ -33,24 +26,12 @@ export function buildOrderMessage(
 פרטי ההזמנה:
 ${itemsLines}
 ${fulfillmentLine}
-בתאריך ${dateHe}
+ביום ${dateHe}
 סך הכול לתשלום: ₪${order.total_price.toFixed(2)}`;
 }
 
 export function sendSmsNotification(customer: CustomerInfo, order: OrderInfo, items: ItemInfo[]) {
     const message = buildOrderMessage(customer, order, items)
-    // twilioClient.messages
-    //     .create({
-    //         body: message,
-    //         messagingServiceSid: process.env.TWILIO_MESSAGING_SERVICE_SID,
-    //         to: toE164(customer.phone),
-    //     })
-    //     .catch(console.error);
-    twilioClient.messages
-        .create({
-            body: message,
-            from: `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`,
-            to: `whatsapp:${toE164(customer.phone)}`,
-        })
-        .catch(console.error);
+    sendSms(message, toE164(customer.phone));
+
 }

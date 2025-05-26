@@ -1,4 +1,5 @@
 import {HDate} from "@hebcal/core";
+import {CustomerInfo, FulfillmentMethods} from "@/types/types";
 
 export function getFormattedDateLabel(d: Date, onlyDayOfWeek = false) {
     const weekdayFmt = new Intl.DateTimeFormat('he-IL', {weekday: 'long'});
@@ -63,6 +64,12 @@ export async function sendTelegramMessage(message: string) {
         console.error('[Client] Unexpected error sending Telegram message:', err);
     }
 }
+
+export const fulfillmentLines: Record<FulfillmentMethods, (customer: CustomerInfo) => string> = {
+    'delivery': (curCustomer: CustomerInfo) => `בחרת במשלוח לכתובת: ${curCustomer.address ?? '—'}`,
+    'pickup': () => 'בחרת באיסוף עצמי',
+    'pickup-beruchin': () => 'בחרת באיסוף עצמי מברוכין',
+};
 
 
 
