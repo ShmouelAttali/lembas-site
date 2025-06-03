@@ -70,7 +70,7 @@ const OrdersGroupedTable = ({orders}: { orders: any[] }) => {
                             ))}
                             </tbody>
                         </table>
-                        <h3 className={styles.OrdersGroupedTable_52}>{`מחיר כולל - ${totalPrice} ש"ח`}</h3>
+                        <h3 className={styles.OrdersGroupedTable_52}>{`מחיר כולל - ${totalPrice} ש"ח. ${grouped.reduce((sum, i) => sum + i.quantity, 0)} לחמים.`}</h3>
                     </div>
                 );
             })}
