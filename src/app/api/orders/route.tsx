@@ -4,11 +4,11 @@
 import type {NextRequest} from 'next/server';
 import {NextResponse} from 'next/server';
 import {supabaseServer} from '@/lib/supabase-server';
-import {sendTelegramMessage} from "@/lib/utils"
 import {sendSmsNotification} from "@/app/api/orders/smsSender";
 import {sendOrderEmail} from "@/app/api/orders/emailSender";
 import {CustomerInfo, ItemInfo} from "@/types/types";
 import {orderAlertTemplate} from "@/lib/telegram-templates";
+import {sendTelegramWithRetries} from "@/lib/telegram";
 
 
 export async function POST(req: NextRequest) {
@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (process.env.SEND_TELEGRAM) {
-        sendTelegramMessage(orderAlertTemplate(customer, order, items));
+        await sendTelegramWithRetries(orderAlertTemplate(customer, order, items));
     }
     /* 5 . Return success */
     return NextResponse.json({success: true, orderId: order.id});

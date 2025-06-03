@@ -24,7 +24,8 @@ type SendSmsResponse = {
 
 export async function sendSms(
     message: string,
-    phone: string
+    phone: string,
+    retries = 3
 ): Promise<SendSmsResponse> {
     const url = 'https://capi.upsend.co.il/api/v2/SMS/SendSms';
 
@@ -46,19 +47,37 @@ export async function sendSms(
 
     const credentials = Buffer.from(`${user}:${token}`).toString('base64');
 
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Basic ${credentials}`,
-        },
-        body: JSON.stringify(payload),
-    });
+    let lastError;
 
-    if (!response.ok) {
-        const error = await response.text();
-        throw new Error(`Failed to send SMS: ${response.status} ${error}`);
+    for (let attempt = 0; attempt < retries; attempt++) {
+        try {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 5000);
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Basic ${credentials}`,
+                },
+                body: JSON.stringify(payload),
+                signal: controller.signal,
+            });
+
+            clearTimeout(timeout);
+
+            if (!response.ok) {
+                const error = await response.text();
+                throw new Error(`Failed to send SMS: ${response.status} ${error}`);
+            }
+
+            return await response.json();
+        } catch (err) {
+            lastError = err;
+            console.warn(`[sendSms] Attempt ${attempt + 1} failed:`, err);
+            await new Promise((res) => setTimeout(res, 1000));
+        }
     }
 
-    return response.json();
+    throw lastError ?? new Error('Unknown failure sending SMS');
 }

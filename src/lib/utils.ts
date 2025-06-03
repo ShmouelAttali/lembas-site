@@ -29,7 +29,7 @@ export function toE164(phone: string): string {
 }
 
 export async function sendTelegramMessage(message: string) {
-    console.log('[Client] Sending Telegram message...');
+    console.log(`[Client] Sending Telegram message to ${process.env.NEXT_PUBLIC_SITE_URL}/api/send-telegram...`);
 
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/send-telegram`, {
