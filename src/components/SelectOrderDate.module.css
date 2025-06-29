@@ -4,6 +4,12 @@
     margin: var(--gap) 0;
     border-radius: var(--radius);
     box-shadow: var(--soft-shadow);
+
+    .info {
+        padding-top: var(--gap);
+        text-align: center;
+        color: #f3233e;
+    }
 }
 
 .bookingTitle {
