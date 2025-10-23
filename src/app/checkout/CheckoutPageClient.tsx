@@ -40,6 +40,7 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
 
             return {
                 ...base,
+                notes: '',
                 orderDate: null
             };
         }
