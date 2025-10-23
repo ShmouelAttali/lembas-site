@@ -6,25 +6,30 @@ import styles from './SelectOrderDate.module.css';
 
 type Props = {
     dates: Date[];
+    handleSelectDateAction: (date: string | null) => void;
 };
 
-export default function SelectOrderDate({dates}: Props) {
+export default function SelectOrderDate({dates, handleSelectDateAction}: Props) {
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
     const [ready, setReady] = useState(false);
-
     useEffect(() => {
-        const savedDate = localStorage.getItem('selected_order_date');
-        if (savedDate && dates.find((d) => d.toISOString() === savedDate)) {
-            setSelectedDate(savedDate);
-        } else {
-            localStorage.removeItem('selected_order_date');
-        }
         setReady(true);
     }, [dates]);
 
-    const handleDateClick = (date: string) => {
+    useEffect(() => {
+        if (
+            selectedDate &&
+            !dates.some(d => d.toISOString() === selectedDate)
+        ) {
+            console.info('removing selected date: ', selectedDate, ' from dates: ', dates.map(d => d.toISOString()).join(','))
+            setSelectedDate(null);
+            handleSelectDateAction(null);
+        }
+    }, [dates, selectedDate, handleSelectDateAction]);
+
+    const handleDateClick = (date: string | null) => {
         setSelectedDate(date);
-        localStorage.setItem('selected_order_date', date);
+        handleSelectDateAction(date)
     };
 
     return (

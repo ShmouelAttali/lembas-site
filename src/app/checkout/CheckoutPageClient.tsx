@@ -15,12 +15,14 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
     const {items, total: itemsPrice, clearCart} = useCart();
     const {session} = useSessionContext();
     const router = useRouter();
+    const [curOrderDate, setCurOrderDate] = useState<string | null>(null)
+    const handleSelectDate = (date: string | null) => {
+        setCurOrderDate(date)
+    };
 
     const [info, setInfo] = useState<CustomerInfoUi>(() => {
         if (typeof window !== 'undefined') {
             const stored = localStorage.getItem(STORAGE_KEY);
-            const storedDate = localStorage.getItem('selected_order_date');
-            console.log('storedDate', storedDate);
 
             const base = stored
                 ? JSON.parse(stored)
@@ -38,9 +40,7 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
 
             return {
                 ...base,
-                orderDate: storedDate
-                    ? new Date(storedDate)
-                    : null,
+                orderDate: null
             };
         }
 
@@ -64,6 +64,7 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
 
     useEffect(() => {
         if (info.remember) {
+            info.orderDate = null;
             localStorage.setItem(STORAGE_KEY, JSON.stringify(info));
         } else {
             localStorage.removeItem(STORAGE_KEY);
@@ -82,7 +83,6 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const curOrderDate = localStorage.getItem('selected_order_date');
         if (curOrderDate) {
             info.orderDate = new Date(curOrderDate);
         }
@@ -136,7 +136,7 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
         <div className={styles.checkoutPage}>
             <h1>תשלום</h1>
 
-            <SelectOrderDate dates={dates}/>
+            <SelectOrderDate dates={dates} handleSelectDateAction={handleSelectDate}/>
 
 
             <h2>פריטים לתשלום:</h2>
