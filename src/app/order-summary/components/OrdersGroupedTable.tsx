@@ -61,7 +61,8 @@ const OrdersGroupedTable = ({orders}: { orders: any[] }) => {
                             </tr>
                             </thead>
                             <tbody>
-                            {grouped.map((item, i) => (
+
+                            {grouped.sort((a, b) => a.title.localeCompare(b.title)).map((item, i) => (
                                 <tr key={i}>
                                     <td style={cell}>{item.title}</td>
                                     <td style={cell}>{item.quantity}</td>
