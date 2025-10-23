@@ -48,6 +48,8 @@ export default function SelectOrderDate({dates, handleSelectDateAction}: Props) 
                     </button>
                 ))}
             </div>
+            <div className={styles.info}>אספקה החל מהשעה 14:00. לאיסוף מוקדם יותר - ניתן לציין בהערות.</div>
+
         </section>
     );
 }

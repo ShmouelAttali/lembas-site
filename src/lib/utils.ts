@@ -67,7 +67,7 @@ export async function sendTelegramMessage(message: string) {
 
 export const fulfillmentLines: Record<FulfillmentMethods, (customer: CustomerInfo) => string> = {
     'delivery': (curCustomer: CustomerInfo) => `בחרת במשלוח לכתובת: ${curCustomer.address ?? '—'}`,
-    'pickup': () => 'בחרת באיסוף עצמי',
+    'pickup': () => 'בחרת באיסוף עצמי מרחוב הקטורת 48',
     'pickup-beruchin': () => 'בחרת באיסוף עצמי מברוכין',
 };
 
