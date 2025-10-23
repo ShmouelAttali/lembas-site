@@ -32,7 +32,7 @@ export type CustomerInfo = {
     address?: string;
     paymentMethod: PaymentMethod;
     notes: string;
-    orderDate: Date | null;
+    orderDate: Date;
     user_id: string | null;
 }
 

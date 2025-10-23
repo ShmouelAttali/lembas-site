@@ -64,7 +64,6 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
 
     useEffect(() => {
         if (info.remember) {
-            info.orderDate = null;
             localStorage.setItem(STORAGE_KEY, JSON.stringify(info));
         } else {
             localStorage.removeItem(STORAGE_KEY);
@@ -86,7 +85,7 @@ export default function CheckoutPageClient({dates}: { dates: Date[] }) {
         if (curOrderDate) {
             info.orderDate = new Date(curOrderDate);
         }
-        if (!info.orderDate) {
+        else {
             alert('יש לבחור תאריך הזמנה לפני השלמת ההזמנה.');
             return;
         }
