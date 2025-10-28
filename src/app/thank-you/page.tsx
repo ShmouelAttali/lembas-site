@@ -9,7 +9,7 @@ import {useSearchParams} from "next/navigation";
 export default function ThankYouPage() {
     const searchParams = useSearchParams();
     const paymentType = searchParams.get('payment');
-    const payboxUrl = 'https://link.payboxapp.com/QbpGp2SCZ4qgABAb6';
+    const payboxUrl = 'https://links.payboxapp.com/xwIq54EiPUb';
     const bitUrl = 'https://www.bitpay.co.il/app/me/5DCEBBEE-5BA3-47C4-AC9C-12B8946182C0';
     const paymentInfo = {
         paybox: <div className={styles.payment + ' payment'}>
